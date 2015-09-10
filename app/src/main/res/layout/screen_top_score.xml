@@ -390,7 +390,7 @@
                           android:layout_marginTop="2dp"
                           android:layout_marginBottom="2dp"
                           android:gravity="center"
-                          android:text="Load Scores"
+                          android:text="Load"
                           android:textSize="12sp"
                           android:textColor="@color/white"
                           android:background="@drawable/experiment3"
@@ -417,7 +417,7 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="19sp"
-                android:id="@+id/tvTopScore"/>
+                android:id="@+id/tvUserScore"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -449,8 +449,9 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:text="Top scores"
                             android:textSize="16sp"
+                            android:text="Top scores"
+                            android:id="@+id/tvSubTitle"
                             android:textColor="@color/black" />
                     </LinearLayout>
                     <RelativeLayout
@@ -687,7 +688,7 @@
                                 android:textSize="16sp"
                                 android:gravity="center"
                                 android:layout_margin="3dp"
-                                android:text="Reset Scores"
+                                android:text="Reset"
                                 android:textColor="@color/white"
                                 android:layout_centerInParent="true"
                                 android:background="@drawable/btn_rectangle_sky_blue"

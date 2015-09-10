@@ -49,6 +49,7 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_AVERAGE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_PLAYER_MODE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_WINNING_STREAK;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SCREEN_GAME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TOTAL_COINS;
@@ -154,6 +155,7 @@ public class GameSummary {
                         CurrentGame.PlayerTwoType,CurrentGame.RobotMemoryLevel,CurrentGame.BoardType,
                         CurrentGame.ScrollType,CurrentGame.CardSet,CurrentGame.RowSize,
                         CurrentGame.ColumnSize,CurrentGame.TimeTrialTimerValue);
+
                 objTopScore.Show();
             }
         };
@@ -165,6 +167,7 @@ public class GameSummary {
                         CurrentGame.PlayerTwoType,CurrentGame.RobotMemoryLevel,CurrentGame.BoardType,
                         CurrentGame.ScrollType,CurrentGame.CardSet,CurrentGame.RowSize,
                         CurrentGame.ColumnSize,CurrentGame.TimeTrialTimerValue);
+                objTopScore.current_screen_index = objTopScore.LEAST_MOVES;
                 objTopScore.Show();
             }
         };
@@ -790,7 +793,14 @@ public class GameSummary {
 
         //Load previous scores
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentGame.mContext);
-        scoring_data = preferences.getString(identifier,"0~0~0~0~0_0~0~0~0~0_0~0~0~0~0");
+        String defTopScore = "0~0~0~0~0";
+        String temp = "99999999999";
+        String defWorstTimes = "";
+        for(int i = 0;i<5;i++)
+            defWorstTimes+=temp+DELIMITER_2;
+
+        String defMaxMoves = defWorstTimes;
+        scoring_data = preferences.getString(identifier, defTopScore+DELIMITER+defWorstTimes+DELIMITER+defMaxMoves);
 
 
         String allHighScores = scoring_data.split(DELIMITER)[0];
@@ -801,63 +811,13 @@ public class GameSummary {
         String _bestTime[] = allBestTime.split(DELIMITER_2);
         String _leastMove[] = allLeastMoves.split(DELIMITER_2);
 
-
-//        long []_highScore = new long[5];
-//        long []_bestTime = new long[5];
-//        long []_leastMove = new long[5];
-//        for(int i=0;i<5;i++)
-//        {
-//            high_scores[i] = Long.parseLong(highScore[i]);
-//
-//        }
-
         long prev_highScore = Long.parseLong(_highScore[0]);
 
-
-        boolean scoringDataChanged=false;
         scoring_data = "";
 
         scoring_data = refreshScoreData(Score,_highScore,1,scoring_data,allHighScores);
         scoring_data = refreshScoreData(CurrentGame.GameRunningTime,_bestTime,-1,scoring_data,allBestTime);
         scoring_data = refreshScoreData(CurrentGame.Player1_Moves,_leastMove,-1,scoring_data,allLeastMoves);
-
-//        if(Score> Long.parseLong(_highScore[4]))
-//        {
-//            insertScore(Score, _highScore,1);
-//            for (int i=0;i<5;i++)
-//                scoring_data += _highScore[i] + DELIMITER_2;
-//        }
-//        else
-//        {
-//            scoring_data += allHighScores;
-//        }
-//        scoring_data+=DELIMITER;
-//
-//        if(CurrentGame.GameRunningTime < Long.parseLong(_bestTime[4]))
-//        {
-//            insertScore(Score, _bestTime,-1);
-//            for (int i=0;i<5;i++)
-//                scoring_data += _bestTime[i] + DELIMITER_2;
-//        }
-//        else
-//        {
-//            scoring_data += allBestTime;
-//        }
-//        scoring_data+=DELIMITER;
-//
-//        if(CurrentGame.Player1_Moves < Long.parseLong(_leastMove[4]))
-//        {
-//            insertScore(CurrentGame.Player1_Moves, _leastMove,-1);
-//            for (int i=0;i<5;i++)
-//                scoring_data += _leastMove[i] + DELIMITER_2;
-//        }
-//        else
-//        {
-//            scoring_data += allLeastMoves;
-//        }
-//        scoring_data+=DELIMITER;
-
-
 
 
         //Store current game data
@@ -873,7 +833,7 @@ public class GameSummary {
     public String refreshScoreData(long value,String allValues[],int sortLogic,
                                  String scoring_data,String prevValue)
     {
-        if(value < Long.parseLong(allValues[4]))
+        if(value*sortLogic > Long.parseLong(allValues[4])*sortLogic)
         {
             insertScore(value, allValues,sortLogic);
             for (int i=0;i<5;i++)
@@ -947,6 +907,7 @@ public class GameSummary {
                         CurrentGame.PlayerTwoType,CurrentGame.RobotMemoryLevel,CurrentGame.BoardType,
                         CurrentGame.ScrollType,CurrentGame.CardSet,CurrentGame.RowSize,
                         CurrentGame.ColumnSize,CurrentGame.TimeTrialTimerValue);
+                objTopScore.current_screen_index = objTopScore.LEAST_MOVES;
                 objTopScore.Show();
                 return false; // Left to right
             }

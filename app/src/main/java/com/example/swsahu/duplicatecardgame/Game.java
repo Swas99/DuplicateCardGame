@@ -1479,9 +1479,9 @@ public class Game {
         objGameSummary.CalculateScore();
         //
         long prev_userHighScore = objGameSummary.getHighestScore();
-        long defaultHighScore = TotalCardsOnBoard * 7 * 3;
+
         //
-        String message = getScoreRelatedMessage(objGameSummary.Score, prev_userHighScore, defaultHighScore);
+        String message = getScoreRelatedMessage(objGameSummary.Score, prev_userHighScore);
         result+= message;
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
@@ -1509,14 +1509,16 @@ public class Game {
         alertDialog.show();
     }
 
-    private String getScoreRelatedMessage(long score,long prev_userScore,long defaultHighScore)
+    private String getScoreRelatedMessage(long score,long prev_userScore)
     {
         int extraCoins = 0;
+        long defaultMaxHighScore = TotalCardsOnBoard * 7 * 3;
+        long defaultMinHighScore = TotalCardsOnBoard * 5;
 
         String msg = "";
-        if(score>prev_userScore && score>defaultHighScore)
+        if(score>prev_userScore && score>defaultMaxHighScore)
             msg+= "\n**New High Score**\nNailed it!\n";
-        else if(score>prev_userScore && prev_userScore!=0)
+        else if(score>prev_userScore && prev_userScore>defaultMinHighScore)
             msg+="\n**Personal Best Score**\nGreat job!\n";
 
         if(isChallengeGame)

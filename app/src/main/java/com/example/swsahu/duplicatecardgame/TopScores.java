@@ -71,13 +71,13 @@ public class TopScores {
     int RowSize;
     int ColumnSize;
 
-    final int SUMMARY_SCREEN = 4;
+    final int SUMMARY_SCREEN = 3;
     final int TOP_SCORES = 0;
     final int BEST_TIME = 1;
     final int LEAST_MOVES = 2;
 
-    int [] SCREENS = {SUMMARY_SCREEN,TOP_SCORES,BEST_TIME,LEAST_MOVES};
-    int current_screen_index = 1;
+    int [] SCREENS = {TOP_SCORES,BEST_TIME,LEAST_MOVES,SUMMARY_SCREEN};
+    int current_screen_index = TOP_SCORES;
 
     public TopScores(WeakReference<Game> currentGame,boolean is_fromGameScreen)
     {
@@ -112,7 +112,7 @@ public class TopScores {
         TimeTrialTimerValue = timeTrialTimerValue;
     }
 
-    public void Show()
+    public void Show( )
     {
         View this_view = mContext.loadView(R.layout.screen_top_score);
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
@@ -127,10 +127,7 @@ public class TopScores {
         {
             initializeSpecificControls_Set2();
         }
-
-        //TopScores screen
-        LoadScores();
-
+        loadPage();
     }
 
     //region Listeners
@@ -140,8 +137,6 @@ public class TopScores {
         View btn_back = (mContext.findViewById(R.id.btnBack));
         mContext.findViewById(R.id.btnExit).setVisibility(View.INVISIBLE);
         mContext.findViewById(R.id.btnStore).setVisibility(View.INVISIBLE);
-        mContext.findViewById(R.id.btn_next_page).setVisibility(View.INVISIBLE);
-        mContext.findViewById(R.id.btn_prev_page).setVisibility(View.INVISIBLE);
 
         btn_back.setVisibility(View.VISIBLE);
         btn_back.setOnClickListener(BackButton_Click);
@@ -225,13 +220,13 @@ public class TopScores {
         NextPage_Click = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                incrementScreenIndex(1);
+                incrementScreenIndex();
             }
         };
         PreviousPage_Click = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                incrementScreenIndex(-1);
+                decrementScreenIndex();
             }
         };
 
@@ -276,7 +271,7 @@ public class TopScores {
         LoadScores_Click = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadScores();
+                loadPage();
             }
         };
 
@@ -330,12 +325,12 @@ public class TopScores {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
             {
-                incrementScreenIndex(-1);
+                incrementScreenIndex();
                 return false; //Right to left
             }
             else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
             {
-                incrementScreenIndex(1);
+                decrementScreenIndex();
                 return false; // Left to right
             }
 
@@ -349,24 +344,6 @@ public class TopScores {
             }
             return true;
         }
-
-//        @Override
-//        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
-//                                float distanceY) {
-//            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-//            {
-//                GameBackground++;
-//                InitializeScreenControls_BoardDetails();
-//                return false; // Right to left
-//            }
-//            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-//            {
-//                GameBackground--;
-//                InitializeScreenControls_BoardDetails();
-//                return false; // Left to right
-//            }
-//            return true;
-//        }
     }
 
     //endregion
@@ -678,39 +655,67 @@ public class TopScores {
         if(CurrentGame.objGameSummary == null)
             CurrentGame.objGameSummary = new GameSummary(new WeakReference<>(CurrentGame),
                     CurrentGame.CurrentCard.getMeasuredHeight(),CurrentGame.CurrentCard.getMeasuredWidth());
-
         CurrentGame.objGameSummary.loadSummaryScreen();
     }
 
     private void loadTopScoresScreen() {
         ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Top Scores");
-        LoadScores();
+        ((TextView)mContext.findViewById(R.id.tvSubTitle)).setText("Top Scores");
+        String text = LoadScores();
+        ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your top score   =   " + text);
     }
 
     private void loadBestTimeScreen() {
         ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Best Time");
-        //LoadScores();
+        ((TextView)mContext.findViewById(R.id.tvSubTitle)).setText("Best Time");
+        String text = LoadScores();
+        if(text.equals("99999999999"))
+            ((TextView) mContext.findViewById(R.id.tvUserScore)).setText(" ");
+        else
+            ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your best time   =   " + text);
     }
+
     private void loadLeastMovesScreen() {
         ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Least Moves");
-        //LoadScores();
+        ((TextView)mContext.findViewById(R.id.tvSubTitle)).setText("Least Moves");
+        String text = LoadScores();
+        if(text.equals("99999999999"))
+            ((TextView) mContext.findViewById(R.id.tvUserScore)).setText(" ");
+        else
+            ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your Least moves   =   " + text);
+
+
     }
 
-    private void incrementScreenIndex(int value)
+    private void incrementScreenIndex()
     {
-        current_screen_index+=value;
-        if(current_screen_index>SCREENS.length)
+        current_screen_index++;
+        if(current_screen_index>=SCREENS.length)
         {
-            if(isFromGameScreen)
-                current_screen_index=0;
-            else
-                current_screen_index=1;
+            current_screen_index=0;
         }
-        else if(current_screen_index<0)
+        else if(SCREENS[current_screen_index] == SUMMARY_SCREEN && !isFromGameScreen)
+        {
+            current_screen_index = 0;
+        }
+        loadPage();
+    }
+
+    private void decrementScreenIndex()
+    {
+        current_screen_index--;
+        if(current_screen_index<0)
         {
             current_screen_index=SCREENS.length-1;
+            if(!isFromGameScreen)
+                current_screen_index--;
         }
+        loadPage();
+    }
 
+
+    private void loadPage()
+    {
         switch (SCREENS[current_screen_index])
         {
             case SUMMARY_SCREEN:
@@ -726,17 +731,20 @@ public class TopScores {
                 loadLeastMovesScreen();
                 break;
         }
-
     }
 
 
     public void mergeScores(String targetNameList[],long targetScoreList[],long userScores[])
     {
+        int sortLogic = -1;
+        if(SCREENS[current_screen_index] == TOP_SCORES)
+            sortLogic*=-1;
+
         int defList_counter=0;
         int userList_counter=0;
         for(int i=0;i<5;i++)
         {
-            if(defaultScores[defList_counter]>=userScores[userList_counter])
+            if(defaultScores[defList_counter] * sortLogic >= userScores[userList_counter] * sortLogic)
             {
                 targetNameList[i] = defaultPlayerNames[defList_counter];
                 targetScoreList[i] = defaultScores[defList_counter++];
@@ -750,7 +758,7 @@ public class TopScores {
     }
 
 
-    public void LoadScores()
+    public String LoadScores()
     {
         createDefaultScores();
         PlayerNames[0] = (TextView) mContext.findViewById(R.id.tvPlayerName_1);
@@ -766,11 +774,11 @@ public class TopScores {
         PlayerScore[4] = (TextView) mContext.findViewById(R.id.tvPlayerScore_5);
 
 
-        String identifier = getBoardIdentifier();
+
         String playerNames[] = new String[5];
 
         long highScores [] = new long[5];
-        long userHighScores[] = getHighScoresFromPreferences(identifier);
+        long userHighScores[] = getHighScoresFromPreferences( );
         mergeScores(playerNames, highScores, userHighScores);
         String userHighScore = String.valueOf(userHighScores[0]);
         for (int i=0;i<5;i++)
@@ -778,9 +786,9 @@ public class TopScores {
             PlayerNames[i].setText(String.valueOf(playerNames[i]));
             PlayerScore[i].setText(String.valueOf(highScores[i]));
         }
-
-        ((TextView)mContext.findViewById(R.id.tvTopScore)).setText("Your top score   =   " + userHighScore);
+        return userHighScore;
     }
+
     public void createDefaultScores()
     {
         int totalCards = RowSize*ColumnSize;
@@ -798,20 +806,30 @@ public class TopScores {
         }
     }
 
-    public long[] getHighScoresFromPreferences(String identifier)
+    public long[] getHighScoresFromPreferences( )
     {
+        String identifier = getBoardIdentifier();
         long []high_scores = new long[5];
-        String highScores;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        highScores = preferences.getString(identifier,"0~0~0~0~0_0~0~0~0~0_0~0~0~0~0");
 
-        String highScores_arr[] = highScores.split(DELIMITER)[0].split(DELIMITER_2);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String defTopScore = "0~0~0~0~0";
+        String temp = "99999999999";
+        String defWorstTimes = "";
+        for(int i = 0;i<5;i++)
+            defWorstTimes+=temp+DELIMITER_2;
+        String defMaxMoves = defWorstTimes;
+        String scoring_data = preferences.getString(identifier, defTopScore+DELIMITER+defWorstTimes+DELIMITER+defMaxMoves);
+
+        String highScores_arr[] = scoring_data.split(DELIMITER)[SCREENS[current_screen_index]].split(DELIMITER_2);
         for(int i=0;i<5;i++)
         {
             high_scores[i] = Long.parseLong(highScores_arr[i]);
         }
         return high_scores;
     }
+
+
+
 
     private void resetScores() {
         String msg = "Are you sure?\nSelect 'Yes' to continue.\nSelect 'No' to cancel.";
@@ -822,12 +840,41 @@ public class TopScores {
         // alertDialog.setIcon(R.drawable.delete);
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                String identifier = getBoardIdentifier();
+                String identifier_scoreData = getBoardIdentifier();
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+
+                String defTopScore = "0~0~0~0~0";
+                String temp = "99999999999";
+                String defWorstTimes = "";
+                for(int i = 0;i<5;i++)
+                    defWorstTimes+=temp+DELIMITER_2;
+                String defMaxMoves = defWorstTimes;
+                String scoreData = preferences.getString(identifier_scoreData, defTopScore +
+                        DELIMITER + defWorstTimes + DELIMITER + defMaxMoves);
+
+                String allTopScores = scoreData.split(DELIMITER)[TOP_SCORES];
+                String allBestTime = scoreData.split(DELIMITER)[BEST_TIME];
+                String allLeastMove = scoreData.split(DELIMITER)[LEAST_MOVES];
+                switch (SCREENS[current_screen_index])
+                {
+                    case TOP_SCORES:
+                        allTopScores = "0~0~0~0~0";
+                        break;
+                    case BEST_TIME:
+                        allBestTime = "0~0~0~0~0";
+                        break;
+                    case LEAST_MOVES:
+                        allLeastMove = "0~0~0~0~0";
+                        break;
+                }
+
+                scoreData = allTopScores+DELIMITER+allBestTime+DELIMITER+allLeastMove;
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.remove(identifier);
+                editor.remove(identifier_scoreData);
+                editor.putString(identifier_scoreData, scoreData);
                 editor.commit();
 
+                ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("");
                 LoadScores();
                 setBoardDetailsText();
             }
