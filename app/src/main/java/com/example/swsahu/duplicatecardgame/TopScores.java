@@ -1,0 +1,976 @@
+package com.example.swsahu.duplicatecardgame;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.preference.PreferenceManager;
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
+
+import static com.example.swsahu.duplicatecardgame.HelperClass.*;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
+
+public class TopScores {
+
+    Game CurrentGame;
+    MainActivity mContext;
+    boolean isFromGameScreen;
+
+    //region Listener_Variables
+
+    View.OnClickListener PreviousPage_Click;
+    View.OnClickListener NextPage_Click;
+    View.OnClickListener ExitButton_Click;
+    View.OnClickListener BackButton_Click;
+    View.OnClickListener StoreButton_Click;
+    View.OnClickListener LoadScores_Click;
+    View.OnClickListener ResetScores_Click;
+
+    View.OnClickListener GameMode_Edit_Click;
+    View.OnClickListener PlayerMode_Edit_Click;
+    View.OnClickListener BoardType_Edit_Click;
+    View.OnClickListener BoardSize_Edit_Click;
+    View.OnClickListener ScrollType_Edit_Click;
+    View.OnClickListener CardSet_Edit_Click;
+
+    //endregion
+
+    AlertDialog CommonDialog;
+    View.OnClickListener Process_Input;
+
+    String defaultPlayerNames[] = { "Andro-Bot","Hurricane","Rock","Rock","Hurricane" };
+    int defaultScores[] = new int[5];
+    TextView PlayerNames[] = new TextView[5];
+    TextView PlayerScore[] = new TextView[5];
+
+    //Selected Values
+    int GameMode;
+    int TimeTrialTimerValue;
+    int PlayerMode;
+    int PlayerType;
+    int RobotMemory;
+    int BoardType;
+    int ScrollType;
+    int CardSet;
+    int RowSize;
+    int ColumnSize;
+
+    final int SUMMARY_SCREEN = 4;
+    final int TOP_SCORES = 0;
+    final int BEST_TIME = 1;
+    final int LEAST_MOVES = 2;
+
+    int [] SCREENS = {SUMMARY_SCREEN,TOP_SCORES,BEST_TIME,LEAST_MOVES};
+    int current_screen_index = 1;
+
+    public TopScores(WeakReference<Game> currentGame,boolean is_fromGameScreen)
+    {
+        isFromGameScreen = is_fromGameScreen;
+        CurrentGame = currentGame.get();
+        mContext = CurrentGame.mContext;
+        InitializeListeners();
+    }
+    public TopScores(WeakReference<MainActivity> m_context)
+    {
+        isFromGameScreen = false;
+        mContext = m_context.get();
+        InitializeListeners();
+    }
+    public void InitializeBoardDetails(int gameMode,int playerMode,int playerType,
+                                       int robotMemory, int boardType,int scrollType,
+                                       int cardSet,int rowSize,int columnSize,
+                                       int timeTrialTimerValue)
+    {
+        if(isFromGameScreen && BoardType==TWO_BOARD)
+            rowSize/=2;
+
+        GameMode = gameMode;
+        PlayerMode = playerMode;
+        PlayerType = playerType;
+        RobotMemory = robotMemory;
+        BoardType = boardType;
+        ScrollType = scrollType;
+        CardSet = cardSet;
+        RowSize = rowSize;
+        ColumnSize = columnSize;
+        TimeTrialTimerValue = timeTrialTimerValue;
+    }
+
+    public void Show()
+    {
+        View this_view = mContext.loadView(R.layout.screen_top_score);
+        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
+        SetFontToControls(font, (ViewGroup) this_view);
+
+        addListenerToControls();
+        InitializeRobotMemoryListener();
+
+        setBoardDetailsText();
+        addFlingListenerToTopScoresScreen(this_view);
+        if(!isFromGameScreen)
+        {
+            initializeSpecificControls_Set2();
+        }
+
+        //TopScores screen
+        LoadScores();
+
+    }
+
+    //region Listeners
+
+    private void initializeSpecificControls_Set2()
+    {
+        View btn_back = (mContext.findViewById(R.id.btnBack));
+        mContext.findViewById(R.id.btnExit).setVisibility(View.INVISIBLE);
+        mContext.findViewById(R.id.btnStore).setVisibility(View.INVISIBLE);
+        mContext.findViewById(R.id.btn_next_page).setVisibility(View.INVISIBLE);
+        mContext.findViewById(R.id.btn_prev_page).setVisibility(View.INVISIBLE);
+
+        btn_back.setVisibility(View.VISIBLE);
+        btn_back.setOnClickListener(BackButton_Click);
+    }
+
+    private void addListenerToControls()
+    {
+
+        Button btn_prev_page = (Button)mContext.findViewById(R.id.btn_prev_page);
+        Button btn_next_page = (Button)mContext.findViewById(R.id.btn_next_page);
+
+        //buttons
+        Button GameMode = (Button)mContext.findViewById(R.id.GameMode);
+        Button PlayerMode = (Button)mContext.findViewById(R.id.PlayerMode);
+        Button BoardType = (Button)mContext.findViewById(R.id.BoardType);
+        Button ScrollType = (Button)mContext.findViewById(R.id.ScrollType);
+        Button CardSet = (Button)mContext.findViewById(R.id.CardSet);
+        TextView RowSize = (TextView)mContext.findViewById(R.id.RowSize);
+        TextView ColSize = (TextView)mContext.findViewById(R.id.ColSize);
+
+        //Edit buttons
+        Button btnGameMode = (Button)mContext.findViewById(R.id.btnGameMode);
+        Button btnPlayerMode = (Button)mContext.findViewById(R.id.btnPlayerMode);
+        Button btnBoardType = (Button)mContext.findViewById(R.id.btnBoardType);
+        Button btnScrollType = (Button)mContext.findViewById(R.id.btnScrollType);
+        Button btnCardSet = (Button)mContext.findViewById(R.id.btnCardSet);
+        TextView btnBoardSize = (TextView)mContext.findViewById(R.id.btnBoardSize);
+
+        Button btnLoadScores = (Button)mContext.findViewById(R.id.btnLoadScores);
+        TextView btnResetScores = (TextView)mContext.findViewById(R.id.btnResetScores);
+
+        Button btnStore = (Button)mContext.findViewById(R.id.btnStore);
+        Button btnExit = (Button)mContext.findViewById(R.id.btnExit);
+
+        btnLoadScores.setOnClickListener(LoadScores_Click);
+        btnResetScores.setOnClickListener(ResetScores_Click);
+        btn_next_page.setOnClickListener(NextPage_Click);
+        btn_prev_page.setOnClickListener(PreviousPage_Click);
+        btnExit.setOnClickListener(ExitButton_Click);
+        btnStore.setOnClickListener(StoreButton_Click);
+        //buttons
+        GameMode.setOnClickListener(GameMode_Edit_Click);
+        PlayerMode.setOnClickListener(PlayerMode_Edit_Click);
+        BoardType.setOnClickListener(BoardType_Edit_Click);
+        CardSet.setOnClickListener(CardSet_Edit_Click);
+        ScrollType.setOnClickListener(ScrollType_Edit_Click);
+        RowSize.setOnClickListener(BoardSize_Edit_Click);
+        ColSize.setOnClickListener(BoardSize_Edit_Click);
+
+        //Edit buttons
+        btnGameMode.setOnClickListener(GameMode_Edit_Click);
+        btnPlayerMode.setOnClickListener(PlayerMode_Edit_Click);
+        btnBoardType.setOnClickListener(BoardType_Edit_Click);
+        btnCardSet.setOnClickListener(CardSet_Edit_Click);
+        btnScrollType.setOnClickListener(ScrollType_Edit_Click);
+        btnBoardSize.setOnClickListener(BoardSize_Edit_Click);
+    }
+
+    private void InitializeListeners()
+    {
+        ExitButton_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.loadView(R.layout.screen_home);
+                CurrentGame.CleanUp();
+            }
+        };
+        BackButton_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.loadView(R.layout.screen_home);
+            }
+        };
+        StoreButton_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.ShowUnderConstructionDialog();
+//                mContext.loadView(R.layout.screen_store);
+            }
+        };
+        NextPage_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incrementScreenIndex(1);
+            }
+        };
+        PreviousPage_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incrementScreenIndex(-1);
+            }
+        };
+
+        //
+        GameMode_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 displayDialog(getGameModes(),true);
+            }
+        };
+        PlayerMode_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog(getPlayerModes(),true);
+            }
+        }; 
+        BoardType_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog(getBoardType(), true);
+            }
+        };
+        BoardSize_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog(getRowSize(),true);
+            }
+        };
+        ScrollType_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog(getScrollType(),true);
+            }
+        };
+        CardSet_Edit_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayDialog(getCardSet(),true);
+            }
+        };
+
+        LoadScores_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadScores();
+            }
+        };
+
+        ResetScores_Click = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetScores();
+            }
+        };
+
+        InitializeDialogInputListener();
+    }
+
+    private void InitializeRobotMemoryListener()
+    {
+        final SeekBar robotMemory = (SeekBar)mContext.findViewById(R.id.RobotMemory);
+        robotMemory.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                RobotMemory = seekBar.getProgress() + 1;
+            }
+        });
+    }
+
+    private void addFlingListenerToTopScoresScreen(View v)
+    {
+        final GestureDetector gdt = new GestureDetector(mContext,new GestureListener());
+        v.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                gdt.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        private final int SWIPE_MIN_DISTANCE = 40;
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                incrementScreenIndex(-1);
+                return false; //Right to left
+            }
+            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                incrementScreenIndex(1);
+                return false; // Left to right
+            }
+
+            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Bottom to top
+            }
+            else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Top to bottom
+            }
+            return true;
+        }
+
+//        @Override
+//        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+//                                float distanceY) {
+//            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+//            {
+//                GameBackground++;
+//                InitializeScreenControls_BoardDetails();
+//                return false; // Right to left
+//            }
+//            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+//            {
+//                GameBackground--;
+//                InitializeScreenControls_BoardDetails();
+//                return false; // Left to right
+//            }
+//            return true;
+//        }
+    }
+
+    //endregion
+
+
+    //region dialog logic
+
+    private void InitializeDialogInputListener() {
+        Process_Input = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String keyValue = v.getTag().toString();
+                int key = Integer.parseInt(keyValue.split(DELIMITER_2)[0]);
+                int value = Integer.parseInt(keyValue.split(DELIMITER_2)[1]);
+                switch (key)
+                {
+                    case GAME_MODE:
+                        GameMode = value;
+                        if(GameMode == TIME_TRIAL)
+                        {
+                            CommonDialog.dismiss();
+                            displayDialog(getTimeTrialTime(),false);
+                            return;
+                        }
+                        break;
+
+                    case TIME_TRIAL_TIMER:
+                        TimeTrialTimerValue = value;
+                        break;
+                    case CARD_SET:
+                        CardSet = value;
+                        break;
+
+                    case PLAYER_MODE:
+                        switch (value)
+                        {
+                            case 0:
+                                PlayerMode = ONE_PLAYER;
+                                PlayerType = 0;
+                                break;
+                            case 1:
+                                PlayerMode = TWO_PLAYER;
+                                PlayerType = MANUAL;
+                                break;
+                            case 2:
+                                PlayerMode = ROBOT_PLAYER;
+                                PlayerType = ANDROBOT;
+                                break;
+                            case 3:
+                                PlayerMode = ROBOT_PLAYER;
+                                PlayerType = HURRICANE;
+                                break;
+                            case 4:
+                                PlayerMode = ROBOT_PLAYER;
+                                PlayerType = ROCK;
+                                break;
+                            case 5:
+                                PlayerMode = ROBOT_PLAYER;
+                                PlayerType = RANDOM_BOT;
+                                break;
+                        }
+                        break;
+                    case BOARD_TYPE:
+                        BoardType = value;
+                        switch (BoardType)
+                        {
+                            case ONE_BOARD:
+                                RowSize = Math.max(ColumnSize, RowSize);
+                                break;
+                            case TWO_BOARD:
+                                RowSize = Math.min(RowSize,MAX_ROW_SIZE_2B);
+                                break;
+                        }
+                        break;
+
+                    case ROW_SIZE:
+                        RowSize = value;
+                        CommonDialog.dismiss();
+                        displayDialog(getColSize(),false);
+                        return;
+                    case COLUMN_SIZE:
+                        ColumnSize = value;
+                        break;
+                    case SCROLL_TYPE:
+                        ScrollType = value;
+                        break;
+
+                    default:
+                        Toast.makeText(mContext,"Didn't match any key. Debug !!",Toast.LENGTH_SHORT);
+                }
+                CommonDialog.dismiss();
+                setBoardDetailsText();
+            }
+        };
+    }
+
+
+    private void displayDialog(View v,boolean isCancelable)
+    {
+        CommonDialog  = new AlertDialog.Builder(mContext).show();
+        CommonDialog.setContentView(v);
+        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
+        SetFontToControls(font, (ViewGroup) v);
+        CommonDialog.setCancelable(isCancelable);
+    }
+
+    private View getGameModes()
+    {
+        String titleText = "Select Game Mode";
+        String text[] =  {"Arcade","Time-Trial"};
+        int tag [] =  {ARCADE, TIME_TRIAL};
+        return addToMainContainer(tag,text,String.valueOf(GAME_MODE),tag.length, titleText);
+    }
+    private View getPlayerModes()
+    {
+        String text[] =  {"1P", "2P - Manual","2P - AndroBot","2P - Hurricane","2P - Rocky","2P - Random-Bot"};
+        int tag [] =  {0, 1,2,3,4,5};
+        return addToMainContainer(tag,text,String.valueOf(PLAYER_MODE),tag.length,"Select Player Mode");
+    }
+    private View getRobotMemory()
+    {
+        String text[] =  {"1","2","3","4","5","6","7","8","9","10"};
+        int tag [] =  {1,2,3,4,5,6,7,8,9,10};
+        return addToMainContainer(tag, text, String.valueOf(ROBOT_MEMORY), tag.length, "Select Robot Memory");
+    }
+    private View getBoardType()
+    {
+        String text[] =  {"One-Board","Two-Board"};
+        int tag [] =  {ONE_BOARD, TWO_BOARD};
+        return addToMainContainer(tag, text, String.valueOf(BOARD_TYPE), tag.length, "Select Board Type");
+    }
+
+    private View getTimeTrialTime()
+    {
+        String text[] =  new String[27];
+        int tag [] =  new int[27];
+        for(int i = 4;i<=30;i++)
+        {
+            text[i-4] = String.valueOf(i) + " S";
+            tag [i-4] = i*1000;
+        }
+
+        return addToBoardSizeContainer(tag, text, String.valueOf(TIME_TRIAL_TIMER), tag.length, "Time Trail Time");
+    }
+    private View getColSize()
+    {
+        int size;
+        if(BoardType == ONE_BOARD)
+            size = Math.min(RowSize, MAX_COL_SIZE);
+        else
+            size = Math.min(2*RowSize,MAX_COL_SIZE);
+
+        int i =2;
+        String text[] =  new String [size];
+        int tag [] =  new int[size];
+        while (i<=size)
+        {
+            tag[i-2] = i;
+            text[i-2] = String.valueOf(i);
+            i++;
+        }
+        return addToBoardSizeContainer(tag, text, String.valueOf(COLUMN_SIZE), i - 2, "Select Column Size");
+    }
+
+    private View getRowSize()
+    {
+        int size;
+        if(BoardType == ONE_BOARD)
+            size = MAX_ROW_SIZE_1B;
+        else
+            size = MAX_ROW_SIZE_2B;
+
+        String text[] =  new String[size];
+        int tag [] =  new int[size];
+        int i = 2;
+        while (i<=size)
+        {
+            tag[i-2]=i;
+            text[i-2]=String.valueOf(i);
+            i++;
+        }
+        return addToBoardSizeContainer(tag, text, String.valueOf(ROW_SIZE), i - 2, "Select Row Size");
+    }
+
+    private View getBoardSize()
+    {
+        return getRowSize();
+    }
+
+    private View getScrollType()
+    {
+        String text[] =  {"No Scroll","Vertical Scroll","Horizontal Scroll","Both Scroll"};
+        int tag [] =  {NO_SCROLL, VERTICAL,HORIZONTAL,BOTH};
+        return addToMainContainer(tag, text, String.valueOf(SCROLL_TYPE), tag.length, "Select Scroll Type");
+    }
+    private View getCardSet()
+    {
+        String text[] =  {"I","II","III"};
+        int tag [] =  {CARD_SET_1,CARD_SET_2,CARD_SET_3};
+        return addToMainContainer(tag, text, String.valueOf(CARD_SET), tag.length, "Select Card Set");
+    }
+
+    private View addToMainContainer(int[] tag, String[] text,String identifier,int length,String titleText) {
+        LinearLayout mainContainer = new LinearLayout(mContext);
+        mainContainer.setOrientation(LinearLayout.VERTICAL);
+        mainContainer.addView(getTitleTextView(titleText));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ConvertToPx(mContext,190),
+                ConvertToPx(mContext, 45));
+        RelativeLayout.LayoutParams rl_params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                1);
+        for (int i=0;i<length;i++)
+        {
+            TextView tv = new Button(mContext);
+            tv.setText(text[i]);
+            String tvTag = identifier + DELIMITER_2 + String.valueOf(tag[i]);
+            tv.setTag(tvTag);
+            tv.setTextColor(Color.BLACK);
+            tv.setBackgroundColor(Color.argb(180, 255, 255, 255));
+            tv.setGravity(Gravity.CENTER);
+            tv.setPadding(0,ConvertToPx(mContext,3),0,0);
+            tv.setLayoutParams(layoutParams);
+            mainContainer.addView(tv);
+            tv.setOnClickListener(Process_Input);
+
+            mainContainer.addView(getDivider(rl_params));
+        }
+        return mainContainer;
+    }
+
+    private View addToBoardSizeContainer(int[] tag, String[] text,String identifier,int length,String titleText) {
+        LinearLayout row = null;
+        LinearLayout mainContainer = new LinearLayout(mContext);
+        mainContainer.setOrientation(LinearLayout.VERTICAL);
+        mainContainer.addView(getTitleTextView(titleText));
+        int i=0;
+        LinearLayout.LayoutParams row_Params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams box_Params = new LinearLayout.LayoutParams(ConvertToPx(mContext,72),
+                ConvertToPx(mContext,40));
+        RelativeLayout.LayoutParams verticalDivider_params= new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        RelativeLayout.LayoutParams horizontalDivider_params= new RelativeLayout.LayoutParams(1,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        while(i<length)
+        {
+            row = new LinearLayout(mContext);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setLayoutParams(row_Params);
+            mainContainer.addView(row);
+            mainContainer.addView(getDivider(verticalDivider_params));
+            for(int col=0;col<3 && i<length;col++,i++)
+            {
+                Button tv = new Button(mContext);
+                tv.setText(text[i]);
+                String tvTag = identifier + DELIMITER_2 + String.valueOf(tag[i]);
+                tv.setTag(tvTag);
+                tv.setTextColor(Color.BLACK);
+                tv.setPadding(0, ConvertToPx(mContext, 3), 0, 0);
+                tv.setBackgroundColor(Color.argb(180, 255, 255, 255));
+                tv.setGravity(Gravity.CENTER);
+                tv.setLayoutParams(box_Params);
+                tv.setOnClickListener(Process_Input);
+                row.addView(tv);
+                row.addView(getDivider(horizontalDivider_params));
+            }
+        }
+        while (i%3 != 0)
+        {
+            Button tv = new Button(mContext);
+            tv.setLayoutParams(box_Params);
+            tv.setPadding(0, ConvertToPx(mContext, 3), 0, 0);
+            tv.setBackgroundColor(Color.argb(180, 255, 255, 255));
+            row.addView(tv);
+            row.addView(getDivider(horizontalDivider_params));
+            i++;
+        }
+
+        return mainContainer;
+    }
+
+    private View getDivider(RelativeLayout.LayoutParams rl_params)
+    {
+        RelativeLayout divider = new RelativeLayout(mContext);
+        divider.setLayoutParams(rl_params);
+        divider.setBackgroundColor(Color.BLACK);
+        return divider;
+    }
+
+    private View getTitleTextView(String titleText)
+    {
+        int five_dip = ConvertToPx(mContext, 5);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextView tvTitle = new TextView(mContext);
+        tvTitle.setText(titleText);
+        tvTitle.setTextColor(Color.WHITE);
+        tvTitle.setBackgroundColor(Color.BLACK);
+        tvTitle.setGravity(Gravity.CENTER);
+        tvTitle.setLayoutParams(layoutParams);
+        tvTitle.setPadding(4 * five_dip, 2 * five_dip, 4 * five_dip, 2 * five_dip);
+        return tvTitle;
+    }
+
+//endregion area
+
+
+    public void loadSummaryScreen()
+    {
+        if(CurrentGame.objGameSummary == null)
+            CurrentGame.objGameSummary = new GameSummary(new WeakReference<>(CurrentGame),
+                    CurrentGame.CurrentCard.getMeasuredHeight(),CurrentGame.CurrentCard.getMeasuredWidth());
+
+        CurrentGame.objGameSummary.loadSummaryScreen();
+    }
+
+    private void loadTopScoresScreen() {
+        ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Top Scores");
+        LoadScores();
+    }
+
+    private void loadBestTimeScreen() {
+        ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Best Time");
+        //LoadScores();
+    }
+    private void loadLeastMovesScreen() {
+        ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Least Moves");
+        //LoadScores();
+    }
+
+    private void incrementScreenIndex(int value)
+    {
+        current_screen_index+=value;
+        if(current_screen_index>SCREENS.length)
+        {
+            if(isFromGameScreen)
+                current_screen_index=0;
+            else
+                current_screen_index=1;
+        }
+        else if(current_screen_index<0)
+        {
+            current_screen_index=SCREENS.length-1;
+        }
+
+        switch (SCREENS[current_screen_index])
+        {
+            case SUMMARY_SCREEN:
+                loadSummaryScreen();
+                break;
+            case TOP_SCORES:
+                loadTopScoresScreen();
+                break;
+            case BEST_TIME:
+                loadBestTimeScreen();
+                break;
+            case LEAST_MOVES:
+                loadLeastMovesScreen();
+                break;
+        }
+
+    }
+
+
+    public void mergeScores(String targetNameList[],long targetScoreList[],long userScores[])
+    {
+        int defList_counter=0;
+        int userList_counter=0;
+        for(int i=0;i<5;i++)
+        {
+            if(defaultScores[defList_counter]>=userScores[userList_counter])
+            {
+                targetNameList[i] = defaultPlayerNames[defList_counter];
+                targetScoreList[i] = defaultScores[defList_counter++];
+            }
+            else
+            {
+                targetNameList[i] = "YOU";
+                targetScoreList[i] = userScores[userList_counter++];
+            }
+        }
+    }
+
+
+    public void LoadScores()
+    {
+        createDefaultScores();
+        PlayerNames[0] = (TextView) mContext.findViewById(R.id.tvPlayerName_1);
+        PlayerNames[1] = (TextView) mContext.findViewById(R.id.tvPlayerName_2);
+        PlayerNames[2] = (TextView) mContext.findViewById(R.id.tvPlayerName_3);
+        PlayerNames[3] = (TextView) mContext.findViewById(R.id.tvPlayerName_4);
+        PlayerNames[4] = (TextView) mContext.findViewById(R.id.tvPlayerName_5);
+
+        PlayerScore[0] = (TextView) mContext.findViewById(R.id.tvPlayerScore_1);
+        PlayerScore[1] = (TextView) mContext.findViewById(R.id.tvPlayerScore_2);
+        PlayerScore[2] = (TextView) mContext.findViewById(R.id.tvPlayerScore_3);
+        PlayerScore[3] = (TextView) mContext.findViewById(R.id.tvPlayerScore_4);
+        PlayerScore[4] = (TextView) mContext.findViewById(R.id.tvPlayerScore_5);
+
+
+        String identifier = getBoardIdentifier();
+        String playerNames[] = new String[5];
+
+        long highScores [] = new long[5];
+        long userHighScores[] = getHighScoresFromPreferences(identifier);
+        mergeScores(playerNames, highScores, userHighScores);
+        String userHighScore = String.valueOf(userHighScores[0]);
+        for (int i=0;i<5;i++)
+        {
+            PlayerNames[i].setText(String.valueOf(playerNames[i]));
+            PlayerScore[i].setText(String.valueOf(highScores[i]));
+        }
+
+        ((TextView)mContext.findViewById(R.id.tvTopScore)).setText("Your top score   =   " + userHighScore);
+    }
+    public void createDefaultScores()
+    {
+        int totalCards = RowSize*ColumnSize;
+        if(BoardType == TWO_BOARD)
+            totalCards*=2;
+        totalCards=totalCards/2*2;
+
+        int maxScore = totalCards * 7 * 3 ;
+        int minScore = totalCards * 5;
+        defaultScores[0] = maxScore;
+        int interval = (maxScore-minScore)/4;
+        for(int i = 1 ;i<5;i++)
+        {
+            defaultScores[i]=defaultScores[i-1]-interval;
+        }
+    }
+
+    public long[] getHighScoresFromPreferences(String identifier)
+    {
+        long []high_scores = new long[5];
+        String highScores;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        highScores = preferences.getString(identifier,"0~0~0~0~0_0~0~0~0~0_0~0~0~0~0");
+
+        String highScores_arr[] = highScores.split(DELIMITER)[0].split(DELIMITER_2);
+        for(int i=0;i<5;i++)
+        {
+            high_scores[i] = Long.parseLong(highScores_arr[i]);
+        }
+        return high_scores;
+    }
+
+    private void resetScores() {
+        String msg = "Are you sure?\nSelect 'Yes' to continue.\nSelect 'No' to cancel.";
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+        alertDialog.setTitle("Reset Scores");
+        alertDialog.setMessage(msg);
+        alertDialog.setCancelable(true);
+        // alertDialog.setIcon(R.drawable.delete);
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String identifier = getBoardIdentifier();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove(identifier);
+                editor.commit();
+
+                LoadScores();
+                setBoardDetailsText();
+            }
+        });
+
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+
+    public void setBoardDetailsText()
+    {
+        String gameMode = getText(GameMode);
+        if(GameMode == TIME_TRIAL)
+        {
+            gameMode+= " (" + String.valueOf(TimeTrialTimerValue/1000) + ")";
+        }
+        String playerType =getText(PlayerMode);
+        if(PlayerMode != ONE_PLAYER)
+        {
+            playerType += " : " + getText(PlayerType);
+        }
+        String boardType = getText(BoardType);
+        String scrollType = getText(ScrollType);
+        String cardSet = getText(CardSet);
+        String rowSize = String.valueOf(RowSize);
+        String colSize = String.valueOf(ColumnSize);
+
+        ((TextView) mContext.findViewById(R.id.GameMode)).setText(gameMode);
+        ((TextView) mContext.findViewById(R.id.PlayerMode)).setText(playerType);
+        ((TextView) mContext.findViewById(R.id.BoardType)).setText(boardType);
+        ((TextView) mContext.findViewById(R.id.ScrollType)).setText(scrollType);
+        ((TextView) mContext.findViewById(R.id.CardSet)).setText(cardSet);
+        ((TextView) mContext.findViewById(R.id.RowSize)).setText(rowSize);
+        ((TextView) mContext.findViewById(R.id.ColSize)).setText(colSize);
+        SeekBar roboMemory = ((SeekBar) mContext.findViewById(R.id.RobotMemory));
+        if(PlayerMode != ROBOT_PLAYER)
+            roboMemory.setEnabled(false);
+        else
+        {
+            roboMemory.setEnabled(true);
+            roboMemory.setProgress(RobotMemory - 1);
+        }
+
+
+    }
+
+    public String getBoardIdentifier()
+    {
+        String identifier;
+        int boardSize = ColumnSize*RowSize;
+        if(BoardType == TWO_BOARD)
+            boardSize*=2;
+        identifier = String.valueOf(GameMode) + DELIMITER_2 +
+                String.valueOf(PlayerMode) + DELIMITER_2 +
+                String.valueOf(BoardType) + DELIMITER_2 +
+                String.valueOf(CardSet) + DELIMITER_2 +
+                String.valueOf(ScrollType) + DELIMITER_2 +
+                String.valueOf(boardSize);
+
+        if(GameMode == TIME_TRIAL)
+            identifier+= DELIMITER_2 + String.valueOf(TimeTrialTimerValue);
+
+        if(PlayerMode != ONE_PLAYER)
+        {
+            identifier+= String.valueOf(PlayerType);
+
+            if(PlayerMode == ROBOT_PLAYER)
+                identifier+= DELIMITER_2 + String.valueOf(RobotMemory);
+        }
+
+        return identifier;
+    }
+
+    public String getText(int identifier)
+    {
+        String text = "";
+        switch (identifier)
+        {
+            case ARCADE:
+                text = "ARCADE";
+                break;
+            case TIME_TRIAL:
+                text = "Time-Trial";
+                break;
+            case ONE_PLAYER:
+                text = "1P";
+                break;
+            case TWO_PLAYER:
+                text = "2P";
+                break;
+            case ROBOT_PLAYER:
+                text = "2P";
+                break;
+            case MANUAL:
+                text = "MANUAL";
+                break;
+            case ANDROBOT:
+                text = "ANDROBOT";
+                break;
+            case HURRICANE:
+                text = "Hurricane";
+                break;
+            case ROCK:
+                text = "Rock";
+                break;
+            case RANDOM_BOT:
+                text = "Random Bot";
+                break;
+            case ONE_BOARD:
+                text = "1 Board";
+                break;
+            case TWO_BOARD:
+                text = "2 Board";
+                break;
+            case NO_SCROLL:
+                text = "No Scroll";
+                break;
+            case VERTICAL:
+                text = "Vertical";
+                break;
+            case HORIZONTAL:
+                text = "Horizontal";
+                break;
+            case BOTH:
+                text = "Both";
+                break;
+            case CARD_SET_1:
+                text = "Card Set - I";
+                break;
+            case CARD_SET_2:
+                text = "Card Set - II";
+                break;
+            case CARD_SET_3:
+                text = "Card Set - III";
+                break;
+        }
+
+        return text;
+    }
+
+}

@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_background_portrait"
+    android:id="@+id/screen_gameSummary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#36FFFFFF">
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/btn_back"
+            android:id="@+id/btn_prev_page"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Summary"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="36sp"
+                android:id="@+id/tvTitle"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#A1000000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="-5dp"
+                android:layout_centerInParent="true"
+                />
+        </LinearLayout>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/btn_next"
+            android:id="@+id/btn_next_page"
+            />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/mainContainer"
+        android:background="#18FFFFFF"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clipChildren="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="5dp"
+                        android:layout_marginTop="1dp"
+                        android:text="Moves (P 1 / Total)"/>
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:text="40 / 90"
+                        android:textColor="@color/black"
+                        android:id="@+id/tvMoves"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:textColor="@color/yellow"
+                        android:gravity="center"
+                        android:visibility="invisible"
+                        android:id="@+id/animMoves"/>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/black"
+                    android:text="Hits (P 1 / Total)"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="9"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvHits"/>
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animHit"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:textColor="@color/black"
+                    android:text="Average"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/black"
+                    android:text="5 moves / hit"
+                    android:textSize="13sp"
+                    android:id="@+id/tvAverage"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:visibility="invisible"
+                    android:id="@+id/animAverage"/>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Click-Count"
+                    android:textSize="4pt"
+                    android:textColor="@color/black"
+                    android:background="@drawable/btn_white_transparency_20"
+                    android:id="@+id/btnClickCountMatrix"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="4pt"
+                    android:textColor="@color/black"
+                    android:text="Move-trace"
+                    android:id="@+id/btnMoveTraceMatrix"
+                    android:background="@drawable/btn_white_transparency_20"
+                    />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="4pt"
+                    android:text="Retaining Power"
+                    android:textColor="@color/black"
+                    android:id="@+id/btnRetainingPower"
+                    android:background="@drawable/btn_white_transparency_20"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp" >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:clipChildren="false">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_Attempt"
+                        android:clipChildren="false"
+                        >
+                        <RelativeLayout
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="@color/black"/>
+                        <TextView
+                            android:layout_width="91dp"
+                            android:layout_height="33dp"
+                            android:text="Attempt (x)"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:background="#63FFFFFF"
+                            android:padding="5dp"
+                            />
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/white_transparent_20"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_Match">
+                        <RelativeLayout
+                            android:layout_width="1px"
+                            android:layout_height="match_parent"
+                            android:background="@color/black"/>
+                        <TextView
+                            android:layout_width="91dp"
+                            android:layout_height="33dp"
+                            android:text="Hits (y)"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:background="#36FFFFFF"/>
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:gravity="center|left"
+                android:paddingLeft="5dp"
+                android:textColor="@color/black"
+                android:text="For y hits, x attempts were made for each hit"
+                android:textSize="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|left"
+                    android:layout_marginTop="1dp"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Near misses"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="9"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvNearMisses"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animNearMiss"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Longest hit chain"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvHitChain"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animMaxHitStreak"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Time"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="66 seconds"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvTime"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animTime"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Winning streak"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textColor="@color/black"
+                    android:id="@+id/tvWinningStreak"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animWinningStreak"/>
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:text="Total Score"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="636"
+                    android:textSize="18sp"
+                    android:textColor="@color/yellow"
+                    android:id="@+id/tvTotalScore"/>
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:textColor="@color/yellow"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:id="@+id/animScore"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#50FFFFFF"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:clipChildren="false">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center|left"
+                    android:paddingLeft="5dp"
+                    android:layout_weight="1"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+
+                    android:text="Coins Earned"/>
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:text=""
+                        android:textSize="18sp"
+                        android:id="@+id/tvCoins"/>
+                    <RelativeLayout
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/region_coins"
+                        android:visibility="invisible"
+                        >
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/anim_coin"
+                            android:gravity="center"
+                            android:id="@+id/animCoins2"
+                            android:layout_centerInParent="true"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/anim_coin"
+                            android:gravity="center"
+                            android:id="@+id/animCoins1"
+                            android:layout_toLeftOf="@+id/animCoins2"
+                            android:layout_centerVertical="true"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/anim_coin"
+                            android:gravity="center"
+                            android:id="@+id/animCoins3"
+                            android:layout_toRightOf="@+id/animCoins2"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent">
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/animationContainer">-->
+
+        <!--</RelativeLayout>-->
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="2dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:text="Exit"
+            android:id="@+id/btnExit"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_white"
+            />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:text="Store"
+            android:id="@+id/btnStore"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_white"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

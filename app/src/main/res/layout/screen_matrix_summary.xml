@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_background_portrait"
+    android:id="@+id/clickMatrix">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#36FFFFFF">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:id="@+id/tvTitle"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#A1000000"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="-5dp"
+            android:layout_centerInParent="true"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/mainContainer"
+        android:background="#18FFFFFF"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/Matrix">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:id="@+id/tvDescription"
+                />
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="2dp">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:text="Back"
+            android:id="@+id/btnBack"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_white"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

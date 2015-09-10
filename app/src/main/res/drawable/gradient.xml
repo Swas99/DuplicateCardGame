@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <bitmap android:src="@drawable/img_btn_background"/>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <gradient android:angle="90" android:startColor="#112233" android:centerColor="#1F1F1F55" android:endColor="#112233"/>
+        </shape>
+    </item>
+</layer-list>
+
+
