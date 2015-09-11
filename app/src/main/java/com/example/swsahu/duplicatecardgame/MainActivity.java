@@ -1,24 +1,12 @@
 package com.example.swsahu.duplicatecardgame;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.drm.DrmStore;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Point;
-import android.graphics.Shader;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.PaintDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
@@ -31,21 +19,65 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.sql.Time;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.BOARD_TYPE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.BOTH;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_1;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_2;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_3;
+import static com.example.swsahu.duplicatecardgame.HelperClass.COLUMN_SIZE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.FIVE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.FLIP_ANIMATION_TIME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.FOUR;
+import static com.example.swsahu.duplicatecardgame.HelperClass.GAME_BACKGROUND;
+import static com.example.swsahu.duplicatecardgame.HelperClass.GAME_MODE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.HORIZONTAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.HURRICANE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.LOCKING_TIME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MANUAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_COL_SIZE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_1B;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_2B;
+import static com.example.swsahu.duplicatecardgame.HelperClass.NO_SCROLL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.PLAYER_MODE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.PLAYER_ONE_NAME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.PLAYER_TWO_NAME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.PLAYER_TWO_TYPE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.QUICK_GAME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.RANDOM_BOT;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_MEMORY;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROCK;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROW_SIZE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SCREEN_GAME;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SCROLL_TYPE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SIX;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_TIMER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_1;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_2;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_3;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TOTAL_COINS;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawableToView;
 
 //implements GestureDetector.OnGestureListener
 public class MainActivity extends Activity {
@@ -94,6 +126,7 @@ public class MainActivity extends Activity {
                 BoardType,ScrollType,CardSet,RowSize,ColSize,TimeTrialTimer);
         objTopScoresScreen.Show();
     }
+
     public View loadView(int layout_id) {
         if (CurrentView != null)
             CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
@@ -118,6 +151,7 @@ public class MainActivity extends Activity {
                 setPlayerNames();
                 InitializeDialogInputListener();
                 objHomePageTitleBar.requestUpdate(false);
+                AnimateViews();
                 break;
             case R.layout.screen_board_details:
                 LockingTime = getLockingTime();
@@ -139,6 +173,10 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void AnimateViews() {
+        HomeScreenAnimations objAnim = new HomeScreenAnimations();
+        objAnim.StartAnimation(new WeakReference<MainActivity>(thisContext));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +219,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
 
 
     public void myClickHandler(View v) {
@@ -681,6 +718,7 @@ public class MainActivity extends Activity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
         return preferences.getInt(String.valueOf(LOCKING_TIME), 600);
     }
+
     public int getGameBackground()
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
@@ -1163,18 +1201,17 @@ public class MainActivity extends Activity {
     //region Load default Values
 
     private void LoadDefaultValues(String identifier) {
-        String id = identifier;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        PlayerMode = preferences.getInt(String.valueOf(PLAYER_MODE)+id,ONE_PLAYER);
-        PlayerTwoType = preferences.getInt(String.valueOf(PLAYER_TWO_TYPE)+id,RANDOM_BOT);
-        RobotMemoryLevel = preferences.getInt(String.valueOf(ROBOT_MEMORY)+id,FIVE);
-        GameMode = preferences.getInt(String.valueOf(GAME_MODE)+id,ARCADE);
-        TimeTrialTimer = preferences.getInt(String.valueOf(TIME_TRIAL_TIMER)+id,TIME_TRIAL_VALUE_2);
-        BoardType = preferences.getInt(String.valueOf(BOARD_TYPE)+id,ONE_BOARD);
-        RowSize = preferences.getInt(String.valueOf(ROW_SIZE)+id,SIX);
-        ColSize = preferences.getInt(String.valueOf(COLUMN_SIZE) + id, FOUR);
-        ScrollType = preferences.getInt(String.valueOf(SCROLL_TYPE)+id,NO_SCROLL);
-        CardSet = preferences.getInt(String.valueOf(CARD_SET)+id,CARD_SET_1);
+        PlayerMode = preferences.getInt(String.valueOf(PLAYER_MODE)+ identifier,ONE_PLAYER);
+        PlayerTwoType = preferences.getInt(String.valueOf(PLAYER_TWO_TYPE)+ identifier,RANDOM_BOT);
+        RobotMemoryLevel = preferences.getInt(String.valueOf(ROBOT_MEMORY)+ identifier,FIVE);
+        GameMode = preferences.getInt(String.valueOf(GAME_MODE)+ identifier,ARCADE);
+        TimeTrialTimer = preferences.getInt(String.valueOf(TIME_TRIAL_TIMER)+ identifier,TIME_TRIAL_VALUE_2);
+        BoardType = preferences.getInt(String.valueOf(BOARD_TYPE)+ identifier,ONE_BOARD);
+        RowSize = preferences.getInt(String.valueOf(ROW_SIZE)+ identifier,SIX);
+        ColSize = preferences.getInt(String.valueOf(COLUMN_SIZE) + identifier, FOUR);
+        ScrollType = preferences.getInt(String.valueOf(SCROLL_TYPE)+ identifier,NO_SCROLL);
+        CardSet = preferences.getInt(String.valueOf(CARD_SET)+ identifier,CARD_SET_1);
     }
 
     //endregion
@@ -1369,9 +1406,6 @@ public class MainActivity extends Activity {
     }
 
 
-
-
-
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int SWIPE_MIN_DISTANCE = 20;
         @Override
@@ -1420,9 +1454,6 @@ public class MainActivity extends Activity {
     }
 
 
-
-
-
 //region Continue
 
     //Temp data : for restore
@@ -1443,92 +1474,10 @@ public class MainActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
-        data = (int)savedInstanceState.getInt("Layout");
+        data =  savedInstanceState.getInt("Layout");
     }
 
     //endregion
-
-
-    //region gesture experiment
-//
-//
-//    private GestureDetector gDetector;
-//
-//   public void InitializeGestureDetector()
-//   {
-//       gDetector = new GestureDetector(thisContext,this);
-//   }
-//
-//    @Override
-//    public boolean onTouchEvent(MotionEvent me) {
-//        return gDetector.onTouchEvent(me);
-//    }
-//
-//    @Override
-//    public boolean onDown(MotionEvent arg0) {
-//        Toast.makeText(thisContext,"OnDown",Toast.LENGTH_SHORT).show();
-//      //  ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.love_affair23);
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onFling(MotionEvent start, MotionEvent finish, float xVelocity, float yVelocity) {
-//        Toast.makeText(thisContext,"Fling",Toast.LENGTH_SHORT).show();
-//
-//        if (start.getRawY() < finish.getRawY()) {
-//            ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.img27);
-//        } else {
-//            ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.img2);
-//        }
-//
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public void onLongPress(MotionEvent arg0) {
-//        Toast.makeText(thisContext,"Long Press",Toast.LENGTH_SHORT).show();
-//        ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.img11);
-//
-//    }
-//
-//    @Override
-//    public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
-//                            float arg3) {
-//        Toast.makeText(thisContext,"Scroll",Toast.LENGTH_SHORT).show();
-//
-//        View v = findViewById(R.id.sample_image);
-//        float x = arg1.getX();
-//        float y = arg1.getY();
-//
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        params.leftMargin = (int)x; //Your X coordinate
-//        params.topMargin = (int)y;
-//        v.setLayoutParams(params);
-//
-//
-//        return false;
-//    }
-//
-//    @Override
-//    public void onShowPress(MotionEvent arg0) {
-//     //   Toast.makeText(thisContext,"Show Press",Toast.LENGTH_SHORT).show();
-//       // ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.img1);
-//
-//    }
-//
-//    @Override
-//    public boolean onSingleTapUp(MotionEvent arg0) {
-//    //    Toast.makeText(thisContext,"Single Tap UP",Toast.LENGTH_SHORT).show();
-//     //   ((ImageView)findViewById(R.id.sample_image)).setImageResource(R.drawable.img11);
-//        return false;
-//    }
-//
-//
-//
-//    //endregion
-
-
 
 
     //region recycle

@@ -2,14 +2,11 @@ package com.example.swsahu.duplicatecardgame;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.media.Image;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -26,9 +23,6 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 
@@ -126,22 +120,6 @@ public class HelperClass {
     //String constants
     final static String DELIMITER = "_";
     final static String DELIMITER_2 = "~";
-
-    final static String HOME_SCREEN = "1";
-    final static String QUICK_GAME_SCREEN = "2";
-    final static String BOARD_DETAILS_SCREEN = "3";
-    final static String SETTINGS_SCREEN = "4";
-    final static String STORE_SCREEN = "5";
-    final static String HELP_SCREEN = "6";
-    final static String GAME_SUMMARY_SCREEN = "7";
-    final static String CLICK_COUNT_SCREEN = "8";
-    final static String MOVE_TRACE_SCREEN = "9";
-    final static String RETAINING_POWER_SCREEN = "10";
-    final static String PLAYER_MODE_SCREEN = "11";
-
-    final static String IS_GAME_IN_PROGRESS = "12";
-
-
 
 
 
