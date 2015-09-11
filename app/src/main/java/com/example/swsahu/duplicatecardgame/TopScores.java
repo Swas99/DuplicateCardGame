@@ -1,7 +1,6 @@
 package com.example.swsahu.duplicatecardgame;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -9,7 +8,6 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +20,41 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.BOARD_TYPE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.BOTH;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_1;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_2;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_3;
+import static com.example.swsahu.duplicatecardgame.HelperClass.COLUMN_SIZE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
+import static com.example.swsahu.duplicatecardgame.HelperClass.GAME_MODE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.HORIZONTAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.HURRICANE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MANUAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_COL_SIZE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_1B;
+import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_2B;
+import static com.example.swsahu.duplicatecardgame.HelperClass.NO_SCROLL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.PLAYER_MODE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.RANDOM_BOT;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_MEMORY;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROCK;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ROW_SIZE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SCROLL_TYPE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_TIMER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
+import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
 
 public class TopScores {
 
@@ -97,7 +127,7 @@ public class TopScores {
                                        int cardSet,int rowSize,int columnSize,
                                        int timeTrialTimerValue)
     {
-        if(isFromGameScreen && BoardType==TWO_BOARD)
+        if(isFromGameScreen && boardType==TWO_BOARD)
             rowSize/=2;
 
         GameMode = gameMode;
@@ -122,13 +152,16 @@ public class TopScores {
         InitializeRobotMemoryListener();
 
         setBoardDetailsText();
-        addFlingListenerToTopScoresScreen(this_view);
         if(!isFromGameScreen)
         {
             initializeSpecificControls_Set2();
         }
+
+
+        addFlingListenerToTopScoresScreen(this_view);
         loadPage();
     }
+
 
     //region Listeners
 
@@ -663,6 +696,8 @@ public class TopScores {
         ((TextView)mContext.findViewById(R.id.tvSubTitle)).setText("Top Scores");
         String text = LoadScores();
         ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your top score   =   " + text);
+
+        mContext.findViewById(R.id.tvMsg).setVisibility(View.GONE);
     }
 
     private void loadBestTimeScreen() {
@@ -673,6 +708,11 @@ public class TopScores {
             ((TextView) mContext.findViewById(R.id.tvUserScore)).setText(" ");
         else
             ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your best time   =   " + text);
+
+        if(PlayerMode!=ONE_PLAYER)
+            mContext.findViewById(R.id.tvMsg).setVisibility(View.VISIBLE);
+        else
+            mContext.findViewById(R.id.tvMsg).setVisibility(View.GONE);
     }
 
     private void loadLeastMovesScreen() {
@@ -684,11 +724,15 @@ public class TopScores {
         else
             ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("Your Least moves   =   " + text);
 
-
+        if(PlayerMode!=ONE_PLAYER)
+            mContext.findViewById(R.id.tvMsg).setVisibility(View.VISIBLE);
+        else
+            mContext.findViewById(R.id.tvMsg).setVisibility(View.GONE);
     }
 
     private void incrementScreenIndex()
     {
+
         current_screen_index++;
         if(current_screen_index>=SCREENS.length)
         {
@@ -698,11 +742,13 @@ public class TopScores {
         {
             current_screen_index = 0;
         }
+
         loadPage();
     }
 
     private void decrementScreenIndex()
     {
+
         current_screen_index--;
         if(current_screen_index<0)
         {
@@ -710,6 +756,7 @@ public class TopScores {
             if(!isFromGameScreen)
                 current_screen_index--;
         }
+
         loadPage();
     }
 
@@ -757,7 +804,6 @@ public class TopScores {
         }
     }
 
-
     public String LoadScores()
     {
         createDefaultScores();
@@ -796,10 +842,32 @@ public class TopScores {
             totalCards*=2;
         totalCards=totalCards/2*2;
 
-        int maxScore = totalCards * 7 * 3 ;
-        int minScore = totalCards * 5;
+        int maxScore,minScore,interval;
+        switch (SCREENS[current_screen_index])
+        {
+            case TOP_SCORES:
+                maxScore = totalCards * 7 * 3 ;
+                minScore = totalCards * 5;
+                interval = (maxScore-minScore)/4;
+                break;
+            case BEST_TIME:
+                maxScore = (int)(totalCards * 1.6);
+                minScore = (int)(maxScore * 3);
+                interval = (maxScore-minScore)/4;
+                break;
+            case LEAST_MOVES:
+                maxScore = (int)(totalCards * 0.7);
+                minScore = (int)(maxScore * 2.7);
+                interval = (maxScore-minScore)/4;
+                break;
+            default:
+                maxScore = totalCards * 7 * 3 ;
+                minScore = totalCards * 5;
+                interval = (maxScore-minScore)/4;
+        }
+
+
         defaultScores[0] = maxScore;
-        int interval = (maxScore-minScore)/4;
         for(int i = 1 ;i<5;i++)
         {
             defaultScores[i]=defaultScores[i-1]-interval;
@@ -828,13 +896,10 @@ public class TopScores {
         return high_scores;
     }
 
-
-
-
     private void resetScores() {
         String msg = "Are you sure?\nSelect 'Yes' to continue.\nSelect 'No' to cancel.";
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-        alertDialog.setTitle("Reset Scores");
+        alertDialog.setTitle("Reset ?");
         alertDialog.setMessage(msg);
         alertDialog.setCancelable(true);
         // alertDialog.setIcon(R.drawable.delete);
@@ -861,10 +926,10 @@ public class TopScores {
                         allTopScores = "0~0~0~0~0";
                         break;
                     case BEST_TIME:
-                        allBestTime = "0~0~0~0~0";
+                        allBestTime = defWorstTimes;
                         break;
                     case LEAST_MOVES:
-                        allLeastMove = "0~0~0~0~0";
+                        allLeastMove = defMaxMoves;
                         break;
                 }
 
@@ -915,6 +980,10 @@ public class TopScores {
         ((TextView) mContext.findViewById(R.id.RowSize)).setText(rowSize);
         ((TextView) mContext.findViewById(R.id.ColSize)).setText(colSize);
         SeekBar roboMemory = ((SeekBar) mContext.findViewById(R.id.RobotMemory));
+
+        if(PlayerMode == TWO_PLAYER && PlayerType!= MANUAL)
+            PlayerMode = ROBOT_PLAYER;
+
         if(PlayerMode != ROBOT_PLAYER)
             roboMemory.setEnabled(false);
         else

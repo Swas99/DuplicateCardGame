@@ -32,17 +32,18 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
 import static com.example.swsahu.duplicatecardgame.HelperClass.BOTH;
 import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_1;
 import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_2;
 import static com.example.swsahu.duplicatecardgame.HelperClass.CARD_SET_3;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
 import static com.example.swsahu.duplicatecardgame.HelperClass.FLIP_ANIMATION_TIME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.FlipAnimation;
 import static com.example.swsahu.duplicatecardgame.HelperClass.HORIZONTAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.LOCKING_TIME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.MANUAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.NO_SCROLL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
@@ -56,6 +57,7 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_WINNING_
 import static com.example.swsahu.duplicatecardgame.HelperClass.RANDOM_BOT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
@@ -64,8 +66,8 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_Horizont
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_VerticalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_WithoutScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
+import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawableToView;
 import static com.example.swsahu.duplicatecardgame.HelperClass.clearArray;
-import static com.example.swsahu.duplicatecardgame.HelperClass.createDrawableBackground;
 import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
 
@@ -1518,7 +1520,7 @@ public class Game {
         String msg = "";
         if(score>prev_userScore && score>defaultMaxHighScore)
             msg+= "\n**New High Score**\nNailed it!\n";
-        else if(score>prev_userScore && prev_userScore>defaultMinHighScore)
+        else if(score>prev_userScore && score>defaultMinHighScore)
             msg+="\n**Personal Best Score**\nGreat job!\n";
 
         if(isChallengeGame)

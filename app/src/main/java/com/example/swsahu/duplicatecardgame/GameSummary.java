@@ -37,27 +37,22 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
 import static com.example.swsahu.duplicatecardgame.HelperClass.FLIP_ANIMATION_TIME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.FlipAnimation;
-import static com.example.swsahu.duplicatecardgame.HelperClass.LOCKING_TIME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.MANUAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_BothScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_HorizontalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_VerticalScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_WithoutScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_AVERAGE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_PLAYER_MODE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_WINNING_STREAK;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
-import static com.example.swsahu.duplicatecardgame.HelperClass.SCREEN_GAME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TOTAL_COINS;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_BothScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_HorizontalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_VerticalScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_WithoutScroll;
 
 public class GameSummary {
 
@@ -107,7 +102,7 @@ public class GameSummary {
             @Override
             public void onClick(View v) {
                 if(objSummaryMatrix == null)
-                    objSummaryMatrix = new SummaryMatrix(new WeakReference<Game>(CurrentGame),CardHeight,CardWidth);
+                    objSummaryMatrix = new SummaryMatrix(new WeakReference<>(CurrentGame),CardHeight,CardWidth);
                 objSummaryMatrix.SetMatrixType(objSummaryMatrix.CLICK_COUNT);
                 objSummaryMatrix.CreateMatrix();
             }
@@ -117,7 +112,7 @@ public class GameSummary {
             @Override
             public void onClick(View v) {
                 if(objSummaryMatrix == null)
-                    objSummaryMatrix = new SummaryMatrix(new WeakReference<Game>(CurrentGame),CardHeight,CardWidth);
+                    objSummaryMatrix = new SummaryMatrix(new WeakReference<>(CurrentGame),CardHeight,CardWidth);
                 objSummaryMatrix.SetMatrixType(objSummaryMatrix.MOVE_TRACE);
                 objSummaryMatrix.CreateMatrix();
             }
@@ -127,7 +122,7 @@ public class GameSummary {
             @Override
             public void onClick(View v) {
                 if(objSummaryMatrix == null)
-                    objSummaryMatrix = new SummaryMatrix(new WeakReference<Game>(CurrentGame),CardHeight,CardWidth);
+                    objSummaryMatrix = new SummaryMatrix(new WeakReference<>(CurrentGame),CardHeight,CardWidth);
                 objSummaryMatrix.SetMatrixType(objSummaryMatrix.RETAINING_POWER);
                 objSummaryMatrix.CreateMatrix();
             }
@@ -313,7 +308,7 @@ public class GameSummary {
             final ImageView animCoin1 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins1);
             final ImageView animCoin2 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins2);
             final ImageView animCoin3 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins3);
-            final View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
+            View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
             regionCoin.setVisibility(View.VISIBLE);
 
             final AnimationSet flip = FlipAnimation(100, 17);
@@ -331,6 +326,7 @@ public class GameSummary {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     {
+                        View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
                         TextView tvCoins = (TextView) CurrentGame.mContext.findViewById(R.id.tvCoins);
                         if (regionCoin != null && tvCoins != null) {
                             regionCoin.setVisibility(View.INVISIBLE);
@@ -628,7 +624,7 @@ public class GameSummary {
 
     public int getCoinsEarned()
     {
-        float coins = 0;
+        float coins;
         float coins_playerTwoType = 0;
         float coins_playerTwoMemory = 0;
         float coins_boardType = 0;
@@ -816,8 +812,16 @@ public class GameSummary {
         scoring_data = "";
 
         scoring_data = refreshScoreData(Score,_highScore,1,scoring_data,allHighScores);
-        scoring_data = refreshScoreData(CurrentGame.GameRunningTime,_bestTime,-1,scoring_data,allBestTime);
-        scoring_data = refreshScoreData(CurrentGame.Player1_Moves,_leastMove,-1,scoring_data,allLeastMoves);
+        int p2Hits = totalHits-playerOne_Hits;
+        if(playerOne_Hits>p2Hits)
+        {
+            scoring_data = refreshScoreData(CurrentGame.GameRunningTime, _bestTime, -1, scoring_data, allBestTime);
+            scoring_data = refreshScoreData(CurrentGame.Player1_Moves, _leastMove, -1, scoring_data, allLeastMoves);
+        }
+        else
+        {
+            scoring_data+=allBestTime+DELIMITER+allLeastMoves;
+        }
 
 
         //Store current game data
