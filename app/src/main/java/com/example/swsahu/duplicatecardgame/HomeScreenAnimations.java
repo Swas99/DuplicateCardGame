@@ -3,7 +3,6 @@ package com.example.swsahu.duplicatecardgame;
 
 import android.graphics.Point;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.OvershootInterpolator;
@@ -18,14 +17,21 @@ public class HomeScreenAnimations {
     {
         MainActivity mContext = m_context.get();
 
+        AnimateGameModes(mContext);
+        AnimateLogo(mContext);
+        AnimateOtherButtons(mContext);
+
+    }
+
+    private void AnimateGameModes(MainActivity mContext)
+    {
         View leftV1 = mContext.findViewById(R.id.btnQuickGame);
         View leftV2 = mContext.findViewById(R.id.btnArcade);
         View rightV1 = mContext.findViewById(R.id.btnStoryMode);
         View rightV2 = mContext.findViewById(R.id.btnTimeTrial);
 
-        View twoCards = mContext.findViewById(R.id.btnGameLogo);
 
-        View [] allViews = { leftV1,leftV2, rightV1, rightV2, twoCards};
+        View [] allViews = { leftV1,leftV2, rightV1, rightV2};
         ConfigureOutOfParentAnimation(allViews);
 
         Point screenSize = HelperClass.getWindowSize(mContext.getWindowManager().getDefaultDisplay());
@@ -40,11 +46,37 @@ public class HomeScreenAnimations {
         leftV2.startAnimation(slideRight);
         rightV1.startAnimation(slideLeft);
         rightV2.startAnimation(slideLeft);
+    }
 
+    private void AnimateLogo(MainActivity mContext)
+    {
+        View twoCards = mContext.findViewById(R.id.btnGameLogo);
+        View [] allViews = { twoCards};
+        ConfigureOutOfParentAnimation(allViews);
 
         AnimationSet ZoomIn = ZoomIn();
         twoCards.startAnimation(ZoomIn);
+    }
 
+    private void AnimateOtherButtons(MainActivity mContext)
+    {
+        View v1 = mContext.findViewById(R.id.btnHelp);
+        View v2 = mContext.findViewById(R.id.btnStore);
+        View v3 = mContext.findViewById(R.id.btnTopScores);
+        View v4 = mContext.findViewById(R.id.btnSettings);
+        View v5 = mContext.findViewById(R.id.btnRating);
+        View v6 = mContext.findViewById(R.id.btnFb);
+        View v7 = mContext.findViewById(R.id.btnShare);
+
+
+        View [] allViews = { v1,v2,v3,v4,v5,v6,v7};
+        ConfigureOutOfParentAnimation(allViews);
+        AnimationSet zoomInOut = ZoomInOut();
+
+        for (View v : allViews)
+        {
+            v.startAnimation(zoomInOut);
+        }
     }
 
     private void ConfigureOutOfParentAnimation(View[] v_arr)
@@ -72,25 +104,43 @@ public class HomeScreenAnimations {
 
     public AnimationSet ZoomIn()
     {
-        AlphaAnimation fade_in = new AlphaAnimation(.7f,1f);
-        fade_in.setDuration(2200);
-        fade_in.setStartOffset(400);
-        fade_in.setFillAfter(true);
+//        AlphaAnimation fade_in = new AlphaAnimation(.7f,1f);
+//        fade_in.setDuration(2200);
+//        fade_in.setStartOffset(400);
+//        fade_in.setFillAfter(true);
 
-        ScaleAnimation zoom = new ScaleAnimation(.8f,1f,.8f,1f,
+        ScaleAnimation zoom = new ScaleAnimation(.95f,1.1f,.95f,1.1f,
                 Animation.RELATIVE_TO_SELF,.5f,
                 Animation.RELATIVE_TO_SELF, .5f);
-        zoom.setDuration(2200);
+        zoom.setDuration(3600);
         zoom.setStartOffset(400);
         zoom.setFillAfter(true);
+        zoom.setRepeatMode(Animation.REVERSE);
+        zoom.setRepeatCount(Animation.INFINITE);
 
         AnimationSet ZoomIn = new AnimationSet(true);
-        ZoomIn.addAnimation(fade_in);
+//        ZoomIn.addAnimation(fade_in);
         ZoomIn.addAnimation(zoom);
-        ZoomIn.setInterpolator(new OvershootInterpolator());
+//        ZoomIn.setInterpolator(new OvershootInterpolator());
 
         return ZoomIn;
     }
 
+    public AnimationSet ZoomInOut()
+    {
+        ScaleAnimation zoom = new ScaleAnimation(.9f,1f,.9f,1f,
+                Animation.RELATIVE_TO_SELF,.5f,
+                Animation.RELATIVE_TO_SELF, .5f);
+        zoom.setDuration(3000);
+        zoom.setStartOffset(400);
+        zoom.setFillAfter(true);
+        zoom.setRepeatMode(Animation.REVERSE);
+        zoom.setRepeatCount(Animation.INFINITE);
+
+        AnimationSet ZoomIn = new AnimationSet(true);
+        ZoomIn.addAnimation(zoom);
+
+        return ZoomIn;
+    }
 
 }

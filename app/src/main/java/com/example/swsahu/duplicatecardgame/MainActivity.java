@@ -127,6 +127,12 @@ public class MainActivity extends Activity {
         objTopScoresScreen.Show();
     }
 
+    public void loadStoreScreen()
+    {
+        TopScores objTopScoresScreen = new TopScores(new WeakReference<>(thisContext));
+        objTopScoresScreen.Show();
+    }
+
     public View loadView(int layout_id) {
         if (CurrentView != null)
             CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
@@ -254,11 +260,8 @@ public class MainActivity extends Activity {
                 ShowUnderConstructionDialog();
                 break;
             case R.id.btnStore:
-                //loadSettingsScreen();
-                ShowUnderConstructionDialog();
-                break;
             case R.id.btn_store:
-                (findViewById(R.id.btnStore)).performClick();
+                loadStoreScreen();
                 break;
             case R.id.btnTopScores:
                 loadTopScoresScreen();
@@ -273,7 +276,6 @@ public class MainActivity extends Activity {
                 (findViewById(R.id.btnSettings)).performClick();
                 break;
             case R.id.btnRating:
-               // loadSettingsScreen();
                 ShowUnderConstructionDialog();
                 break;
             case R.id.btn_rating:
@@ -303,6 +305,7 @@ public class MainActivity extends Activity {
             //
         }
     }
+
 
     public void myClickHandler_QuickGame(View v)
     {
@@ -902,6 +905,13 @@ public class MainActivity extends Activity {
             default:
                 loadView(R.layout.screen_home);
         }
+        Runnable myRunnable = new Runnable(){
+            public void run(){
+                System.gc();
+            }
+        };
+        Thread thread = new Thread(myRunnable);
+        thread.start();
     }
 
     //region dialog logic
@@ -1387,7 +1397,6 @@ public class MainActivity extends Activity {
         return text;
     }
 
-
     public void ShowUnderConstructionDialog()
     {
         String msg = "This module is under construction";
@@ -1404,7 +1413,6 @@ public class MainActivity extends Activity {
 
         alertDialog.show();
     }
-
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int SWIPE_MIN_DISTANCE = 20;
