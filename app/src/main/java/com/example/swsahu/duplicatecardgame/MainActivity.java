@@ -129,8 +129,8 @@ public class MainActivity extends Activity {
 
     public void loadStoreScreen()
     {
-        TopScores objTopScoresScreen = new TopScores(new WeakReference<>(thisContext));
-        objTopScoresScreen.Show();
+        Store objStoreScreen = new Store(new WeakReference<>(thisContext));
+        objStoreScreen.Show();
     }
 
     public View loadView(int layout_id) {
@@ -181,7 +181,7 @@ public class MainActivity extends Activity {
 
     private void AnimateViews() {
         HomeScreenAnimations objAnim = new HomeScreenAnimations();
-        objAnim.StartAnimation(new WeakReference<MainActivity>(thisContext));
+        objAnim.StartAnimation(new WeakReference<>(thisContext));
     }
 
     @Override
@@ -560,7 +560,7 @@ public class MainActivity extends Activity {
     private void InitializeScreenControls_PlayerMode() {
         View temp_view;
         int playerMode_views[] = {R.id.value_1P, R.id.value_2P};
-        int playerMode_id[] = {ONE_PLAYER, TWO_PLAYER};
+        //int playerMode_id[] = {ONE_PLAYER, TWO_PLAYER};
         int playerType_views[] = {R.id.value_hurricane, R.id.value_androbot, R.id.value_rock, R.id.value_random, R.id.value_manual};
         int playerType_id[] = {HURRICANE, ANDROBOT, ROCK, RANDOM_BOT, MANUAL};
         int robotMemory_views[] = {R.id.value_robotMemory_1, R.id.value_robotMemory_2, R.id.value_robotMemory_3,
@@ -1108,6 +1108,7 @@ public class MainActivity extends Activity {
             tv.setLayoutParams(box_Params);
             tv.setPadding(0, ConvertToPx(thisContext, 3), 0, 0);
             tv.setBackgroundColor(Color.argb(180, 255, 255, 255));
+             
             row.addView(tv);
             row.addView(getDivider(horizontalDivider_params));
             i++;

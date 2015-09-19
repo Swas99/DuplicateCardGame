@@ -63,8 +63,8 @@ public class Store {
     private void addListenerToControls()
     {
         Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btn_next_page);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.GameMode);
+        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
+        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
         Button btn_Pow = (Button)mContext.findViewById(R.id.btn_power);
         Button btn_Coin = (Button)mContext.findViewById(R.id.btn_coin);
         Button btn_RemoveAds = (Button)mContext.findViewById(R.id.btn_removeAds);
@@ -103,11 +103,11 @@ public class Store {
     private void powerClick()
     {
         Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btn_next_page);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.GameMode);
+        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
+        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
-        btnPow.setBackgroundResource(R.drawable.btn_white_pressed);
+        btnPow.setBackgroundResource(R.drawable.btn_white_reverse);
         //Un-Select
         btnCoin.setBackgroundResource(R.drawable.btn_white_transparency_20);
         btnRemoveAds.setBackgroundResource(R.drawable.btn_white_transparency_20);
@@ -116,11 +116,11 @@ public class Store {
     private void removeAdsClick()
     {
         Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btn_next_page);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.GameMode);
+        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
+        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
-        btnRemoveAds.setBackgroundResource(R.drawable.btn_white_pressed);
+        btnRemoveAds.setBackgroundResource(R.drawable.btn_white_reverse);
         //Un-Select
         btnCoin.setBackgroundResource(R.drawable.btn_white_transparency_20);
         btnPow.setBackgroundResource(R.drawable.btn_white_transparency_20);
@@ -129,11 +129,11 @@ public class Store {
     private void coinsClick()
     {
         Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btn_next_page);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.GameMode);
+        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
+        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
-        btnCoin.setBackgroundResource(R.drawable.btn_white_pressed);
+        btnCoin.setBackgroundResource(R.drawable.btn_white_reverse);
         //Un-Select
         btnPow.setBackgroundResource(R.drawable.btn_white_transparency_20);
         btnRemoveAds.setBackgroundResource(R.drawable.btn_white_transparency_20);

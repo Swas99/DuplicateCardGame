@@ -143,12 +143,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/black"/>
-
-
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:background="#28FFFFFF"/>
 
 
@@ -156,14 +155,22 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                >
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:background="#28FFFFFF"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black"/>
+
 
 
 
@@ -191,6 +198,5 @@
             android:background="@drawable/btn_white"
             />
     </RelativeLayout>
-
 
 </LinearLayout>
