@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
-import android.opengl.Visibility;
 import android.os.CountDownTimer;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -27,14 +25,13 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
-import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
-import static com.example.swsahu.duplicatecardgame.HelperClass.POWER_COUNT;
-import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConfigureOutOfParentAnimation;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
 import static com.example.swsahu.duplicatecardgame.HelperClass.CreateTransitionDrawable;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.POWER_COUNT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_DESTROY;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_EXTRA_MOVES;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_FIND;
@@ -45,6 +42,7 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.POW_SWAP;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.RotateAndFadeInAnimation;
 import static com.example.swsahu.duplicatecardgame.HelperClass.RotateAndFadeOutAnimation;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ShuffleAnimation;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SwapAnimation;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
@@ -872,7 +870,7 @@ public class Power {
         //LayoutInflater inflater= getLayoutInflater();
         LayoutInflater inflater = (LayoutInflater) CurrentGame.mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         View pwd=inflater.inflate(R.layout.dialog_pow_find, null, false);
-
+        pwd.findViewById(R.id.btnClose).setVisibility(View.GONE);
 
         final GridView gridview = (GridView) pwd.findViewById(R.id.gdCards);
         final ImageAdapter validCardSet = new ImageAdapter(CurrentGame.mContext);
@@ -966,7 +964,6 @@ public class Power {
     {
         final AlertDialog dialog = new AlertDialog.Builder(CurrentGame.mContext)
                 .show();
-
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = dialog.getWindow();
         lp.copyFrom(window.getAttributes());
@@ -985,7 +982,12 @@ public class Power {
 
         LayoutInflater inflater = (LayoutInflater) CurrentGame.mContext.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         View pwd=inflater.inflate(R.layout.dialog_pow_find, null, false);
-
+        pwd.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         int cardsLeft = getNumberOfCardLeftOnBoard();
 
@@ -1083,10 +1085,7 @@ public class Power {
     public boolean userHasPowers()
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentGame.mContext);
-        int powCount = preferences.getInt(String.valueOf(POWER_COUNT), 14);
-        if(powCount==0)
-            return false;
-        else
-            return true;
+        int powCount = preferences.getInt(String.valueOf(POWER_COUNT), 0);
+        return powCount != 0;
     }
 }

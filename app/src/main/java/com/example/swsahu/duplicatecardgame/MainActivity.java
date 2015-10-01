@@ -889,7 +889,7 @@ public class MainActivity extends Activity {
         return false;
     }
 
-    private void onBackPress()
+    public void onBackPress()
     {
         switch (CURRENT_SCREEN)
         {
@@ -1108,7 +1108,7 @@ public class MainActivity extends Activity {
             tv.setLayoutParams(box_Params);
             tv.setPadding(0, ConvertToPx(thisContext, 3), 0, 0);
             tv.setBackgroundColor(Color.argb(180, 255, 255, 255));
-             
+
             row.addView(tv);
             row.addView(getDivider(horizontalDivider_params));
             i++;

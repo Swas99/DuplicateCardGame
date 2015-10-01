@@ -14,8 +14,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POWER_COUNT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_DESTROY;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_EXTRA_MOVES;
@@ -25,8 +26,6 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.POW_REPLACE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_SHUFFLE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.POW_SWAP;
 import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawableToView;
-import static com.example.swsahu.duplicatecardgame.HelperClass.createDrawableBackground;
-import static com.example.swsahu.duplicatecardgame.HelperClass.getLengthOfDynamicArray;
 
 public class PowerCardAdapter  extends BaseAdapter {
     private Context mContext;
@@ -137,6 +136,7 @@ public class PowerCardAdapter  extends BaseAdapter {
         TextView tvCount = (TextView)powerCard.findViewById(R.id.tvCount);
         TextView tvIdentifier = (TextView) powerCard.findViewById(R.id.tvIdentifier);
         iv1.setBackgroundResource(CardsResID[position]);
+
         {
             final AnimationDrawable frameAnimation = (AnimationDrawable) iv1.getBackground();
             new CountDownTimer(200,200){
@@ -188,7 +188,7 @@ public class PowerCardAdapter  extends BaseAdapter {
 
     private void getPowersFromPreferences() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        lengthOfArray = preferences.getInt(String.valueOf(POWER_COUNT), 14);
+        lengthOfArray = preferences.getInt(String.valueOf(POWER_COUNT), 0);
         if(lengthOfArray==0)
             return;
 
@@ -205,7 +205,7 @@ public class PowerCardAdapter  extends BaseAdapter {
         for (int i=0;i<allPowers.length; i++)
         {
            String power_data;
-            power_data = preferences.getString(String.valueOf(allPowers[i]), "3_3~4_2");
+            power_data = preferences.getString(String.valueOf(allPowers[i]), "");
             if(power_data == "")
                 continue;
 
@@ -229,8 +229,8 @@ public class PowerCardAdapter  extends BaseAdapter {
     public void writePowersToPreferences(int power,int range,int count)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String power_data = preferences.getString(String.valueOf(power), "3_3~4_2");
-        int length = preferences.getInt(String.valueOf(POWER_COUNT),14);
+        String power_data = preferences.getString(String.valueOf(power), "");
+        int length = preferences.getInt(String.valueOf(POWER_COUNT),0);
         SharedPreferences.Editor editor = preferences.edit();
         String array_powerData[] = power_data.split(DELIMITER_2);
         String newPowerData = "";
