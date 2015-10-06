@@ -107,7 +107,7 @@ public class Help {
         RelativeLayout frame = (RelativeLayout)mContext.findViewById(R.id.frame);
         frame.removeAllViews();
         LayoutInflater inflater = mContext.getLayoutInflater();
-        View view = inflater.inflate(R.layout.view_game_objective, frame, true);
+        View view = inflater.inflate(R.layout.view_help_objective, frame, true);
         view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
     }
 
@@ -119,9 +119,9 @@ public class Help {
 
         RelativeLayout frame = (RelativeLayout)mContext.findViewById(R.id.frame);
         frame.removeAllViews();
-//        LayoutInflater inflater = mContext.getLayoutInflater();
-//        View view = inflater.inflate(R.layout.view_buy_powers, frame, true);
-//        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+        LayoutInflater inflater = mContext.getLayoutInflater();
+        View view = inflater.inflate(R.layout.view_help_player_mode, frame, true);
+        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
     }
     private void BoardDetailsClick()
     {
