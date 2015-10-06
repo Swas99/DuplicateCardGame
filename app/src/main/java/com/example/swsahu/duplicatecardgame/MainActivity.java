@@ -133,6 +133,12 @@ public class MainActivity extends Activity {
         objStoreScreen.Show();
     }
 
+    public void loadHelpScreen()
+    {
+        Help objHelpScreen = new Help(new WeakReference<>(thisContext));
+        objHelpScreen.Show();
+    }
+
     public View loadView(int layout_id) {
         if (CurrentView != null)
             CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
@@ -152,12 +158,14 @@ public class MainActivity extends Activity {
     public void screenSpecificControls() {
         switch (CURRENT_SCREEN) {
             case R.layout.screen_home:
+                ((TextView)findViewById(R.id.tvCoins)).setTypeface(Typeface.SANS_SERIF);
                 updateCoins(0);
                 setCoins();
                 setPlayerNames();
                 InitializeDialogInputListener();
                 objHomePageTitleBar.requestUpdate(false);
                 AnimateViews();
+
                 break;
             case R.layout.screen_board_details:
                 LockingTime = getLockingTime();
@@ -256,8 +264,8 @@ public class MainActivity extends Activity {
                 ShowUnderConstructionDialog();
                 break;
             case R.id.btnHelp:
-                //loadSettingsScreen();
-                ShowUnderConstructionDialog();
+                loadHelpScreen();
+                //ShowUnderConstructionDialog();
                 break;
             case R.id.btnStore:
             case R.id.btn_store:
