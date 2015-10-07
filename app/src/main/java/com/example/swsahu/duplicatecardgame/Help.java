@@ -1,5 +1,7 @@
 package com.example.swsahu.duplicatecardgame;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -132,8 +134,112 @@ public class Help {
         RelativeLayout frame = (RelativeLayout)mContext.findViewById(R.id.frame);
         frame.removeAllViews();
         LayoutInflater inflater = mContext.getLayoutInflater();
-//        View view = inflater.inflate(R.layout.view_buy_powers, frame, true);
-//        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+        View view = inflater.inflate(R.layout.view_help_board_details, frame, true);
+        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        view.findViewById(R.id.btnOneBoard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_1board, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.btnTwoBoard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_2board, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.btnHorizontalScroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_horizontal_scroll, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.btnVerticalScroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_vertical_scroll, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.btnBothScroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_both_scroll, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+        view.findViewById(R.id.btnNoScroll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new AlertDialog.Builder(mContext).show();
+                LayoutInflater inflater = mContext.getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_help_no_scroll, null, true);
+                dialog.setContentView(view);
+                dialog.setCancelable(true);
+                dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+
     }
     private void GameModeClick()
     {
