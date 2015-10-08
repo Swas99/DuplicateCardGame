@@ -110,18 +110,31 @@
                 android:layout_gravity="center"
                 android:background="@color/black"/>
 
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="12sp"
-                android:text="● Specifies number of cards on the board"
-                android:textColor="@color/black"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:text="● "
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="12sp"
+                    android:text="Specifies number of cards on the board"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -344,7 +357,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginStart="20dp"
@@ -458,7 +471,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="No confusing cards are present"
+                    android:text="No confusing cards are present on board"
                     android:textColor="@color/black"/>
             </LinearLayout>
             <LinearLayout
@@ -481,14 +494,15 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="For each pair, respective confusing pair is also present"
+                    android:text="For each pair, respective confusing pair is present on board"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

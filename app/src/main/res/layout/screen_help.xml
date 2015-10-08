@@ -67,48 +67,13 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
                         android:text="Objective"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:id="@+id/btnObjective"
                         android:background="@drawable/btn_white_transparency_20"
                         />
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_weight="1">
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:text="Player Mode"
-                        android:textSize="10sp"
-                        android:id="@+id/btnPlayerMode"
-                        android:background="@drawable/btn_white_transparency_20"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_weight="1">
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center"
-                        android:text="Board Details"
-                        android:textSize="10dp"
-                        android:id="@+id/btnBoardDetails"
-                        android:background="@drawable/btn_white_transparency_20"
-                        />
-
-                </RelativeLayout>
 
 
                 <RelativeLayout
@@ -130,12 +95,6 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -155,6 +114,15 @@
 
                 </RelativeLayout>
 
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -165,12 +133,13 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
-                        android:id="@+id/btn2"
+                        android:text="Player Mode"
+                        android:textSize="10sp"
+                        android:id="@+id/btnPlayerMode"
                         android:background="@drawable/btn_white_transparency_20"
                         />
 
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -181,31 +150,19 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginLeft="5dp"
                         android:gravity="center"
-                        android:id="@+id/btnCoin"
-                        android:background="@drawable/btn_white_transparency_20"
-                        />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_weight="1">
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:id="@+id/btnRemoveAds"
+                        android:text="Board Details"
+                        android:textSize="10dp"
+                        android:id="@+id/btnBoardDetails"
                         android:background="@drawable/btn_white_transparency_20"
                         />
 
                 </RelativeLayout>
 
             </LinearLayout>
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -230,13 +187,39 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="#28FFFFFF"/>
-                <RelativeLayout
+
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:id="@+id/frame"
-                    >
-                </RelativeLayout>
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:id="@+id/tvHeader_1"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:text="Objective"
+                        android:textColor="@color/black"
+                        android:background="#17FAFAFA"
+                        />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#28FFFFFF"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/black"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/frame"
+                        />
+                </LinearLayout>
+
 
                 <RelativeLayout
                     android:layout_width="1dp"
@@ -280,7 +263,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:text="Back"
+            android:text="Home"
             android:id="@+id/btnBack"
             android:textColor="@color/black"
             android:layout_centerInParent="true"

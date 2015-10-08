@@ -191,7 +191,7 @@
         <Button
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:text="Back"
+            android:text="Home"
             android:id="@+id/btnBack"
             android:textColor="@color/black"
             android:layout_centerInParent="true"

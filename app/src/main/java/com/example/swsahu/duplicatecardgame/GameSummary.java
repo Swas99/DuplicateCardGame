@@ -139,7 +139,7 @@ public class GameSummary {
         StoreButton_Click = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CurrentGame.mContext.loadView(R.layout.screen_store);
+                CurrentGame.mContext.loadStoreScreen();
             }
         };
         NextPage_Click = new View.OnClickListener() {

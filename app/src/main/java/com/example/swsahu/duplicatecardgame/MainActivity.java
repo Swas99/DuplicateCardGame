@@ -272,22 +272,16 @@ public class MainActivity extends Activity {
                 loadStoreScreen();
                 break;
             case R.id.btnTopScores:
+            case R.id.btn_topScores:
                 loadTopScoresScreen();
                 break;
-            case R.id.btn_topScores:
-                (findViewById(R.id.btnTopScores)).performClick();
-                break;
             case R.id.btnSettings:
+            case R.id.btn_settings:
                 loadSettingsScreen();
                 break;
-            case R.id.btn_settings:
-                (findViewById(R.id.btnSettings)).performClick();
-                break;
             case R.id.btnRating:
-                ShowUnderConstructionDialog();
-                break;
             case R.id.btn_rating:
-                (findViewById(R.id.btnRating)).performClick();
+                ShowUnderConstructionDialog();
                 break;
             case R.id.btnFb:
                 //loadSettingsScreen();
@@ -297,7 +291,6 @@ public class MainActivity extends Activity {
                 (findViewById(R.id.btnFb)).performClick();
                 break;
             case R.id.btnShare:
-                //loadSettingsScreen();
                 ShowUnderConstructionDialog();
                 break;
             case R.id.btn_share:

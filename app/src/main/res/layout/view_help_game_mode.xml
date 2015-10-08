@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
-                android:text="1P Mode"
+                android:text="Arcade"
                 android:gravity="center"
                 android:textColor="@color/black"/>
             <RelativeLayout
@@ -39,97 +39,36 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="12sp"
-                android:text="● No opponent"
+                android:text="● No time limit"
                 android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="12sp"
-                android:text="● Find all matching cards on board"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="12dp"
-                android:textSize="12sp"
-                android:text="● Try to finish the board in lowest time"
-                android:textColor="@color/black"/>
-
-
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:background="#28FFFFFF"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:background="#28FFFFFF"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp"
                 >
-
-
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"
-                    android:text="2P Mode"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:text="● "
                     android:gravity="center"
-                    android:textColor="@color/black"/>
-                <RelativeLayout
-                    android:layout_width="72dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="center"
-                    android:background="@color/black"/>
+                    android:textColor="@color/black"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="● Play against an opponent"
+                    android:text="Find all matching cards to complete the board"
                     android:textColor="@color/black"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="12dp"
-                    android:textSize="12sp"
-                    android:text="● Find more card pairs to win"
-                    android:textColor="@color/black"/>
-
-
             </LinearLayout>
+
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -159,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
-                android:text="2P Type"
+                android:text="Time-Trial"
                 android:gravity="center"
                 android:textColor="@color/black"/>
             <RelativeLayout
@@ -169,51 +108,32 @@
                 android:background="@color/black"/>
 
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textSize="12sp"
-                android:text="● Robot opponents :"
-                android:textColor="@color/black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/robot_androbot"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textSize="12sp"
+                    android:text="● "
+                    android:gravity="center"
+                    android:textColor="@color/black"
                     />
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/robot_rock"
-                    />
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/robot_hurricane"
-                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="12sp"
+                    android:text="Time bound game"
+                    android:textColor="@color/black"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,16 +154,16 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="Increasing robot player's memory wil increase difficulty"
+                    android:text="Find a card pair before the timer goes out to reset the timer"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:layout_marginBottom="12dp"
-                android:orientation="horizontal">
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -260,13 +180,13 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="Manual 2P : Play against your friend on same device"
+                    android:text="If timer goes out : \na. Random card pair(s) are replaced\nb. Random card pair(s) are swapped"
                     android:textColor="@color/black"/>
             </LinearLayout>
-
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

@@ -2,11 +2,13 @@ package com.example.swsahu.duplicatecardgame;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -34,7 +36,10 @@ public class Help {
     public void Show()
     {
         mContext.loadView(R.layout.screen_help);
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setTypeface(Typeface.SANS_SERIF);
+
         addListenerToControls();
+        ObjectiveClick();
     }
 
     private void addListenerToControls()
@@ -111,6 +116,8 @@ public class Help {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view = inflater.inflate(R.layout.view_help_objective, frame, true);
         view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setText("Objective");
     }
 
     private void PlayerModeClick()
@@ -124,6 +131,8 @@ public class Help {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view = inflater.inflate(R.layout.view_help_player_mode, frame, true);
         view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setText("Player Mode");
     }
     private void BoardDetailsClick()
     {
@@ -136,6 +145,8 @@ public class Help {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view = inflater.inflate(R.layout.view_help_board_details, frame, true);
         view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setText("Board Details");
 
         view.findViewById(R.id.btnOneBoard).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,8 +261,10 @@ public class Help {
         RelativeLayout frame = (RelativeLayout)mContext.findViewById(R.id.frame);
         frame.removeAllViews();
         LayoutInflater inflater = mContext.getLayoutInflater();
-//        View view = inflater.inflate(R.layout.view_buy_powers, frame, true);
-//        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+        View view = inflater.inflate(R.layout.view_help_game_mode, frame, true);
+        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setText("Game Mode");
     }
     private void PowerClick()
     {
@@ -262,8 +275,10 @@ public class Help {
         RelativeLayout frame = (RelativeLayout)mContext.findViewById(R.id.frame);
         frame.removeAllViews();
         LayoutInflater inflater = mContext.getLayoutInflater();
-//        View view = inflater.inflate(R.layout.view_buy_powers, frame, true);
-//        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+        View view = inflater.inflate(R.layout.view_help_powers, frame, true);
+        view.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
+
+        ((TextView)mContext.findViewById(R.id.tvHeader_1)).setText("Power");
     }
 
     private void deSelectedAllButtons()
