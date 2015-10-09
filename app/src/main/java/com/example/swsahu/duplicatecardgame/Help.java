@@ -3,7 +3,9 @@ package com.example.swsahu.duplicatecardgame;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Typeface;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -12,9 +14,7 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by swsahu on 10/1/2015.
- */
+
 public class Help {
     View.OnClickListener Objective_Click;
     View.OnClickListener PlayerMode_Click;
@@ -23,6 +23,7 @@ public class Help {
     View.OnClickListener GameMode_Click;
     View.OnClickListener BackButton_Click;
 
+    int Help_Index = 0;
 
     MainActivity mContext;
 
@@ -35,7 +36,8 @@ public class Help {
 
     public void Show()
     {
-        mContext.loadView(R.layout.screen_help);
+        View help_screen = mContext.loadView(R.layout.screen_help);
+        addFlingListenerToHelpScreen(help_screen);
         ((TextView)mContext.findViewById(R.id.tvHeader_1)).setTypeface(Typeface.SANS_SERIF);
 
         addListenerToControls();
@@ -297,5 +299,98 @@ public class Help {
         }
     }
 
+
+
+    private void addFlingListenerToHelpScreen(View v)
+    {
+        final GestureDetector gdt = new GestureDetector(mContext,new GestureListener());
+        v.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                gdt.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
+    private void loadHelp()
+    {
+        final int OBJECTIVE = 0;
+        final int GAME_MODE = 1;
+        final int POWER = 2;
+        final int PLAYER_MODE = 3;
+        final int BOARD_DETAILS = 4;
+
+        if(Help_Index>BOARD_DETAILS)
+            Help_Index = OBJECTIVE;
+        if(Help_Index<OBJECTIVE)
+            Help_Index = BOARD_DETAILS;
+
+        switch (Help_Index)
+        {
+            case OBJECTIVE:
+                ObjectiveClick();
+                break;
+            case GAME_MODE:
+                GameModeClick();
+                break;
+            case POWER:
+                PowerClick();
+                break;
+            case PLAYER_MODE:
+                PlayerModeClick();
+                break;
+            case BOARD_DETAILS:
+                BoardDetailsClick();
+                break;
+        }
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        private final int SWIPE_MIN_DISTANCE = 40;
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                Help_Index++;
+                loadHelp();
+                return false; // Right to left
+            }
+            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                Help_Index--;
+                loadHelp();
+                return false; // Left to right
+            }
+
+            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Bottom to top
+            }
+            else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Top to bottom
+            }
+            return true;
+        }
+
+//        @Override
+//        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+//                                float distanceY) {
+//            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+//            {
+//                GameBackground++;
+//                InitializeScreenControls_BoardDetails();
+//                return false; // Right to left
+//            }
+//            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE*10 ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+//            {
+//                GameBackground--;
+//                InitializeScreenControls_BoardDetails();
+//                return false; // Left to right
+//            }
+//            return true;
+//        }
+    }
 
 }
