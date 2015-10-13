@@ -132,7 +132,7 @@ public class HelperClass {
         return (int) px;
     }
 
-    public static int convertToDp(int px ){
+    public static int ConvertToDp(int px ){
 
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         float dp = px / (metrics.densityDpi / 160f);

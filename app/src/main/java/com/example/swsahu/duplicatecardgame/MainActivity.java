@@ -25,6 +25,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.swsahu.duplicatecardgame.StoryMode.ScreenCreation;
+
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
@@ -82,9 +84,9 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawab
 //implements GestureDetector.OnGestureListener
 public class MainActivity extends Activity {
 
-    View CurrentView;
+    public View CurrentView;
     final MainActivity thisContext = this;
-    int CURRENT_SCREEN;
+    public int CURRENT_SCREEN;
     Game objCardGame;
     HomePageTitleBar objHomePageTitleBar;
 
@@ -111,7 +113,6 @@ public class MainActivity extends Activity {
     int GameBackground;
     boolean PlayerOne_FirstMove;
 //endregion
-
 
     public void loadSettingsScreen() {
         SettingsScreen objSettings = new SettingsScreen(new WeakReference<>(thisContext));
@@ -261,7 +262,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.btnStoryMode:
                 //loadSettingsScreen();
-                ShowUnderConstructionDialog();
+                ScreenCreation obj = new ScreenCreation(new WeakReference<>(this));
                 break;
             case R.id.btnHelp:
                 loadHelpScreen();
@@ -1227,8 +1228,6 @@ public class MainActivity extends Activity {
     }
 
     //endregion
-
-
 
     private void RandomizeValues() {
 
