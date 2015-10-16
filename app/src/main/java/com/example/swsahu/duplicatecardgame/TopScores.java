@@ -438,6 +438,10 @@ public class TopScores {
                                 PlayerType = RANDOM_BOT;
                                 break;
                         }
+                        if(PlayerMode!=ONE_PLAYER)
+                            mContext.findViewById(R.id.tvMsg).setVisibility(View.VISIBLE);
+                        else
+                            mContext.findViewById(R.id.tvMsg).setVisibility(View.GONE);
                         break;
                     case BOARD_TYPE:
                         BoardType = value;

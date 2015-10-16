@@ -30,6 +30,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.swsahu.duplicatecardgame.StoryMode.GameValues;
+
 import java.lang.ref.WeakReference;
 import java.util.concurrent.Semaphore;
 
@@ -56,6 +58,7 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_PLAYER_M
 import static com.example.swsahu.duplicatecardgame.HelperClass.PREVIOUS_WINNING_STREAK;
 import static com.example.swsahu.duplicatecardgame.HelperClass.RANDOM_BOT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROBOT_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.STORY_MODE_CARD_SET;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
@@ -87,7 +90,7 @@ public class Game {
     int CardSet;
     int TotalCardsOnBoard;
 
-    boolean PlayerOne_Turn;
+    public boolean PlayerOne_Turn;
     int EffectiveClickCount;
     int ActualClickCount;
     int Player1_Moves;
@@ -104,8 +107,8 @@ public class Game {
     int CardLastClicked[][];
     int CardRetainingPower[][];
     int NearMisses;
-    int GameBackground;
-    int LockingTime;
+    public int GameBackground;
+    public int LockingTime;
     SparseArray<String> CardPair_Map;
     SparseArray<Integer> CardAttempt_Map;
     SparseArray<Integer> Matches;
@@ -146,10 +149,17 @@ public class Game {
     Robot robotPlayer;
     TimeTrail objTimeTrail;
     Power objPower;
+
     GameSummary objGameSummary;
 
 //    endregion
 
+
+    int CurrentModule;
+    int CurrentLevel;
+    int CurrentStage;
+    int CurrentChallenge;
+    public boolean StoryMode;
     MainActivity mContext;
 
 
@@ -162,7 +172,6 @@ public class Game {
     {
         mContext = context.get();
     }
-
 
     public void setGameConfiguration(int playerMode,int playerTwoType,int robotMemoryLevel,int gameMode,
                                      int timeTrialTimer,int boardType,int rowSize,int colSize,int scrollType,
@@ -212,8 +221,11 @@ public class Game {
 
     public int getLockingTime()
     {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        LockingTime = preferences.getInt(String.valueOf(LOCKING_TIME), 600);
+        if(!StoryMode)
+        {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            LockingTime = preferences.getInt(String.valueOf(LOCKING_TIME), 600);
+        }
         return LockingTime;
     }
 
@@ -961,6 +973,8 @@ public class Game {
                 return getCardSetTwo();
             case CARD_SET_3:
                 return getCardSetThree();
+            case STORY_MODE_CARD_SET:
+                return getCardForStoryMode();
             default:
                 return null;
         }
@@ -984,6 +998,26 @@ public class Game {
         }
         return ImageMap;
     }
+
+    private int[][] getCardForStoryMode()
+    {
+        GameValues objGameValues = new GameValues(CurrentModule,CurrentLevel,CurrentStage,CurrentChallenge);
+        int AllCards[] = objGameValues.getCardSet();
+        CardSet = objGameValues.getCardSetValue();
+        int ImageMap[][] = new int[RowSize][ColumnSize];
+        int index=0;
+        int AllCardsLength = AllCards.length;
+
+        for(int i=0;i<RowSize&&index<AllCardsLength;i++)
+        {
+            for(int j=0;j<ColumnSize&&index<AllCardsLength;j++)
+            {
+                ImageMap[i][j]=AllCards[index];
+            }
+        }
+        return ImageMap;
+    }
+
 
     private int[][] getCardSetTwo()
     {
@@ -1264,7 +1298,7 @@ public class Game {
                     {
                         SetEnableControls(false, GameBoard);
                         Btn_Power.setEnabled(false);
-                        new CountDownTimer(LockingTime+10, LockingTime+10) {
+                        new CountDownTimer(LockingTime+100, LockingTime+100) {
                             public void onTick(long millisUntilFinished) {
 
                             }
@@ -1480,9 +1514,12 @@ public class Game {
                 CurrentCard.getMeasuredHeight(), CurrentCard.getMeasuredWidth());
         objGameSummary.CalculateScore();
         //
-        long prev_userHighScore = objGameSummary.getHighestScore();
+        long prev_userHighScore;
+        if(powUsed)
+            prev_userHighScore=9999999999l;
+        else
+            prev_userHighScore= objGameSummary.getHighestScore();
 
-        //
         String message = getScoreRelatedMessage(objGameSummary.Score, prev_userHighScore);
         result+= message;
 

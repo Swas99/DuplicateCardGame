@@ -53,10 +53,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:id="@+id/tvDescription"
                 />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_transparent_60"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:text="*Data may be approximate"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                android:textSize="10dp"
+                android:textColor="@color/white"
+                android:id="@+id/tvApproximateData"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_transparent_60"/>
         </LinearLayout>
 
 

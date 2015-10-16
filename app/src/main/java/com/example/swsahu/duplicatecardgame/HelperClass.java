@@ -28,98 +28,100 @@ import android.widget.TextView;
 
 public class HelperClass {
 
-    static final int SCREEN_GAME = 0;
-    static final int ONE_PLAYER = 1;
-    static final int TWO_PLAYER = 2;
-    static final int ROBOT_PLAYER = 3;
-    static final int ARCADE = 4;
-    static final int TIME_TRIAL = 5;
-    static final int ONE_BOARD = 6;
-    static final int TWO_BOARD = 7;
-    static final int SCROLL = 8;
-    static final int NO_SCROLL = 9;
-    static final int EASY = 10;
-    static final int MEDIUM = 11;
-    static final int HARD = 12;
-    static final int VERTICAL = 13;
-    static final int HORIZONTAL = 14;
-    static final int BOTH = 15;
-    static final int OneBoard_WithoutScroll = 16;
-    static final int TwoBoard_WithoutScroll = 17;
-    static final int OneBoard_HorizontalScroll = 18;
-    static final int OneBoard_VerticalScroll = 19;
-    static final int OneBoard_BothScroll = 20;
-    static final int TwoBoard_HorizontalScroll = 21;
-    static final int TwoBoard_VerticalScroll = 22;
-    static final int TwoBoard_BothScroll = 23;
-    final static int POW_REPLACE = 24;
-    final static int POW_SHUFFLE = 25;
-    final static int POW_PEEK = 26;
-    final static int POW_DESTROY = 27;
-    final static int POW_EXTRA_MOVES = 28;
-    final static int POW_FIND = 29;
-    final static int POW_SWAP = 30;
-    final static int CARD_SET_1 = 31;
-    final static int CARD_SET_2 = 32;
-    final static int CARD_SET_3 = 33;
-    final static int PLAYER_ID_0 = 34;
-    final static int PLAYER_ID_1 = 35;
-    final static int PLAYER_ID_2 = 36;
-    final static int PLAYER_ID_3 = 37;
-    final static int PLAYER_TWO_TYPE = 38;
-    final static int QUICK_GAME = 39;
-    final static int MANUAL = 40;
-    final static int HURRICANE = 41;
-    final static int ROCK = 42;
-    final static int ANDROBOT = 43;
-    final static int RANDOM_BOT = 44;
-    final static int POWER_COUNT = 45;
-    final static int FLIP_ANIMATION_TIME = 46;
-    final static int PLAYER_ONE_NAME = 47;
-    final static int PLAYER_TWO_NAME = 48;
-    final static int ALPHABET = 49;
-    final static int LOCKING_TIME = 58;
+    public static final int SCREEN_GAME = 0;
+    public static final int ONE_PLAYER = 1;
+    public static final int TWO_PLAYER = 2;
+    public static final int ROBOT_PLAYER = 3;
+    public static final int ARCADE = 4;
+    public static final int TIME_TRIAL = 5;
+    public static final int ONE_BOARD = 6;
+    public static final int TWO_BOARD = 7;
+    public static final int SCROLL = 8;
+    public static final int NO_SCROLL = 9;
+    public static final int EASY = 10;
+    public static final int MEDIUM = 11;
+    public static final int HARD = 12;
+    public static final int VERTICAL = 13;
+    public static final int HORIZONTAL = 14;
+    public static final int BOTH = 15;
+    public static final int OneBoard_WithoutScroll = 16;
+    public static final int TwoBoard_WithoutScroll = 17;
+    public static final int OneBoard_HorizontalScroll = 18;
+    public static final int OneBoard_VerticalScroll = 19;
+    public static final int OneBoard_BothScroll = 20;
+    public static final int TwoBoard_HorizontalScroll = 21;
+    public static final int TwoBoard_VerticalScroll = 22;
+    public static final int TwoBoard_BothScroll = 23;
+    public final static int POW_REPLACE = 24;
+    public final static int POW_SHUFFLE = 25;
+    public final static int POW_PEEK = 26;
+    public final static int POW_DESTROY = 27;
+    public final static int POW_EXTRA_MOVES = 28;
+    public final static int POW_FIND = 29;
+    public final static int POW_SWAP = 30;
+    public final static int CARD_SET_1 = 31;
+    public final static int CARD_SET_2 = 32;
+    public final static int CARD_SET_3 = 33;
+    public final static int PLAYER_ID_0 = 34;
+    public final static int PLAYER_ID_1 = 35;
+    public final static int PLAYER_ID_2 = 36;
+    public final static int PLAYER_ID_3 = 37;
+    public final static int PLAYER_TWO_TYPE = 38;
+    public final static int QUICK_GAME = 39;
+    public final static int MANUAL = 40;
+    public final static int HURRICANE = 41;
+    public final static int ROCK = 42;
+    public final static int ANDROBOT = 43;
+    public final static int RANDOM_BOT = 44;
+    public final static int POWER_COUNT = 45;
+    public final static int FLIP_ANIMATION_TIME = 46;
+    public final static int PLAYER_ONE_NAME = 47;
+    public final static int PLAYER_TWO_NAME = 48;
+    public final static int ALPHABET = 49;
+    public final static int LOCKING_TIME = 58;
+    public final static int STORY_MODE_CARD_SET = 68;
+
 
 
 
     //// Identifiers used to store data to shared preferences
-    final static int GAME_MODE = 100;
-    final static int PLAYER_MODE = 102;
-    final static int ROBOT_MEMORY = 103;
-    final static int BOARD_TYPE = 104;
-    final static int TIME_TRIAL_TIMER = 105;
-    final static int SCROLL_TYPE = 106;
-    final static int CARD_SET = 107;
-    final static int ROW_SIZE = 108;
-    final static int COLUMN_SIZE = 109;
-    final static int PREVIOUS_AVERAGE = 110;
-    final static int PREVIOUS_PLAYER_MODE = 111;
-    final static int PREVIOUS_WINNING_STREAK = 112;
-    final static int TOTAL_COINS = 113;
-    final static int GAME_BACKGROUND = 114;
+    public final static int GAME_MODE = 100;
+    public final static int PLAYER_MODE = 102;
+    public final static int ROBOT_MEMORY = 103;
+    public final static int BOARD_TYPE = 104;
+    public final static int TIME_TRIAL_TIMER = 105;
+    public final static int SCROLL_TYPE = 106;
+    public final static int CARD_SET = 107;
+    public final static int ROW_SIZE = 108;
+    public final static int COLUMN_SIZE = 109;
+    public final static int PREVIOUS_AVERAGE = 110;
+    public final static int PREVIOUS_PLAYER_MODE = 111;
+    public final static int PREVIOUS_WINNING_STREAK = 112;
+    public final static int TOTAL_COINS = 113;
+    public final static int GAME_BACKGROUND = 114;
     ////
 
     //Numeric Constants
-    final static int ONE = 1;
-    final static int TWO = 2;
-    final static int THREE = 3;
-    final static int FOUR = 4;
-    final static int FIVE = 5;
-    final static int SIX = 6;
-    final static int SEVEN = 7;
-    final static int EIGHT = 8;
-    final static int NINE = 9;
-    final static int ZERO = 0;
-    final static int MAX_COL_SIZE = 8;
-    final static int MAX_ROW_SIZE_1B = 15;
-    final static int MAX_ROW_SIZE_2B = 7;
-    final static int TIME_TRIAL_VALUE_1 = 5000;
-    final static int TIME_TRIAL_VALUE_2 = 10000;
-    final static int TIME_TRIAL_VALUE_3 = 15000;
+    public final static int ONE = 1;
+    public final static int TWO = 2;
+    public final static int THREE = 3;
+    public final static int FOUR = 4;
+    public final static int FIVE = 5;
+    public final static int SIX = 6;
+    public final static int SEVEN = 7;
+    public final static int EIGHT = 8;
+    public final static int NINE = 9;
+    public final static int ZERO = 0;
+    public final static int MAX_COL_SIZE = 8;
+    public final static int MAX_ROW_SIZE_1B = 15;
+    public final static int MAX_ROW_SIZE_2B = 7;
+    public final static int TIME_TRIAL_VALUE_1 = 5000;
+    public final static int TIME_TRIAL_VALUE_2 = 10000;
+    public final static int TIME_TRIAL_VALUE_3 = 15000;
 
     //String constants
-    final static String DELIMITER = "_";
-    final static String DELIMITER_2 = "~";
+    public final static String DELIMITER = "_";
+    public final static String DELIMITER_2 = "~";
 
 
 
@@ -161,7 +163,6 @@ public class HelperClass {
             drawable.setStroke(borderThickness, borderColor);
         drawable.setCornerRadius(cornerRadius);
         drawable.setColor(color);
-
         return drawable;
     }
 

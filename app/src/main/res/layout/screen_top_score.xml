@@ -393,7 +393,7 @@
                           android:text="Load"
                           android:textSize="12sp"
                           android:textColor="@color/white"
-                          android:background="@drawable/experiment3"
+                          android:background="@drawable/btn_rectangle_sky_blue"
                           />
 
                     </LinearLayout>
@@ -431,12 +431,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:paddingLeft="5dp"
-                android:text="**Only games won by you are considered"
+                android:text="*Only games won by you are considered"
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:textSize="10dp"
                 android:id="@+id/tvMsg"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:paddingLeft="5dp"
+                android:text="**Games where power was used are not considered"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                android:textSize="10dp"
+                android:textColor="@color/white"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -683,7 +692,6 @@
                                 android:background="#28FFFFFF"/>
                     </LinearLayout>
                     </ScrollView>
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"

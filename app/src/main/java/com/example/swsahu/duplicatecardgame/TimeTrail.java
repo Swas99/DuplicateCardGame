@@ -1,8 +1,6 @@
 package com.example.swsahu.duplicatecardgame;
 
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,14 +9,23 @@ import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ConfigureOutOfParentAnimation;
+import static com.example.swsahu.duplicatecardgame.HelperClass.CreateTransitionDrawable;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.DELIMITER_2;
+import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
+import static com.example.swsahu.duplicatecardgame.HelperClass.POW_REPLACE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.POW_SHUFFLE;
+import static com.example.swsahu.duplicatecardgame.HelperClass.RotateAndFadeInAnimation;
+import static com.example.swsahu.duplicatecardgame.HelperClass.RotateAndFadeOutAnimation;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SetEnableControls;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SwapAnimation;
 
 public class TimeTrail {
 
     Game CurrentGame;
-    CountDownTimer TimeTrialTimer;
+    public CountDownTimer TimeTrialTimer;
     int SecondsLeft_TimeTrial;
     int TimeTrial_TimerValue;
     boolean isAnimating;

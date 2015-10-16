@@ -1,11 +1,8 @@
 package com.example.swsahu.duplicatecardgame;
 
-
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.provider.CalendarContract;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,13 +11,10 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 
@@ -35,7 +29,6 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_Horizont
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_VerticalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_WithoutScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawableToView;
-import static com.example.swsahu.duplicatecardgame.HelperClass.createDrawableBackground;
 import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
 public class SummaryMatrix {
@@ -131,6 +124,12 @@ public class SummaryMatrix {
 
         TextView tvTitle = (TextView)view.findViewById(R.id.tvTitle);
         TextView tvDesc = (TextView)view.findViewById(R.id.tvDescription);
+        TextView tvApproximateData = (TextView)view.findViewById(R.id.tvApproximateData);
+        if(CurrentGame.powUsed)
+            tvApproximateData.setVisibility(View.VISIBLE);
+        else
+            tvApproximateData.setVisibility(View.GONE);
+
         switch (MatrixType)
         {
             case CLICK_COUNT :

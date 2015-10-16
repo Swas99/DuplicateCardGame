@@ -582,15 +582,15 @@ public class Power {
                 }
                 CurrentCardCount++;
                 CurrentGame.Card_Clicks[r][c]++;
-                CurrentGame.ActualClickCount++;
-                CurrentGame.CardLastClicked[r][c]=CurrentGame.ActualClickCount;
-                if(CurrentGame.PlayerOne_Turn || CurrentGame.PlayerMode == ONE_PLAYER)
-                    CurrentGame.Player1_Moves++;
+//                CurrentGame.ActualClickCount++;
+                  CurrentGame.CardLastClicked[r][c]=CurrentGame.ActualClickCount;
+//                if(CurrentGame.PlayerOne_Turn || CurrentGame.PlayerMode == ONE_PLAYER)
+//                    CurrentGame.Player1_Moves++;
 
-                if(CurrentGame.PlayerMode == ROBOT_PLAYER)
-                {
-                    CurrentGame.robotPlayer.AddToMemory(r,c);
-                }
+//                if(CurrentGame.PlayerMode == ROBOT_PLAYER)
+//                {
+//                    CurrentGame.robotPlayer.AddToMemory(r,c);
+//                }
 
                 final long total_animation_time = one_frame_time*2;
                 new CountDownTimer(total_animation_time,one_frame_time)
@@ -893,12 +893,13 @@ public class Power {
                 int r = Integer.parseInt(card_pos.split(DELIMITER)[0]);
                 int c = Integer.parseInt(card_pos.split(DELIMITER)[1]);
                 CurrentGame.Card_Clicks[r][c]++;
-                CurrentGame.ActualClickCount++;
+//                CurrentGame.ActualClickCount++;
                 CurrentGame.CardLastClicked[r][c]=CurrentGame.ActualClickCount;
-                if(CurrentGame.PlayerOne_Turn || CurrentGame.PlayerMode == ONE_PLAYER)
-                    CurrentGame.Player1_Moves++;
+//                if(CurrentGame.PlayerOne_Turn || CurrentGame.PlayerMode == ONE_PLAYER)
+//                    CurrentGame.Player1_Moves++;
 
                 final ImageView target_card = CurrentGame.IV_AllCards[r][c];
+                target_card.getParent().requestChildFocus(target_card,target_card);
 
                 if(CurrentGame.PlayerMode == ROBOT_PLAYER)
                     CurrentGame.robotPlayer.AddToMemory(r,c);

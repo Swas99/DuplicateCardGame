@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
     public View CurrentView;
     final MainActivity thisContext = this;
     public int CURRENT_SCREEN;
-    Game objCardGame;
+    public Game objCardGame;
     HomePageTitleBar objHomePageTitleBar;
 
     AlertDialog CommonDialog;
@@ -109,7 +109,7 @@ public class MainActivity extends Activity {
     int ColSize;
     int ScrollType;
     int CardSet;
-    int LockingTime;
+    public int LockingTime;
     int GameBackground;
     boolean PlayerOne_FirstMove;
 //endregion
@@ -263,6 +263,7 @@ public class MainActivity extends Activity {
             case R.id.btnStoryMode:
                 //loadSettingsScreen();
                 ScreenCreation obj = new ScreenCreation(new WeakReference<>(this));
+                obj.show();
                 break;
             case R.id.btnHelp:
                 loadHelpScreen();
@@ -869,7 +870,6 @@ public class MainActivity extends Activity {
             objCardGame.Clear();
             objCardGame.Update_mContext(new WeakReference<>(this));
         }
-        objCardGame.LockingTime = LockingTime;
         objCardGame.GameBackground = GameBackground;
         objCardGame.PlayerOne_Turn = true; //PlayerOne_FirstMove;
         objCardGame.setGameConfiguration(PlayerMode, PlayerTwoType, RobotMemoryLevel, GameMode, TimeTrialTimer,
@@ -907,6 +907,10 @@ public class MainActivity extends Activity {
             default:
                 loadView(R.layout.screen_home);
         }
+        CollectGarbage();
+    }
+
+    private void CollectGarbage() {
         Runnable myRunnable = new Runnable(){
             public void run(){
                 System.gc();
