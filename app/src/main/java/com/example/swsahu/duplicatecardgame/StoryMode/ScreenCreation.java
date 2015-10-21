@@ -3,6 +3,7 @@ package com.example.swsahu.duplicatecardgame.StoryMode;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -26,7 +27,9 @@ import com.example.swsahu.duplicatecardgame.R;
 
 import java.lang.ref.WeakReference;
 
+import static com.example.swsahu.duplicatecardgame.HelperClass.CURRENT_GAME_ID;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
+import static com.example.swsahu.duplicatecardgame.HelperClass.STORY_MODE_DATA;
 import static com.example.swsahu.duplicatecardgame.HelperClass.SetFontToControls;
 import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
@@ -34,18 +37,20 @@ public class ScreenCreation {
 
     MainActivity mContext;
 
+
     View.OnClickListener ProcessLevel;
     View.OnClickListener ProcessStage;
     View.OnClickListener ProcessChallenge;
-    View.OnClickListener StartGame;
+    View.OnClickListener NextClick;
     View.OnClickListener StartContinueClick;
+    Dialog DialogWindow;
+
 
     View tv_module_header;
     View btn_expand_collapse;
     View module_levels;
     String Modules[] = {"Love Affair","Thunder-bolt","Jet","Hit or Miss","Stars 1.0","Shelter","Stars 2.0"};
     int ModuleLevelCount[] = {18,8,4,8,15,17,11};
-    int completion_status[][][][];
     final int STATUS_LOCKED = 101;
     final int STATUS_COMPLETED = 102;
     final int STATUS_NEW = 103;
@@ -68,8 +73,7 @@ public class ScreenCreation {
     {
         mContext = m_context.get();
         InitializeClickListeners();
-        createDefaultCompletionStatus();
-        getCompletionStatusFromPreferences();
+        setCurrentGameAndOverallCompletionStatusData();
     }
 
     public void show()
@@ -125,6 +129,7 @@ public class ScreenCreation {
 
     private void InitializeClickListeners()
     {
+        final ScreenCreation thisContext = this;
         ProcessLevel = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,6 +141,7 @@ public class ScreenCreation {
             @Override
             public void onClick(View v) {
                 setSelectedStage(v.getRootView(), Integer.parseInt(String.valueOf(v.getTag())) - 1);
+
                 setSelectedChallenge(v.getRootView(), 0);
             }
         };
@@ -145,19 +151,38 @@ public class ScreenCreation {
                 setSelectedChallenge(v.getRootView(), Integer.parseInt(String.valueOf(v.getTag())) - 1);
             }
         };
-        StartGame = new View.OnClickListener() {
+        NextClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 com.example.swsahu.duplicatecardgame.StoryMode.StartGame objStartGame =
-                        new StartGame(new WeakReference<MainActivity>(mContext));
-                objStartGame.setStoryModeData(CurrentModule,CurrentLevel,CurrentStage,CurrentChallenge);
-
+                        new StartGame(new WeakReference<>(mContext),new WeakReference<>(thisContext),DialogWindow);
+                objStartGame.setStoryModeData(SelectedModule, SelectedLevel, SelectedStage, SelectedChallenge);
+                objStartGame.showObjective();
             }
         };
         StartContinueClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if(DialogWindow==null)
+                {
+                    DialogWindow  = new AlertDialog.Builder(mContext).show();
+                    DialogWindow.setCancelable(true);
+                    WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                    Window window = DialogWindow.getWindow();
+                    lp.copyFrom(window.getAttributes());
+                    View v2 =  mContext.CurrentView;
+                    lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                    lp.height =  ConvertToPx(mContext, 390);
+                    window.setAttributes(lp);
+                }
+                else
+                    DialogWindow.show();
+
+                com.example.swsahu.duplicatecardgame.StoryMode.StartGame objStartGame =
+                        new StartGame(new WeakReference<>(mContext),new WeakReference<>(thisContext),DialogWindow);
+                objStartGame.setStoryModeData(CurrentModule, CurrentLevel, CurrentStage, CurrentChallenge);
+                objStartGame.showObjective();
             }
         };
     }
@@ -313,7 +338,7 @@ public class ScreenCreation {
             tv.setTag(String.valueOf(module_index + 1) + "_" + String.valueOf(level_value));
             cell.addView(tv);
 
-            setLevelBackground(module_index,level_value-1,0,0,tv);
+            setLevelBackground(module_index,level_value-1,tv);
 
         }
 
@@ -334,16 +359,21 @@ public class ScreenCreation {
 
     private void displayGameDialog(View v,boolean isCancelable)
     {
-        Dialog dialog  = new AlertDialog.Builder(mContext).show();
-        dialog.setContentView(v);
-        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
-        SetFontToControls(font, (ViewGroup) v);
-        dialog.setCancelable(isCancelable);
+        if(DialogWindow==null)
+            DialogWindow  = new AlertDialog.Builder(mContext).show();
+        else
+            DialogWindow.show();
+
+        DialogWindow.setContentView(v);
+//        Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
+//        SetFontToControls(font, (ViewGroup) v);
+        DialogWindow.setCancelable(isCancelable);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
+        Window window = DialogWindow.getWindow();
         lp.copyFrom(window.getAttributes());
         View v2 =  mContext.CurrentView;
         lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height =  ConvertToPx(mContext, 390);
         window.setAttributes(lp);
     }
     
@@ -354,8 +384,14 @@ public class ScreenCreation {
 
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_story_mode_game_select, null, true);
-        int result[] = getCurrentStageAndChallenge(SelectedModule,SelectedLevel);
-        setSelectedStage(view,result[0]);
+        view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogWindow.dismiss();
+            }
+        });
+        int result[] = getCurrentStageAndChallenge(SelectedModule, SelectedLevel);
+        setSelectedStage(view, result[0]);
         setSelectedChallenge(view, result[1]);
 
         TextView tvPercentCompleted = (TextView)view.findViewById(R.id.tvPercentCompleted);
@@ -363,35 +399,44 @@ public class ScreenCreation {
         tvPercentCompleted.setText(String.valueOf(percent_completed));
         tvPercentCompleted.setTextColor(getPercentCompletedTextColor(percent_completed));
 
-        TextView btnStart = (TextView)view.findViewById(R.id.btnStart);
-        btnStart.setOnClickListener(StartGame);
+        TextView btnNext = (TextView)view.findViewById(R.id.btnNext);
+        btnNext.setOnClickListener(NextClick);
 
         displayGameDialog(view, true);
     }
 
-    private void setLevelBackground(int p,int q,int r,int s,TextView tv)
+    private void setLevelBackground(int p,int q, TextView tv)
     {
-        switch (completion_status[p][q][r][s])
+        int maxStages = 6;
+        int maxChallenges = 5;
+
+        switch (getCompletionStatus(p,q,0,0))
         {
             case STATUS_LOCKED:
                 tv.setText("");
                 tv.setOnClickListener(null);
                 tv.setBackgroundResource(R.drawable.background_level_lock);
-                break;
+                return;
             case STATUS_NEW:
                 tv.setBackgroundResource(R.drawable.btn_new_game);
-                break;
-            case STATUS_COMPLETED:
-                tv.setBackgroundResource(R.drawable.btn_completed_game);
-                break;
-            case STATUS_IN_PROGRESS:
-                tv.setBackgroundResource(R.drawable.btn_in_progress_game);
-                break;
+                return;
         }
+
+        for(int s=0;s<maxChallenges;s++)
+        {
+            if(getCompletionStatus(p,q,maxStages-1,s)!=STATUS_COMPLETED)
+            {
+                tv.setBackgroundResource(R.drawable.btn_in_progress_game);
+                return;
+            }
+        }
+
+        tv.setBackgroundResource(R.drawable.btn_completed_game);
     }
+
     private void setStageBackground(int p,int q,int r,int s,TextView tv)
     {
-        switch (completion_status[p][q][r][s])
+        switch (getCompletionStatus(p,q,r,s))
         {
             case STATUS_LOCKED:
                 tv.setText("");
@@ -412,7 +457,7 @@ public class ScreenCreation {
                 R.drawable.btn_circle_green3_no_border,R.drawable.btn_circle_green4_no_border,
                 R.drawable.btn_circle_green5_no_border};
         String allChallengeText[] = {"C1","C2","C3","C4","C5"};
-        switch (completion_status[p][q][r][s])
+        switch (getCompletionStatus(p,q,r,s))
         {
             case STATUS_LOCKED:
                 tv.setText("");
@@ -468,7 +513,7 @@ public class ScreenCreation {
         {
             TextView tv = allChallenges[i];
             tv.setOnClickListener(ProcessChallenge);
-            setChallengeBackground(SelectedModule, SelectedLevel, 0, i, tv);
+            setChallengeBackground(SelectedModule, SelectedLevel, SelectedStage, i, tv);
             if(i==selected_index)
                 tv.setBackgroundResource(selectedBackgrounds[i]);
         }
@@ -485,7 +530,7 @@ public class ScreenCreation {
         {
             for(int j=0;j<max_challenges;j++)
             {
-                if(completion_status[SelectedModule][SelectedLevel][i][j]==STATUS_COMPLETED)
+                if(getCompletionStatus(SelectedModule,SelectedLevel,i,j)==STATUS_COMPLETED)
                     completed_count++;
             }
         }
@@ -494,38 +539,23 @@ public class ScreenCreation {
         return ans;
     }
 
-    private void createDefaultCompletionStatus()
+    private int getDefaultCompletionStatus(int M,int L,int S,int C)
     {
-        completion_status = new int[ModuleLevelCount.length][][][];
+        int ModuleLevelCount[] = {18,8,4,8,15,17,11};
+        if(ModuleLevelCount[M]-1==L)
+            return STATUS_NEW;
 
-        for(int p=0;p<ModuleLevelCount.length;p++)
-        {
-            int max_levels = ModuleLevelCount[p];
-            completion_status[p] = new int[max_levels][6][5];
-            for (int q=0;q<max_levels;q++)
-            {
-                int number_of_stages = 6;
-                for(int r=0;r<number_of_stages;r++)
-                {
-                    int number_of_challenges = 5;
-                    for (int s=0;s<number_of_challenges;s++)
-                    {
-                        if(q<1&&r<1&&s<1)
-                            completion_status[p][q][r][s] = STATUS_NEW;
-                        else
-                            completion_status[p][q][r][s] = STATUS_LOCKED;
-                    }
-                }
-            }
-        }
+        if(L<1 && S<1 && C<1)
+            return STATUS_NEW;
+        else
+            return STATUS_LOCKED;
     }
 
-    private void getCompletionStatusFromPreferences()
+    private void setCurrentGameAndOverallCompletionStatusData( )
     {
         CountOfCompletedGames=0;
         TotalGames=0;
-
-        boolean flag=true;
+        SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA), mContext.MODE_PRIVATE);
         for(int p=0;p<ModuleLevelCount.length;p++)
         {
             int max_levels = ModuleLevelCount[p];
@@ -538,20 +568,32 @@ public class ScreenCreation {
                     for (int s=0;s<number_of_challenges;s++)
                     {
                         TotalGames++;
-                        if(completion_status[p][q][r][s]==STATUS_COMPLETED)
+                        String id = String.valueOf(p)+"_"+String.valueOf(q)+
+                                "_"+String.valueOf(r)+"_"+String.valueOf(s);
+                        //get data from preferences
+                        if(prefs.getInt(id,getDefaultCompletionStatus(p,q,r,s))==STATUS_COMPLETED)
                             CountOfCompletedGames++;
-                        else if (flag)
-                        {
-                            CurrentModule = p;
-                            CurrentLevel = q;
-                            CurrentStage = r;
-                            CurrentChallenge = s;
-                            flag=false;
-                        }
                     }
                 }
             }
         }
+
+        String currentGame = prefs.getString(String.valueOf(CURRENT_GAME_ID),"0_0_0_0");
+        CurrentModule = Integer.parseInt(currentGame.split("_")[0]);
+        CurrentLevel = Integer.parseInt(currentGame.split("_")[1]);
+        CurrentStage = Integer.parseInt(currentGame.split("_")[2]);
+        CurrentChallenge = Integer.parseInt(currentGame.split("_")[3]);
+    }
+
+    private int getCompletionStatus(int M,int L,int S,int C)
+    {
+        String id = String.valueOf(M)+"_"+String.valueOf(L)+
+                "_"+String.valueOf(S)+"_"+String.valueOf(C);
+
+        SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA),
+                mContext.MODE_PRIVATE);
+        //get data from preferences
+        return prefs.getInt(id,getDefaultCompletionStatus(M,L,S,C));
     }
 
     private int getPercentCompletedTextColor(int percent)
@@ -572,7 +614,7 @@ public class ScreenCreation {
         {
             for(int j=0;j<max_challenges;j++)
             {
-                if(completion_status[module_index][level_index][i][j]!=STATUS_COMPLETED)
+                if(getCompletionStatus(module_index,level_index,i,j)!=STATUS_COMPLETED)
                 {
                     result[0]=i;
                     result[1]=j;
@@ -584,4 +626,32 @@ public class ScreenCreation {
         result[1]=max_challenges-1;
         return result;
     }
+
+
+    public void cleanUp()
+    {
+        Runnable myRunnable = new Runnable(){
+            public void run(){
+                ProcessLevel=null;
+                ProcessStage=null;
+                ProcessChallenge=null;
+                NextClick=null;
+                StartContinueClick=null;
+                tv_module_header=null;
+                btn_expand_collapse=null;
+                module_levels=null;
+                Modules=null;
+                ModuleLevelCount=null;
+                System.gc();
+            }
+        };
+        Thread thread = new Thread(myRunnable);
+        thread.start();
+    }
 }
+
+
+//SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+//editor.putString("name", "Elena");
+//        editor.putInt("idName", 12);
+//        editor.commit();

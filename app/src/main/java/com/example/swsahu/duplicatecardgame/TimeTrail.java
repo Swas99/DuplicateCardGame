@@ -120,13 +120,12 @@ public class TimeTrail {
                     CurrentGame.AcquireLOCK();
 
                     CurrentGame.GameTimer.cancel();
-                    CurrentGame.ShowLevelCompletedDialog();
+                    CurrentGame.postGameLogic();
                     SetEnableControls(true, CurrentGame.GameBoard);
                     CurrentGame.Btn_Power.setEnabled(true);
 
                     //Sync threads !!
                     CurrentGame.ReleaseLOCK();
-
                     isAnimating=false;
                 }
             }.start();

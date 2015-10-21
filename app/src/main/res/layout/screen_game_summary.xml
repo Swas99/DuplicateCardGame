@@ -602,12 +602,41 @@
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_margin="2dp"
-            android:text="Store"
-            android:id="@+id/btnStore"
+            android:text="Exit"
+            android:id="@+id/btnEit"
             android:textColor="@color/black"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_white"
+            />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:text="Store"
+            android:id="@+id/btnre"
+            android:textColor="@color/black"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_white"
             />
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_margin="2dp"
+            android:id="@+id/btnStore"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_rectangle_sky_blue"
+            >
+            <Button
+                android:id="@+id/btn_store"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="35dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_store"
+                />
+        </RelativeLayout>
     </RelativeLayout>
 
 

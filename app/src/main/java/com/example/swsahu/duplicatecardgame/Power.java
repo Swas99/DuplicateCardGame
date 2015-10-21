@@ -775,7 +775,6 @@ public class Power {
                 }
                 else//match found
                 {
-
                     CurrentGame.SoundEffect(true);
                     if(CurrentGame.PlayerOne_Turn || CurrentGame.PlayerMode == ONE_PLAYER)
                         CurrentGame.Player1_Moves++;
@@ -826,7 +825,8 @@ public class Power {
                     }
 
                     if (CurrentGame.EffectiveClickCount + CurrentGame.clickAdjustment_destroyedCards
-                            == CurrentGame.TotalCardsOnBoard) {
+                            == CurrentGame.TotalCardsOnBoard)
+                    {
                         CurrentGame.EndTime = System.nanoTime() - CurrentGame.StartTime;
                         if (CurrentGame.GameTimer != null) {
                             CurrentGame.GameTimer.cancel();
@@ -834,7 +834,7 @@ public class Power {
                         if (CurrentGame.GameMode == TIME_TRIAL)
                             CurrentGame.objTimeTrail.TimeTrialTimer.cancel();
 
-                        CurrentGame.ShowLevelCompletedDialog();
+                        CurrentGame.postGameLogic();
                     }
                     CurrentGame.Flip_anim.setAnimationListener(CurrentGame.DefaultFlipListener);
                 }

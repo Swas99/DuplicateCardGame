@@ -257,6 +257,6 @@ public class PowerCardAdapter  extends BaseAdapter {
         }
         editor.putString(String.valueOf(power), newPowerData);
         editor.putInt(String.valueOf(POWER_COUNT), length);
-        editor.commit();
+        editor.apply();
     }
 }

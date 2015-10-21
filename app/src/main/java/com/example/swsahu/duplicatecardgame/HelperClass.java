@@ -99,6 +99,10 @@ public class HelperClass {
     public final static int PREVIOUS_WINNING_STREAK = 112;
     public final static int TOTAL_COINS = 113;
     public final static int GAME_BACKGROUND = 114;
+    public final static int STORY_MODE_DATA = 115;
+    public final static int CURRENT_GAME_ID = 116;
+    public final static int STORY_MODE_SCORES = 118;
+    public final static int STORY_MODE_STARS = 120;
     ////
 
     //Numeric Constants

@@ -5,16 +5,12 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 
-import static com.example.swsahu.duplicatecardgame.HelperClass.*;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.BOTH;
@@ -26,27 +22,18 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.FLIP_ANIMATION_TI
 import static com.example.swsahu.duplicatecardgame.HelperClass.HORIZONTAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.HURRICANE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.LOCKING_TIME;
-import static com.example.swsahu.duplicatecardgame.HelperClass.MANUAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_COL_SIZE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_1B;
 import static com.example.swsahu.duplicatecardgame.HelperClass.MAX_ROW_SIZE_2B;
 import static com.example.swsahu.duplicatecardgame.HelperClass.NO_SCROLL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_PLAYER;
-import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_BothScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_HorizontalScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.OneBoard_VerticalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.RANDOM_BOT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ROCK;
+import static com.example.swsahu.duplicatecardgame.HelperClass.SCREEN_GAME;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_1;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_2;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL_VALUE_3;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_BothScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_HorizontalScroll;
-import static com.example.swsahu.duplicatecardgame.HelperClass.TwoBoard_VerticalScroll;
 import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
 
 public class HomePageTitleBar {
@@ -327,7 +314,7 @@ public class HomePageTitleBar {
                     float flipAnimTime;
 
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                    int overhead = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+                    int overhead = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
                     int lockingTime = preferences.getInt(String.valueOf(LOCKING_TIME), 600);
                     if(overhead<20)
                     {
@@ -375,7 +362,7 @@ public class HomePageTitleBar {
                     float flipAnimTime;
 
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                    int overhead = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+                    int overhead = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
                     int lockingTime = preferences.getInt(String.valueOf(LOCKING_TIME), 600);
                     if(overhead<20)
                     {

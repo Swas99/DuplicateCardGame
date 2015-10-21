@@ -757,17 +757,17 @@ public class MainActivity extends Activity {
     public void reverseOneTouchFlip()
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
-        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
-        x = (x>20)? 9 : 120;
+        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
+        x = (x>20)? 120 : 9;
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt(String.valueOf(FLIP_ANIMATION_TIME), x);
-        editor.commit();
+        editor.apply();
     }
 
     public String getOneTouchFlipText()
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
-        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
         if(x>20)
             return "OFF";
         else
@@ -857,7 +857,7 @@ public class MainActivity extends Activity {
             editor.putInt(String.valueOf(GAME_BACKGROUND), GameBackground);
         }
         // Commit the edits!
-        editor.commit();
+        editor.apply();
     }
 
     private void StartGame()
@@ -901,8 +901,10 @@ public class MainActivity extends Activity {
             case SCREEN_GAME:
                 if(objCardGame.GameTimer!=null)
                    objCardGame.GameTimer.cancel();
-                if(GameMode == TIME_TRIAL)
-                    objCardGame.objTimeTrail.TimeTrialTimer.cancel();
+                if(objCardGame.objTimeTrail!=null)
+                    if(objCardGame.objTimeTrail.TimeTrialTimer!=null)
+                       objCardGame.objTimeTrail.TimeTrialTimer.cancel();
+
                 objCardGame=null;
             default:
                 loadView(R.layout.screen_home);
@@ -1180,13 +1182,13 @@ public class MainActivity extends Activity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putInt(String.valueOf(LOCKING_TIME), value);
-                        editor.commit();
+                        editor.apply();
                         LockingTime=value;
                         InitializeScreenControls_BoardDetails();
                         break;
 
                     default:
-                        Toast.makeText(thisContext,"Didn't match any key. Debug !!",Toast.LENGTH_SHORT);
+                        Toast.makeText(thisContext,"Didn't match any key. Debug !!",Toast.LENGTH_SHORT).show();
                 }
                 CommonDialog.dismiss();
 
@@ -1212,7 +1214,7 @@ public class MainActivity extends Activity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putLong(String.valueOf(TOTAL_COINS), coins);
         // Commit the edits!
-        editor.commit();
+        editor.apply();
     }
 
     //region Load default Values
@@ -1341,7 +1343,7 @@ public class MainActivity extends Activity {
         switch (identifier)
         {
             case ARCADE:
-                text = "ARCADE";
+                text = "Arcade";
                 break;
             case TIME_TRIAL:
                 text = "Time-Trial";

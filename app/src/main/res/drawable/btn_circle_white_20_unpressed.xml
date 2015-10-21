@@ -4,8 +4,11 @@
     >
     <item >
         <shape
-            android:shape="oval"
+            android:shape="rectangle"
             >
+            <corners
+                android:radius="9dp"/>
+
             <gradient
                 android:angle="45"
                 android:startColor="#09FFFFFF"

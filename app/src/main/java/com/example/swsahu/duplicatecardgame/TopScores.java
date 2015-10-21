@@ -941,7 +941,7 @@ public class TopScores {
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove(identifier_scoreData);
                 editor.putString(identifier_scoreData, scoreData);
-                editor.commit();
+                editor.apply();
 
                 ((TextView) mContext.findViewById(R.id.tvUserScore)).setText("");
                 LoadScores();

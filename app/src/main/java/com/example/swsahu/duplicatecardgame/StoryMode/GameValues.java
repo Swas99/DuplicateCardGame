@@ -726,8 +726,8 @@ public class GameValues {
 
         int maxStages = 4;
         int numberOfLevels=ModuleLevelCount[Module_index];
-        int minMemory=3;
-        int maxMemory=9;
+        int minMemory=2;
+        int maxMemory=8;
         float factor = (float)(maxMemory-minMemory)/(numberOfLevels+maxStages-2);
         return (minMemory + Math.round( factor*(Level_index+Stage_index)));
     }
@@ -735,8 +735,8 @@ public class GameValues {
         int ModuleLevelCount[] = {18,8,4,8,15,17,11};
         int maxStages = 6;
         int numberOfLevels=ModuleLevelCount[Module_index];
-        int minTimeTrialTime=5;
-        int maxTimeTrialTime=15;
+        int minTimeTrialTime=5400;
+        int maxTimeTrialTime=16200;
         float factor = (float)(maxTimeTrialTime-minTimeTrialTime)/(numberOfLevels+maxStages-2);
         return (maxTimeTrialTime - Math.round( factor*(Level_index+Stage_index)));
     }
@@ -821,14 +821,14 @@ public class GameValues {
             case 3:
                 return HelperClass.TIME_TRIAL;
             case 4:
-                if (Stage_index%2==0)
-                    return HelperClass.TIME_TRIAL;
-                else
+//                if (Level_index%2==0)
+//                    return HelperClass.TIME_TRIAL;
+//                else
                     return HelperClass.ARCADE;
             case 5:
-                if (Stage_index%2!=0)
-                    return HelperClass.TIME_TRIAL;
-                else
+//                if (Level_index%2!=0)
+//                    return HelperClass.TIME_TRIAL;
+//                else
                     return HelperClass.ARCADE;
         }
         return HelperClass.ARCADE;
@@ -907,27 +907,78 @@ public class GameValues {
 
     public int getBackGroundIndex( )
     {
-        int background_index=1;
-        int maxBackground_index=17;
-        int ModuleLevelCount[] = {18,8,4,8,15,17,11};
-        int numberOfModules = ModuleLevelCount.length;
+        int background_index;
+        int maxStages = 6;
+        int maxChallenges = 5;
+        background_index =  (
+                                Level_index*maxStages*maxChallenges +
+                                Stage_index*maxChallenges +
+                                Challenge_index
+                            )%12 + 1;
 
-        int GameBackGround[][] = new int[numberOfModules][];
-
-        for(int i=0;i<numberOfModules;i++)
+        if(Module_index==0)
         {
-            GameBackGround[i] = new int[ModuleLevelCount[i]];
-        }
-        for(int i=0;i<numberOfModules;i++)
-            for(int j=0;j<ModuleLevelCount[i];j++)
+            if(Level_index==0 || Level_index==11)
             {
-                GameBackGround[i][j] = background_index++;
-                if(background_index>maxBackground_index)
-                    background_index=1;
+                if(background_index==9)
+                    return 4;
             }
+        }
+        if(Module_index==6)
+        {
+            if(background_index==12)
+            {
+                if(Level_index%2==0)
+                    return 3;
+                return 5;
+            }
+        }
+        if(Module_index==4)
+        {
+            if(Level_index==1)
+            {
+                switch (background_index)
+                {
+                    case 1:
+                        return 5;
+                    case 2:
+                        return 11;
+                    case 6:
+                        return 12;
+                    case 9:
+                        return 13;
+                }
+            }
+            if(Level_index==5 || Level_index==7
+                    || (Level_index>=10 && Level_index<=13))
+            {
+                switch (background_index)
+                {
+                    case 2:
+                        if(Stage_index%2==0)
+                            return 5;
+                        return 10;
+                    case 3:
+                        return 11;
+                    case 4:
+                        return 12;
+                }
+            }
+        }
 
-        return GameBackGround[Module_index][Level_index];
+        return background_index;
     }
+
+    public int getBoardSize()
+    {
+         int row_size = getRowSize();
+         int col_size = getColSize();
+         int boardSize = row_size*col_size;
+         if(getBoardType()==TWO_BOARD)
+             boardSize*=2;
+        return boardSize;
+    }
+
 
     //region board info
     // (4,2)- N, 2B, N

@@ -1,6 +1,7 @@
 package com.example.swsahu.duplicatecardgame;
 
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -84,7 +85,7 @@ public class GameSummary {
     String totalMoves;
     boolean animFlag = true;
 
-    long Score;
+    public long Score;
     int CoinsEarned;
 
 
@@ -174,6 +175,27 @@ public class GameSummary {
     {
         top_ViewsToAnimate_HorizontalOnes=0;
         top_ViewsToAnimate_RightAligned=0;
+        inflateSummaryScreen();
+        addFlingListenerToSummaryScreen(CurrentGame.mContext.CurrentView);
+        InitiateAndAnimateViews(CurrentGame.mContext.CurrentView);
+    }
+
+
+    public void loadSummaryScreenToDialog(Dialog dialog)
+    {
+        top_ViewsToAnimate_HorizontalOnes=0;
+        top_ViewsToAnimate_RightAligned=0;
+        inflateSummaryScreen();
+        InitiateAndAnimateViews(CurrentGame.mContext.CurrentView);
+
+        View btn_prev =CurrentGame.mContext.CurrentView.findViewById(R.id.btn_prev_page);
+        View btn_next =CurrentGame.mContext.CurrentView.findViewById(R.id.btn_next_page);
+        btn_next.setVisibility(View.GONE);
+        btn_prev.setVisibility(View.GONE);
+    }
+
+    private void inflateSummaryScreen()
+    {
 
         if(CurrentGame.mContext.CurrentView != null)
             CurrentGame.mContext.CurrentView.startAnimation(AnimationUtils.loadAnimation(CurrentGame.mContext,
@@ -181,14 +203,15 @@ public class GameSummary {
 
         LayoutInflater inflater=CurrentGame.mContext.getLayoutInflater();
         View summary_screen=inflater.inflate(R.layout.screen_game_summary, null, false);
-        addFlingListenerToSummaryScreen(summary_screen);
         summary_screen.startAnimation(AnimationUtils.loadAnimation(CurrentGame.mContext, android.R.anim.fade_in));
         CurrentGame.mContext.setContentView(summary_screen);
         CurrentGame.mContext.CurrentView = summary_screen;
 
         Typeface font = Typeface.createFromAsset(CurrentGame.mContext.getAssets(), "fonts/hurry up.ttf");
         SetFontToControls(font, (ViewGroup) summary_screen);
-
+    }
+    private void InitiateAndAnimateViews(View summary_screen)
+    {
         TextView tvMoves = (TextView)summary_screen.findViewById(R.id.tvMoves);
         TextView tvHits = (TextView)CurrentGame.mContext.CurrentView.findViewById(R.id.tvHits);
         final TextView tvAverage = (TextView)summary_screen.findViewById(R.id.tvAverage);
@@ -204,7 +227,7 @@ public class GameSummary {
         TextView animHitChain = (TextView)summary_screen.findViewById(R.id.animMaxHitStreak);
         TextView animTime = (TextView)summary_screen.findViewById(R.id.animTime);
         TextView animWinningStreak = (TextView)summary_screen.findViewById(R.id.animWinningStreak);
-       // final TextView animMultiplier = (TextView)summary_screen.findViewById(R.id.animMultiplier);
+        // final TextView animMultiplier = (TextView)summary_screen.findViewById(R.id.animMultiplier);
         final TextView animScore = (TextView)summary_screen.findViewById(R.id.animScore);
         Button btnClickMatrix = (Button)summary_screen.findViewById(R.id.btnClickCountMatrix);
         Button btnMoveMatrix = (Button)summary_screen.findViewById(R.id.btnMoveTraceMatrix);
@@ -267,8 +290,6 @@ public class GameSummary {
 
         animFlag = false;
     }
-
-
     private void addScoreFromAttemptHitRatio() {
         SparseArray<Integer> attemptHitMap = new SparseArray<>();
         for(int i = 0; i < CurrentGame.CardAttempt_Map.size(); i++) {
@@ -305,10 +326,10 @@ public class GameSummary {
 
     private void startCoinsAnimation() {
         if(animFlag) {
-            final ImageView animCoin1 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins1);
-            final ImageView animCoin2 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins2);
-            final ImageView animCoin3 = (ImageView) CurrentGame.mContext.findViewById(R.id.animCoins3);
-            View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
+            final ImageView animCoin1 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins1);
+            final ImageView animCoin2 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins2);
+            final ImageView animCoin3 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins3);
+            View regionCoin = CurrentGame.mContext.CurrentView.findViewById(R.id.region_coins);
             regionCoin.setVisibility(View.VISIBLE);
 
             final AnimationSet flip = FlipAnimation(100, 17);
@@ -326,8 +347,8 @@ public class GameSummary {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     {
-                        View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
-                        TextView tvCoins = (TextView) CurrentGame.mContext.findViewById(R.id.tvCoins);
+                        View regionCoin = CurrentGame.mContext.CurrentView.findViewById(R.id.region_coins);
+                        TextView tvCoins = (TextView) CurrentGame.mContext.CurrentView.findViewById(R.id.tvCoins);
                         if (regionCoin != null && tvCoins != null) {
                             regionCoin.setVisibility(View.INVISIBLE);
                             tvCoins.setTextColor(Color.YELLOW);
@@ -344,8 +365,8 @@ public class GameSummary {
         }
         else
         {
-            View regionCoin = CurrentGame.mContext.findViewById(R.id.region_coins);
-            TextView tvCoins = (TextView) CurrentGame.mContext.findViewById(R.id.tvCoins);
+            View regionCoin = CurrentGame.mContext.CurrentView.findViewById(R.id.region_coins);
+            TextView tvCoins = (TextView) CurrentGame.mContext.CurrentView.findViewById(R.id.tvCoins);
             regionCoin.setVisibility(View.INVISIBLE);
             tvCoins.setTextColor(Color.YELLOW);
             tvCoins.setText(String.valueOf(CoinsEarned));
@@ -355,8 +376,8 @@ public class GameSummary {
 
     private void loadAttemptHitRatio() {
         MainActivity mContext = CurrentGame.mContext;
-        LinearLayout attempt = (LinearLayout)mContext.findViewById(R.id.ll_Attempt);
-        LinearLayout match   = (LinearLayout)mContext.findViewById(R.id.ll_Match);
+        LinearLayout attempt = (LinearLayout)mContext.CurrentView.findViewById(R.id.ll_Attempt);
+        LinearLayout match   = (LinearLayout)mContext.CurrentView.findViewById(R.id.ll_Match);
 
         LinearLayout.LayoutParams lParam = new LinearLayout.LayoutParams(ConvertToPx(mContext, 54),
                 ConvertToPx(mContext, 33));
@@ -613,7 +634,7 @@ public class GameSummary {
     {
         int time = CurrentGame.GameRunningTime;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(CurrentGame.mContext);
-        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
         int totalMoves = CurrentGame.ActualClickCount/2;
         if(x<20)
         {
@@ -731,7 +752,7 @@ public class GameSummary {
                 CurrentWinningStreak = 1;
             else
             {
-                if(currentAverage<previousAverage )
+                if(currentAverage<=previousAverage )
                     CurrentWinningStreak = previousWinningStreak+1;
                 else
                     CurrentWinningStreak = 0;
@@ -757,7 +778,7 @@ public class GameSummary {
         editor.putFloat(String.valueOf(PREVIOUS_AVERAGE), currentAverage);
         editor.putInt(String.valueOf(PREVIOUS_WINNING_STREAK), CurrentWinningStreak);
         // Commit the edits!
-        editor.commit();
+        editor.apply();
 
         return CurrentWinningStreak;
     }
@@ -828,7 +849,7 @@ public class GameSummary {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(identifier, scoring_data);
         // Commit the edits!
-        editor.commit();
+        editor.apply();
 
         return prev_highScore;
     }

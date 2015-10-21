@@ -86,7 +86,7 @@ public class SettingsScreen {
     public String getOneTouchFlip()
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+        int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
         if(x>20)
             return "OFF";
         else
@@ -160,11 +160,11 @@ public class SettingsScreen {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 120);
+                int x = preferences.getInt(String.valueOf(FLIP_ANIMATION_TIME), 9);
                 x = (x>20)? 9 : 120;
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putInt(String.valueOf(FLIP_ANIMATION_TIME), x);
-                editor.commit();
+                editor.apply();
 
                 if(x>20)//Reverse it
                     OneTouchFlip.setText("OFF");
@@ -236,7 +236,7 @@ public class SettingsScreen {
                         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString(String.valueOf(PLAYER_ONE_NAME), playerName);
-                        editor.commit();
+                        editor.apply();
                         ((TextView)mContext.findViewById(R.id.PlayerOneName)).setText(playerName);
                         mContext.playerOneName = playerName;
                         CommonDialog.dismiss();
@@ -251,7 +251,7 @@ public class SettingsScreen {
                         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString(String.valueOf(PLAYER_TWO_NAME), playerName);
-                        editor.commit();
+                        editor.apply();
                         ((TextView)mContext.findViewById(R.id.PlayerTwoName)).setText(playerName);
                         mContext.playerTwoName = playerName;
                         CommonDialog.dismiss();
@@ -261,7 +261,7 @@ public class SettingsScreen {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putInt(String.valueOf(LOCKING_TIME), Integer.parseInt(value));
-                        editor.commit();
+                        editor.apply();
                         LockingTime.setText(value + " ms");
                         CommonDialog.dismiss();
                         break;
@@ -323,7 +323,7 @@ public class SettingsScreen {
         editor.remove(String.valueOf(SCROLL_TYPE));
         editor.remove(String.valueOf(CARD_SET));
 
-        editor.commit();
+        editor.apply();
 
         LockingTime.setText(getLockingTime());
         OneTouchFlip.setText(getOneTouchFlip());

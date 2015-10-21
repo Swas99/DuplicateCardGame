@@ -7,12 +7,16 @@ import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+
+import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
 
 
 public class Help {
@@ -156,8 +160,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_1board, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -173,8 +189,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_2board, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -190,8 +218,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_horizontal_scroll, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -207,8 +247,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_vertical_scroll, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -224,8 +276,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_both_scroll, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -241,8 +305,20 @@ public class Help {
                 final Dialog dialog = new AlertDialog.Builder(mContext).show();
                 LayoutInflater inflater = mContext.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_help_no_scroll, null, true);
+                view.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.setContentView(view);
                 dialog.setCancelable(true);
+                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                Window window = dialog.getWindow();
+                lp.copyFrom(window.getAttributes());
+                View v2 =  mContext.CurrentView;
+                lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+                window.setAttributes(lp);
                 dialog.findViewById(R.id.btnOk).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
