@@ -1,5 +1,6 @@
 package com.example.swsahu.duplicatecardgame;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -147,17 +148,23 @@ public class SummaryMatrix {
         }
         tvDesc.setTypeface(Typeface.DEFAULT);
 
-        Button btn_back = (Button)view.findViewById(R.id.btnBack);
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        Button btnBack = (Button)view.findViewById(R.id.btnBack);
+        Button btn_back = (Button)view.findViewById(R.id.btn_back);
+
+        View.OnClickListener backClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(CurrentGame.objGameSummary == null)
-                  CurrentGame.objGameSummary = new GameSummary(new WeakReference<>(CurrentGame),
-                        CurrentGame.CurrentCard.getMeasuredHeight(),CurrentGame.CurrentCard.getMeasuredWidth());
-
-                CurrentGame.objGameSummary.loadSummaryScreen();
+                    CurrentGame.objGameSummary = new GameSummary(new WeakReference<>(CurrentGame),
+                            CurrentGame.CurrentCard.getMeasuredHeight(),CurrentGame.CurrentCard.getMeasuredWidth());
+                if(CurrentGame.StoryMode)
+                    CurrentGame.objGameSummary.loadSummaryScreen_StoryMode();
+                else
+                    CurrentGame.objGameSummary.loadSummaryScreen();
             }
-        });
+        };
+        btnBack.setOnClickListener(backClick);
+        btn_back.setOnClickListener(backClick );
     }
     private void CreateColorList(int n)
     {

@@ -94,7 +94,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
-                            android:text="67 moves"
+                            android:text="67"
                             android:id="@+id/tvChallengeLimit"
                             android:typeface="monospace"
                             android:textColor="@color/lemon_grass"/>
@@ -133,7 +133,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/region_two_player_result"
+                        android:id="@+id/region_two_player_result_row_1"
                         android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="19sp"
-                            android:text="You win"
+                            android:text="You win!"
                             android:typeface="monospace"
                             android:textColor="@color/white"/>
                     </LinearLayout>
@@ -268,30 +268,29 @@
             android:paddingLeft="8dp"
             android:paddingEnd="8dp"
             android:paddingRight="8dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginRight="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="bottom"
-                android:text="Restart"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:clickable="true"
-                android:id="@+id/btnRestart"
-                android:textColor="@color/black"
-                android:background="@drawable/btn_white_transparency_20"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:id="@+id/btnRestart"
+                    android:textColor="@color/black"
+                    android:text="Restart"
+                    android:background="@drawable/btn_circle_white_20"
+                    />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1.4"
                 android:text="Next board"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:gravity="center"
                 android:clickable="true"
                 android:textColor="@color/white"
@@ -314,7 +313,7 @@
                 android:clickable="true"
                 android:textColor="@color/black"
                 android:id="@+id/btnGameSummary"
-                android:background="@drawable/btn_white_transparency_20"/>
+                android:background="@drawable/btn_circle_white_20"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

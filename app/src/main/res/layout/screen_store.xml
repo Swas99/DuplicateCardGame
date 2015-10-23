@@ -170,34 +170,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/black"/>
-
-
-
-
         </LinearLayout>
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:padding="2dp">
-        <Button
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:text="Home"
+            android:layout_margin="2dp"
             android:id="@+id/btnBack"
-            android:textColor="@color/black"
-            android:layout_centerInParent="true"
-            android:background="@drawable/btn_white"
             android:onClick="myClickHandler"
-            />
+            android:layout_gravity="center"
+            android:background="@drawable/btn_rectangle_sky_blue">
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:onClick="myClickHandler"
+                android:layout_centerInParent="true"
+                android:background="@drawable/img_home"
+                />
     </RelativeLayout>
 
 </LinearLayout>

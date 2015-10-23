@@ -56,30 +56,11 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
 
-public class TopScores {
+public class TopScores implements View.OnClickListener {
 
     Game CurrentGame;
     MainActivity mContext;
     boolean isFromGameScreen;
-
-    //region Listener_Variables
-
-    View.OnClickListener PreviousPage_Click;
-    View.OnClickListener NextPage_Click;
-    View.OnClickListener ExitButton_Click;
-    View.OnClickListener BackButton_Click;
-    View.OnClickListener StoreButton_Click;
-    View.OnClickListener LoadScores_Click;
-    View.OnClickListener ResetScores_Click;
-
-    View.OnClickListener GameMode_Edit_Click;
-    View.OnClickListener PlayerMode_Edit_Click;
-    View.OnClickListener BoardType_Edit_Click;
-    View.OnClickListener BoardSize_Edit_Click;
-    View.OnClickListener ScrollType_Edit_Click;
-    View.OnClickListener CardSet_Edit_Click;
-
-    //endregion
 
     AlertDialog CommonDialog;
     View.OnClickListener Process_Input;
@@ -114,13 +95,13 @@ public class TopScores {
         isFromGameScreen = is_fromGameScreen;
         CurrentGame = currentGame.get();
         mContext = CurrentGame.mContext;
-        InitializeListeners();
+        InitializeDialogInputListener();
     }
     public TopScores(WeakReference<MainActivity> m_context)
     {
         isFromGameScreen = false;
         mContext = m_context.get();
-        InitializeListeners();
+        InitializeDialogInputListener();
     }
     public void InitializeBoardDetails(int gameMode,int playerMode,int playerType,
                                        int robotMemory, int boardType,int scrollType,
@@ -167,12 +148,15 @@ public class TopScores {
 
     private void initializeSpecificControls_Set2()
     {
-        View btn_back = (mContext.findViewById(R.id.btnBack));
+        View btnBack = (mContext.findViewById(R.id.btnBack));
+        View btn_back = (mContext.findViewById(R.id.btn_back));
+
         mContext.findViewById(R.id.btnExit).setVisibility(View.INVISIBLE);
         mContext.findViewById(R.id.btnStore).setVisibility(View.INVISIBLE);
 
         btn_back.setVisibility(View.VISIBLE);
-        btn_back.setOnClickListener(BackButton_Click);
+        btnBack.setOnClickListener(this);
+        btn_back.setOnClickListener(this);
     }
 
     private void addListenerToControls()
@@ -204,120 +188,29 @@ public class TopScores {
         Button btnStore = (Button)mContext.findViewById(R.id.btnStore);
         Button btnExit = (Button)mContext.findViewById(R.id.btnExit);
 
-        btnLoadScores.setOnClickListener(LoadScores_Click);
-        btnResetScores.setOnClickListener(ResetScores_Click);
-        btn_next_page.setOnClickListener(NextPage_Click);
-        btn_prev_page.setOnClickListener(PreviousPage_Click);
-        btnExit.setOnClickListener(ExitButton_Click);
-        btnStore.setOnClickListener(StoreButton_Click);
+        btnLoadScores.setOnClickListener(this);
+        btnResetScores.setOnClickListener(this);
+        btn_next_page.setOnClickListener(this);
+        btn_prev_page.setOnClickListener(this);
+        btnExit.setOnClickListener(this);
+        btnStore.setOnClickListener(this);
         //buttons
-        GameMode.setOnClickListener(GameMode_Edit_Click);
-        PlayerMode.setOnClickListener(PlayerMode_Edit_Click);
-        BoardType.setOnClickListener(BoardType_Edit_Click);
-        CardSet.setOnClickListener(CardSet_Edit_Click);
-        ScrollType.setOnClickListener(ScrollType_Edit_Click);
-        RowSize.setOnClickListener(BoardSize_Edit_Click);
-        ColSize.setOnClickListener(BoardSize_Edit_Click);
+        GameMode.setOnClickListener(this);
+        PlayerMode.setOnClickListener(this);
+        BoardType.setOnClickListener(this);
+        CardSet.setOnClickListener(this);
+        ScrollType.setOnClickListener(this);
+        RowSize.setOnClickListener(this);
+        ColSize.setOnClickListener(this);
 
         //Edit buttons
-        btnGameMode.setOnClickListener(GameMode_Edit_Click);
-        btnPlayerMode.setOnClickListener(PlayerMode_Edit_Click);
-        btnBoardType.setOnClickListener(BoardType_Edit_Click);
-        btnCardSet.setOnClickListener(CardSet_Edit_Click);
-        btnScrollType.setOnClickListener(ScrollType_Edit_Click);
-        btnBoardSize.setOnClickListener(BoardSize_Edit_Click);
+        btnGameMode.setOnClickListener(this);
+        btnPlayerMode.setOnClickListener(this);
+        btnBoardType.setOnClickListener(this);
+        btnCardSet.setOnClickListener(this);
+        btnScrollType.setOnClickListener(this);
+        btnBoardSize.setOnClickListener(this);
     }
-
-    private void InitializeListeners()
-    {
-        ExitButton_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.loadView(R.layout.screen_home);
-                CurrentGame.CleanUp();
-            }
-        };
-        BackButton_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.loadView(R.layout.screen_home);
-            }
-        };
-        StoreButton_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.ShowUnderConstructionDialog();
-//                mContext.loadView(R.layout.screen_store);
-            }
-        };
-        NextPage_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                incrementScreenIndex();
-            }
-        };
-        PreviousPage_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                decrementScreenIndex();
-            }
-        };
-
-        //
-        GameMode_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 displayDialog(getGameModes(),true);
-            }
-        };
-        PlayerMode_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayDialog(getPlayerModes(),true);
-            }
-        }; 
-        BoardType_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayDialog(getBoardType(), true);
-            }
-        };
-        BoardSize_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayDialog(getRowSize(),true);
-            }
-        };
-        ScrollType_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayDialog(getScrollType(),true);
-            }
-        };
-        CardSet_Edit_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayDialog(getCardSet(),true);
-            }
-        };
-
-        LoadScores_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadPage();
-            }
-        };
-
-        ResetScores_Click = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetScores();
-            }
-        };
-
-        InitializeDialogInputListener();
-    }
-
     private void InitializeRobotMemoryListener()
     {
         final SeekBar robotMemory = (SeekBar)mContext.findViewById(R.id.RobotMemory);
@@ -350,6 +243,61 @@ public class TopScores {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.btnBack:
+            case R.id.btn_back:
+            case R.id.btnExit:
+            case R.id.btn_exit:
+                mContext.loadView(R.layout.screen_home);
+                CurrentGame.CleanUp();
+                break;
+            case R.id.btn_prev_page:
+                decrementScreenIndex();
+                break;
+            case R.id.btn_next_page:
+                incrementScreenIndex();
+                break;
+            case R.id.btnStore:
+                mContext.loadStoreScreen();
+                CurrentGame.CleanUp();
+                break;
+            case R.id.btnGameMode:
+            case R.id.GameMode:
+                displayDialog(getGameModes(), true);
+                break;
+            case R.id.btnPlayerMode:
+            case R.id.PlayerMode:
+                displayDialog(getPlayerModes(),true);
+                break;
+            case R.id.btnBoardType:
+            case R.id.BoardType:
+                displayDialog(getBoardType(),true);
+                break;
+            case R.id.btnBoardSize:
+            case R.id.RowSize:
+            case R.id.ColSize:
+                displayDialog(getRowSize(),true);
+                break;
+            case R.id.btnScrollType:
+            case R.id.ScrollType:
+                displayDialog(getScrollType(),true);
+                break;
+            case R.id.btnCardSet:
+            case R.id.CardSet:
+                displayDialog(getCardSet(),true);
+                break;
+            case R.id.btnLoadScores:
+                loadPage();
+                break;
+            case R.id.btnResetScores:
+                resetScores();
+                break;
+        }
     }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {

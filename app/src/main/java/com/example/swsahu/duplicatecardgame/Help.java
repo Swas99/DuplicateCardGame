@@ -56,6 +56,7 @@ public class Help {
         Button btnPower = (Button)mContext.findViewById(R.id.btnPower);
         Button btnGameMode = (Button)mContext.findViewById(R.id.btnGameMode);
         Button btnBack = (Button)mContext.findViewById(R.id.btnBack);
+        Button btn_back = (Button)mContext.findViewById(R.id.btn_back);
 
         btnObjective.setOnClickListener(Objective_Click);
         btnPlayerMode.setOnClickListener(PlayerMode_Click);
@@ -63,6 +64,7 @@ public class Help {
         btnPower.setOnClickListener(Power_Click);
         btnGameMode.setOnClickListener(GameMode_Click);
         btnBack.setOnClickListener(BackButton_Click);
+        btn_back.setOnClickListener(BackButton_Click);
 
     }
 

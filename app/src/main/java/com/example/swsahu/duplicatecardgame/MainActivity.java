@@ -299,10 +299,9 @@ public class MainActivity extends Activity {
                 (findViewById(R.id.btnShare)).performClick();
                 break;
             case R.id.btnBack:
-                onBackPress();
-                break;
-
+            case R.id.btn_back:
             case R.id.btnExit:
+            case R.id.btn_exit:
                 onBackPress();
                 break;
             //
@@ -374,6 +373,7 @@ public class MainActivity extends Activity {
                 RandomizeValues();
                 break;
             case R.id.btnBack:
+            case R.id.btn_back:
                 onBackPress();
                 return;
             case R.id.btnStart:
@@ -549,6 +549,7 @@ public class MainActivity extends Activity {
                 GameMode = temp;
                 break;
             case R.id.btnBack:
+            case R.id.btn_back:
                 loadView(R.layout.screen_home);
                 CURRENT_SCREEN = R.layout.screen_home;
                 return;
@@ -677,6 +678,7 @@ public class MainActivity extends Activity {
                 break;
 
             case R.id.btnBack:
+            case R.id.btn_back:
                 loadView(R.layout.screen_player_mode);
                 InitializeScreenControls_PlayerMode();
                 return;

@@ -112,6 +112,7 @@ public class Store {
         Button btn_Coin = (Button)mContext.findViewById(R.id.btn_coin);
         Button btn_RemoveAds = (Button)mContext.findViewById(R.id.btn_removeAds);
         Button btnBack = (Button)mContext.findViewById(R.id.btnBack);
+        Button btn_back = (Button)mContext.findViewById(R.id.btn_back);
 
         btnBack.setOnClickListener(BackButton_Click);
         btnPow.setOnClickListener(Power_Click);
@@ -120,29 +121,7 @@ public class Store {
         btn_Pow.setOnClickListener(Power_Click);
         btn_Coin.setOnClickListener(Coins_Click);
         btn_RemoveAds.setOnClickListener(RemoveAds_Click);
-
-//        btnLoadScores.setOnClickListener(LoadScores_Click);
-//        btnResetScores.setOnClickListener(ResetScores_Click);
-//        btn_next_page.setOnClickListener(NextPage_Click);
-//        btn_prev_page.setOnClickListener(PreviousPage_Click);
-//        btnExit.setOnClickListener(ExitButton_Click);
-//        btnStore.setOnClickListener(StoreButton_Click);
-//        //buttons
-//        GameMode.setOnClickListener(GameMode_Edit_Click);
-//        PlayerMode.setOnClickListener(PlayerMode_Edit_Click);
-//        BoardType.setOnClickListener(BoardType_Edit_Click);
-//        CardSet.setOnClickListener(CardSet_Edit_Click);
-//        ScrollType.setOnClickListener(ScrollType_Edit_Click);
-//        RowSize.setOnClickListener(BoardSize_Edit_Click);
-//        ColSize.setOnClickListener(BoardSize_Edit_Click);
-//
-//        //Edit buttons
-//        btnGameMode.setOnClickListener(GameMode_Edit_Click);
-//        btnPlayerMode.setOnClickListener(PlayerMode_Edit_Click);
-//        btnBoardType.setOnClickListener(BoardType_Edit_Click);
-//        btnCardSet.setOnClickListener(CardSet_Edit_Click);
-//        btnScrollType.setOnClickListener(ScrollType_Edit_Click);
-
+        btn_back.setOnClickListener(BackButton_Click);
     }
 
     private void powerClick()
@@ -248,7 +227,7 @@ public class Store {
             BuyBagOfCoins_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT).show();
                 }
             };
             BuyTrunkOfCoins_Click = new View.OnClickListener() {

@@ -588,51 +588,37 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:padding="2dp">
-        <Button
+
+        <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_margin="2dp"
-            android:text="Exit"
             android:id="@+id/btnExit"
-            android:textColor="@color/black"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_white"
-            />
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:layout_margin="2dp"
-            android:text="Exit"
-            android:id="@+id/btnEit"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_white"
-            />
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:layout_margin="2dp"
-            android:text="Store"
-            android:id="@+id/btnre"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/btn_white"
-            />
+            android:background="@drawable/btn_rectangle_sky_blue"
+            >
+            <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="35dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/img_home"
+                />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_margin="2dp"
             android:id="@+id/btnStore"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/btn_rectangle_sky_blue"
             >
             <Button
                 android:id="@+id/btn_store"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginTop="35dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_store"
                 />

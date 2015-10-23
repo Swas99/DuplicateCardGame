@@ -141,6 +141,7 @@ public class GameSummary {
             @Override
             public void onClick(View v) {
                 CurrentGame.mContext.loadStoreScreen();
+                CurrentGame.CleanUp();
             }
         };
         NextPage_Click = new View.OnClickListener() {
@@ -181,7 +182,7 @@ public class GameSummary {
     }
 
 
-    public void loadSummaryScreenToDialog(Dialog dialog)
+    public void loadSummaryScreen_StoryMode()
     {
         top_ViewsToAnimate_HorizontalOnes=0;
         top_ViewsToAnimate_RightAligned=0;
@@ -234,8 +235,10 @@ public class GameSummary {
         Button btnRetainMatrix = (Button) summary_screen.findViewById(R.id.btnRetainingPower);
         Button btnPrevious = (Button)summary_screen.findViewById(R.id.btn_prev_page);
         Button btnNext = (Button)summary_screen.findViewById(R.id.btn_next_page);
-        Button btnExit = (Button)summary_screen.findViewById(R.id.btnExit);
-        Button btnStore = (Button)summary_screen.findViewById(R.id.btnStore);
+        View btnExit = summary_screen.findViewById(R.id.btnExit);
+        View btn_exit = summary_screen.findViewById(R.id.btn_exit);
+        View btnStore =  summary_screen.findViewById(R.id.btnStore);
+        View btn_store =  summary_screen.findViewById(R.id.btn_store);
 
         tvMoves.setText(playerOneMoves+" / "+totalMoves);
         tvHits.setText(String.valueOf(playerOne_Hits) + " / " + String.valueOf(totalHits));
@@ -280,7 +283,9 @@ public class GameSummary {
         btnNext.setOnClickListener(NextPage_Click);
         btnPrevious.setOnClickListener(PreviousPage_Click);
         btnExit.setOnClickListener(ExitButton_Click);
+        btn_exit.setOnClickListener(ExitButton_Click);
         btnStore.setOnClickListener(StoreButton_Click);
+        btn_store.setOnClickListener(StoreButton_Click);
         loadAttemptHitRatio();
 
         tvScore.setText(String.valueOf(Score));

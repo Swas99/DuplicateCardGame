@@ -216,27 +216,26 @@ public class PostGame implements View.OnClickListener {
 
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view;
+        //region Game Won Dialog
         if(result)
         {
             view = inflater.inflate(R.layout.dialog_story_mode_summary_yay, null, true);
 
             View region_stars = view.findViewById(R.id.region_stars);
-            String challengeText;
             if(C<2)
             {
-                challengeText =String.valueOf(getOnePlayerMovesLimit());
                 computeStarsFor1PlayerGame(region_stars);
-                ((TextView) view.findViewById(R.id.tvChallengeLimit)).setText(challengeText);
+                ((TextView) view.findViewById(R.id.tvChallengeLimit)).setText(String.valueOf(getOnePlayerMovesLimit()));
+                ((TextView)view.findViewById(R.id.tvMoves)).setText(String.valueOf(mContext.objCardGame.Player1_Moves));
             }
             else
             {
                 computeStarsFor2PlayerGame(region_stars);
                 view.findViewById(R.id.region_moves_limit).setVisibility(View.GONE);
                 view.findViewById(R.id.region_moves_made).setVisibility(View.GONE);
-                view.findViewById(R.id.region_two_player_result).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.region_two_player_result_row_1).setVisibility(View.VISIBLE);
             }
 
-            ((TextView)view.findViewById(R.id.tvMoves)).setText(String.valueOf(mContext.objCardGame.Player1_Moves));
             ((TextView)view.findViewById(R.id.tvScore)).setText(String.valueOf(currentScore));
             ((TextView)view.findViewById(R.id.tvTopScore)).setText(String.valueOf(topScore));
             view.findViewById(R.id.btnGameSummary).setOnClickListener(this);
@@ -246,14 +245,33 @@ public class PostGame implements View.OnClickListener {
             tvNext.setTypeface(font);
             view.findViewById(R.id.btnRestart).setOnClickListener(this);
         }
+        //endregion
+        //region Game Lost
         else
         {
             view = inflater.inflate(R.layout.dialog_story_mode_summary_oh_no, null, true);
+
+            if(C<2)
+            {
+                ((TextView) view.findViewById(R.id.tvChallengeLimit)).setText(String.valueOf(getOnePlayerMovesLimit()));
+                ((TextView)view.findViewById(R.id.tvMoves)).setText(String.valueOf(mContext.objCardGame.Player1_Moves));
+            }
+            else
+            {
+                view.findViewById(R.id.region_moves_limit).setVisibility(View.GONE);
+                view.findViewById(R.id.region_moves_made).setVisibility(View.GONE);
+                view.findViewById(R.id.region_two_player_result_row_1).setVisibility(View.VISIBLE);
+
+                TextView tvRow3 =  (TextView)view.findViewById(R.id.tvRow3);
+                tvRow3.setText("You lose\nNever Give Up.");
+
+
+            }
             view.findViewById(R.id.btnGameSummary).setOnClickListener(this);
             view.findViewById(R.id.btnNext).setOnClickListener(this);
             view.findViewById(R.id.btnRestart).setOnClickListener(this);
-
         }
+        //endregion
 
 
         DialogWindow = new AlertDialog.Builder(mContext).show();
@@ -377,17 +395,23 @@ public class PostGame implements View.OnClickListener {
         {
             case R.id.btnGameSummary:
                 DialogWindow.dismiss();
-                mContext.objCardGame.objGameSummary.loadSummaryScreenToDialog(DialogWindow);
+                mContext.objCardGame.objGameSummary.loadSummaryScreen_StoryMode();
                 break;
             case R.id.btnNext:
                 NextGame();
                 break;
             case R.id.btnRestart:
+            case R.id.btn_restart:
                 mContext.objCardGame.resetGameData();
                 mContext.objCardGame.CardSet = STORY_MODE_CARD_SET;
                 if(mContext.objCardGame.BoardType == TWO_BOARD)
                     mContext.objCardGame.RowSize/=2;
                 mContext.objCardGame.createGame();
+                DialogWindow.dismiss();
+                break;
+            case R.id.btnBuy:
+                mContext.loadStoreScreen();
+                mContext.objCardGame.CleanUp();
                 DialogWindow.dismiss();
                 break;
         }

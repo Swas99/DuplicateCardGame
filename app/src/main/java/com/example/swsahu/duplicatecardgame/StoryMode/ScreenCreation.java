@@ -45,7 +45,6 @@ public class ScreenCreation {
     View.OnClickListener StartContinueClick;
     Dialog DialogWindow;
 
-
     View tv_module_header;
     View btn_expand_collapse;
     View module_levels;
@@ -328,7 +327,7 @@ public class ScreenCreation {
             layoutParams_r.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
             tv.setLayoutParams(layoutParams_r);
-            tv.setTextSize(screen_width / 12);
+            tv.setTextSize(screen_width / 13);
             tv.setGravity(Gravity.CENTER);
             tv.setHeight(screen_width / 5);
             tv.setWidth(screen_width / 5);

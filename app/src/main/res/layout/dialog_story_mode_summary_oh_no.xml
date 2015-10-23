@@ -48,7 +48,6 @@
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="@color/black"/>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -63,7 +62,8 @@
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:id="@+id/region_moves_limit">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -78,13 +78,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
-                            android:text="Challenge limit : 67 moves"
+                            android:text="Moves limit : "
+                            android:typeface="monospace"
+                            android:textColor="@color/lemon_grass"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:text="67"
+                            android:id="@+id/tvChallengeLimit"
                             android:typeface="monospace"
                             android:textColor="@color/lemon_grass"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:id="@+id/region_moves_made">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -100,27 +109,47 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="19sp"
-                            android:text="Moves made : 60"
+                            android:text="Moves made : "
+                            android:typeface="monospace"
+                            android:textColor="@color/white"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:text="60"
+                            android:id="@+id/tvMoves"
                             android:typeface="monospace"
                             android:textColor="@color/white"/>
                     </LinearLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp">
+                        android:id="@+id/region_two_player_result_row_1"
+                        android:visibility="gone">
                         <TextView
-                            android:layout_width="200dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:padding="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
+                            android:textSize="18sp"
+                            android:text="● "
                             android:gravity="center"
-                            android:textSize="30sp"
-                            android:text="Buy Powers!"
-                            android:textColor="#000000"
-                            android:background="@drawable/btn_circle_white_20"/>
-                    </RelativeLayout>
+                            android:layout_gravity="center"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:text="You lose."
+                            android:id="@+id/tvRow3"
+                            android:typeface="monospace"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
                 </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="1dp"
@@ -128,7 +157,41 @@
                     android:background="@color/black"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"/>
 
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="7dp">
+                    <TextView
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:textSize="27sp"
+                        android:text="Buy Powers!"
+                        android:textColor="#000000"
+                        android:id="@+id/btnBuy"
+                        android:background="@drawable/btn_circle_white_20"/>
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"/>
+            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -157,24 +220,28 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="2dp"
                 android:layout_gravity="bottom"
-                android:text="Summary"
+                android:text="Skip"
                 android:gravity="center"
-                android:clickable="true"
                 android:textColor="@color/black"
-                android:id="@+id/btnGameSummary"
-                android:background="@drawable/btn_white_transparency_20"/>
-
-            <TextView
+                android:id="@+id/btnNext"
+                android:enabled="false"
+                android:background="@drawable/background_white45_white196_disabled"/>
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="54dp"
+                android:layout_height="52dp"
                 android:layout_weight="1.4"
-                android:text="Retry"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:clickable="true"
-                android:textColor="@color/white"
                 android:id="@+id/btnRestart"
-                android:background="@drawable/btn_rectangle_sky_blue"/>
+                android:background="@drawable/btn_rectangle_sky_blue">
+                <TextView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:id="@+id/btn_restart"
+                    android:background="@drawable/img_restart"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -186,12 +253,12 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="2dp"
                 android:layout_gravity="bottom"
-                android:text="Next"
+                android:text="Summary"
                 android:gravity="center"
-                android:clickable="false"
+                android:clickable="true"
                 android:textColor="@color/black"
-                android:id="@+id/btnNext"
-                android:background="@drawable/background_white45_white196_disabled"/>
+                android:id="@+id/btnGameSummary"
+                android:background="@drawable/btn_circle_white_20"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

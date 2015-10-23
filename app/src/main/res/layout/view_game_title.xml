@@ -86,17 +86,6 @@
                 android:text="Time : 553"
                 android:background="@drawable/border"
                 android:id="@+id/tvTime"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|right"
-                android:paddingRight="10dp"
-                android:text=""
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:id="@+id/tvMoves"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -105,29 +94,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-
-                android:gravity="center|right"
-                android:paddingRight="8dp"
-                android:paddingTop="10dp"
-                android:textColor="@color/dark_green"
-                android:text="Winning Streak : "
-                android:textSize="9dp"
-                android:visibility="invisible"
-                android:id="@+id/tvWinningStreak"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|end"
+            android:paddingEnd="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/dark_green"
+            android:text="Winning Streak : "
+            android:textSize="9dp"
+            android:visibility="invisible"
+            android:id="@+id/tvWinningStreak"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_gravity="end|right"
+            android:layout_gravity="end|center"
             android:gravity="center"
+            android:paddingEnd="8dp"
             android:paddingRight="8dp"
             android:textSize="9dp"
             android:textColor="@color/royal_blue"
             android:id="@+id/tvHitStreak"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:id="@+id/tvMoves"/>
 
     </LinearLayout>
     <RelativeLayout

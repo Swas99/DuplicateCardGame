@@ -138,8 +138,11 @@ public class StartGame implements View.OnClickListener {
     }
     private void createStarts(View regionStars)
     {
-        regionStars.setVisibility(View.VISIBLE);
         int totalMiniStars = readStars();
+        if(totalMiniStars==0)
+            return;
+
+        regionStars.setVisibility(View.VISIBLE);
         while (totalMiniStars>2)
         {
             ((LinearLayout)regionStars).addView(getStar(R.drawable.img_star_full));

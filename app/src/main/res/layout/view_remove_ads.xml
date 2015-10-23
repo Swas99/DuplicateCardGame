@@ -30,7 +30,7 @@
             <Button
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:text="Remove Ad Now!"
+                android:text="Remove Ads Now!"
                 android:textSize="18dp"
                 android:id="@+id/btnRemoveAdNow"
                 android:layout_centerInParent="true"

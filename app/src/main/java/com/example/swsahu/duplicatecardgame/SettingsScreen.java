@@ -123,6 +123,8 @@ public class SettingsScreen {
 
         btnRestoreDefaults = (TextView)mContext.findViewById(R.id.btnRestoreDefaults);
         btnBack = (Button)mContext.findViewById(R.id. btnBack);
+        Button btn_back = (Button)mContext.findViewById(R.id.btn_back);
+
 
         InitializeListeners();
 
@@ -135,6 +137,7 @@ public class SettingsScreen {
         btnLockingTime.setOnClickListener(LockingTime_Click);
         btnRestoreDefaults.setOnClickListener(RestoreDefaults_Click);
         btnBack.setOnClickListener(BackButton_Click);
+        btn_back.setOnClickListener(BackButton_Click);
     }
 
     private void InitializeListeners()
