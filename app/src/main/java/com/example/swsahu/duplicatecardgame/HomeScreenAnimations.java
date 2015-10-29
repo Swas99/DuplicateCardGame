@@ -104,12 +104,7 @@ public class HomeScreenAnimations {
 
     public AnimationSet ZoomIn()
     {
-//        AlphaAnimation fade_in = new AlphaAnimation(.7f,1f);
-//        fade_in.setDuration(2200);
-//        fade_in.setStartOffset(400);
-//        fade_in.setFillAfter(true);
-
-        ScaleAnimation zoom = new ScaleAnimation(.95f,1.1f,.95f,1.1f,
+        ScaleAnimation zoom = new ScaleAnimation(.97f,1.1f,.97f,1.1f,
                 Animation.RELATIVE_TO_SELF,.5f,
                 Animation.RELATIVE_TO_SELF, .5f);
         zoom.setDuration(3600);
@@ -121,7 +116,6 @@ public class HomeScreenAnimations {
         AnimationSet ZoomIn = new AnimationSet(true);
 //        ZoomIn.addAnimation(fade_in);
         ZoomIn.addAnimation(zoom);
-//        ZoomIn.setInterpolator(new OvershootInterpolator());
 
         return ZoomIn;
     }

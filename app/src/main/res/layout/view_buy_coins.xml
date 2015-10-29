@@ -8,28 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#28FFFFFF"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:baselineAligned="true"
+            android:orientation="horizontal"
             >
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -39,28 +24,28 @@
                 <LinearLayout
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:padding="10dp"
-                    android:orientation="vertical"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/btn_white_pressed_thin_border">
+                    android:background="@drawable/btn_white_pressed_thin_border"
+                    android:orientation="vertical"
+                    android:padding="10dp">
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="80dp"
-                        android:background="@drawable/img_coin_pouch"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:background="@drawable/img_coin_pouch"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text="Pouch of coins"
-                        android:textSize="11dp"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="Pouch of coins"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"/>
                     <RelativeLayout
                         android:layout_width="99dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="-6dp"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-6dp"/>
                     <!--android:background="@color/black"/>-->
                 </LinearLayout>
 
@@ -85,16 +70,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_centerVertical="true"
+                    android:orientation="vertical"
                     android:paddingLeft="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10dp"
                         android:text="● Worth 200 coins"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="10dp"/>
                     <RelativeLayout
                         android:layout_width="81dp"
                         android:layout_height="1dp"
@@ -105,8 +90,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="● at 10 INR"
-                        android:textSize="10dp"
                         android:textColor="@color/black"
+                        android:textSize="10dp"
                         />
                     <RelativeLayout
                         android:layout_width="42dp"
@@ -115,26 +100,18 @@
                         android:background="@color/black"
                         />
                     <Button
+                        android:id="@+id/btnBuyPouchOfCoins"
                         android:layout_width="60dp"
                         android:layout_height="36dp"
-                        android:layout_marginTop="14dp"
-                        android:text="Buy"
-                        android:id="@+id/btnBuyPouchOfCoins"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="14dp"
                         android:background="@drawable/btn_rectangle_sky_blue"
+                        android:text="Buy"
                         />
 
                 </LinearLayout>
 
             </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -155,18 +132,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:baselineAligned="true"
+            android:orientation="horizontal"
             >
-
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -176,29 +145,29 @@
                 <LinearLayout
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:orientation="vertical"
                     android:layout_centerInParent="true"
-                    android:padding="10dp"
-                    android:background="@drawable/btn_white_pressed_thin_border">
+                    android:background="@drawable/btn_white_pressed_thin_border"
+                    android:orientation="vertical"
+                    android:padding="10dp">
                     >
                     <ImageView
                         android:layout_width="65dp"
                         android:layout_height="81dp"
-                        android:background="@drawable/img_coin_bag"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:background="@drawable/img_coin_bag"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text="Bag of coins"
-                        android:textSize="11dp"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"/>
+                        android:text="Bag of coins"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"/>
                     <RelativeLayout
                         android:layout_width="81dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="-6dp"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-6dp"/>
                     <!--android:background="@color/black"/>-->
                 </LinearLayout>
 
@@ -223,8 +192,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_centerVertical="true"
+                    android:orientation="vertical"
                     android:paddingLeft="10dp"
                     >
 
@@ -232,8 +201,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="● Worth 500 coins"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="10dp"/>
                     <RelativeLayout
                         android:layout_width="81dp"
                         android:layout_height="1dp"
@@ -244,8 +213,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="● at 20 INR"
-                        android:textSize="10dp"
                         android:textColor="@color/black"
+                        android:textSize="10dp"
                         />
                     <RelativeLayout
                         android:layout_width="42dp"
@@ -254,27 +223,19 @@
                         android:background="@color/black"
                         />
                     <Button
+                        android:id="@+id/btnBuyBagOfCoins"
                         android:layout_width="60dp"
                         android:layout_height="36dp"
-                        android:layout_marginTop="14dp"
-                        android:text="Buy"
-                        android:id="@+id/btnBuyBagOfCoins"
                         android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="14dp"
                         android:background="@drawable/btn_rectangle_sky_blue"
+                        android:text="Buy"
                         />
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -295,18 +256,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:orientation="horizontal"
             >
 
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -316,30 +269,30 @@
                 <LinearLayout
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:orientation="vertical"
                     android:layout_centerInParent="true"
-                    android:padding="10dp"
-                    android:background="@drawable/btn_white_pressed_thin_border">
+                    android:background="@drawable/btn_white_pressed_thin_border"
+                    android:orientation="vertical"
+                    android:padding="10dp">
                     >
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="81dp"
-                        android:background="@drawable/img_coin_trunk"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:background="@drawable/img_coin_trunk"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text="Trunk of coins"
-                        android:textSize="11dp"
-                        android:layout_marginTop="4dp"
                         android:layout_gravity="center"
-                        android:textColor="@color/black"/>
+                        android:layout_marginTop="4dp"
+                        android:text="Trunk of coins"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"/>
                     <RelativeLayout
                         android:layout_width="99dp"
                         android:layout_height="1dp"
-                        android:layout_marginTop="-6dp"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-6dp"/>
                         <!--android:background="@color/black"/>-->
                 </LinearLayout>
 
@@ -364,8 +317,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_centerVertical="true"
+                    android:orientation="vertical"
                     android:paddingLeft="10dp"
                     >
 
@@ -373,8 +326,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="● Worth 1000 coins"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="10dp"/>
                     <RelativeLayout
                         android:layout_width="81dp"
                         android:layout_height="1dp"
@@ -384,9 +337,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="10dp"
                         android:text="● at 30 INR"
                         android:textColor="@color/black"
+                        android:textSize="10dp"
                         />
                     <RelativeLayout
                         android:layout_width="42dp"
@@ -395,36 +348,20 @@
                         android:background="@color/black"
                         />
                     <Button
+                        android:id="@+id/btnBuyTrunkOfCoins"
                         android:layout_width="60dp"
                         android:layout_height="36dp"
-                        android:layout_marginTop="14dp"
                         android:layout_gravity="center"
-                        android:text="Buy"
-                        android:id="@+id/btnBuyTrunkOfCoins"
+                        android:layout_marginTop="14dp"
                         android:background="@drawable/btn_rectangle_sky_blue"
+                        android:text="Buy"
                         />
 
                 </LinearLayout>
 
             </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#28FFFFFF"/>
-            <RelativeLayout
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/black"/>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#28FFFFFF"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/black"/>
     </LinearLayout>
 
 </ScrollView>

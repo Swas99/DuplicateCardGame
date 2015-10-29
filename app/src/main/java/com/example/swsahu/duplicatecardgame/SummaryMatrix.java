@@ -1,6 +1,5 @@
 package com.example.swsahu.duplicatecardgame;
 
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -34,16 +32,16 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
 public class SummaryMatrix {
 
+    final int CLICK_COUNT = 619;
+    final int MOVE_TRACE = 609;
+    final int RETAINING_POWER = 909;
     Game CurrentGame;
     int [][]ColorMatrix;
     int Colors[];
     int Colors_Top;
-    final int CLICK_COUNT = 619;
-    final int MOVE_TRACE = 609;
-    final int RETAINING_POWER = 909;
-    private int MatrixType;
     int cell_height;
     int cell_width;
+    private int MatrixType;
 
 
     public SummaryMatrix(WeakReference<Game> currentGame,int cellHeight,int cellWidth)
@@ -148,8 +146,8 @@ public class SummaryMatrix {
         }
         tvDesc.setTypeface(Typeface.DEFAULT);
 
-        Button btnBack = (Button)view.findViewById(R.id.btnBack);
-        Button btn_back = (Button)view.findViewById(R.id.btn_back);
+        View btnBack = view.findViewById(R.id.btnBack);
+        View btn_back = view.findViewById(R.id.btn_back);
 
         View.OnClickListener backClick = new View.OnClickListener() {
             @Override
@@ -221,7 +219,8 @@ public class SummaryMatrix {
         tv_cardClick.setLayoutParams(layoutParams_r);
         tv_cardClick.setTypeface(Typeface.create(font, Typeface.BOLD));
         tv_cardClick.setLayoutParams(layoutParams_r);
-        tv_cardClick.setTextSize(cell_height / 2);
+        int size_dp = (int)(HelperClass.ConvertToDp(cell_height)/1.3);
+        tv_cardClick.setTextSize(size_dp);
         tv_cardClick.setText(String.valueOf(value));
         tv_cardClick.setGravity(Gravity.CENTER);
         tv_cardClick.setHeight(cell_height);

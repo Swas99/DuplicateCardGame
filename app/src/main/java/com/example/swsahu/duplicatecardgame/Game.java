@@ -1,7 +1,7 @@
 package com.example.swsahu.duplicatecardgame;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -19,6 +19,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -82,53 +84,55 @@ public class Game {
 
     //region Game Data
 
-    int PlayerMode;
-    int GameMode;
     public int BoardType;
-    int ScrollType;
-    int BoardIdentifier;
     public int RowSize,ColumnSize;
-    int PlayerTwoType;
-    int RobotMemoryLevel;
-    int TimeTrialTimerValue;
     public int CardSet;
-    int TotalCardsOnBoard;
-
     public boolean PlayerOne_Turn;
     public int Player1_Moves;
     public int PlayerOne_Score;
     public int PlayerTwo_Score;
+    public int GameBackground;
+    public int LockingTime;
+    public ImageView CurrentCard;
+    public GameSummary objGameSummary;
+    public int CurrentModule;
+    public int CurrentLevel;
+    public int CurrentStage;
+    public int CurrentChallenge;
+    public boolean StoryMode;
+    int PlayerMode;
+    int GameMode;
+    int ScrollType;
+    int BoardIdentifier;
+    int PlayerTwoType;
+    int RobotMemoryLevel;
+    int TimeTrialTimerValue;
+    int TotalCardsOnBoard;
     int EffectiveClickCount;
     int ActualClickCount;
     int currentHitStreak;
     int maxHitStreak;
     boolean IsConsecutiveHit;
-    long StartTime;
-    long EndTime;
     int GameRunningTime;
     int[][] Cards_ImageResID;
     int Card_Clicks[][];
     int CardLastClicked[][];
     int CardRetainingPower[][];
     int NearMisses;
-    public int GameBackground;
-    public int LockingTime;
     SparseArray<String> CardPair_Map;
     SparseArray<Integer> CardAttempt_Map;
     SparseArray<Integer> Matches;
-
+    int ReplacementCards[];
     String DestroyedCards[];
     int DestroyedCards_Top;
     int clickAdjustment_destroyedCards;
-    boolean powUsed;
     CountDownTimer GameTimer;
     ImageView FirstCard,SecondCard;
     ImageView IV_AllCards[][];
-    public ImageView CurrentCard;
     ViewGroup GameBoard;
+    boolean powUsed;
     boolean isChallengeGame;
     int ChallengeReward;
-
     TextView TV_GameDataInfo;
     TextView tvPlayerTurn;
     TextView tvScore;
@@ -137,34 +141,22 @@ public class Game {
     TextView tvConsecutiveWins;
     TextView tvHitStreak;
     TextView tvMoves;
-
     AnimationSet Flip_anim;
     View.OnClickListener CardClick_Listener;
     Animation.AnimationListener DefaultFlipListener;
     SoundPool sp;
     int CARD_MATCH_SOUND;
     int CARD_MISMATCH_SOUND;
-
-
-    private Semaphore WAIT_LOCK;
     boolean powFind_flag;
     boolean isAnimating;
+
+//    endregion
     Button Btn_Power;
     Robot robotPlayer;
     TimeTrail objTimeTrail;
     Power objPower;
-
-    public GameSummary objGameSummary;
-
-//    endregion
-
-
-    public int CurrentModule;
-    public int CurrentLevel;
-    public int CurrentStage;
-    public int CurrentChallenge;
-    public boolean StoryMode;
     MainActivity mContext;
+    private Semaphore WAIT_LOCK;
 
 
     public Game(final WeakReference<MainActivity>  context)
@@ -330,20 +322,16 @@ public class Game {
         maxHitStreak=currentHitStreak = 0;
         clickAdjustment_destroyedCards = GameRunningTime = 0;
         NearMisses = Player1_Moves = 0;
-        StartTime = 0;
         PlayerOne_Turn = true;
         IsConsecutiveHit=true;
         powUsed = false;
         isChallengeGame = false;
         ChallengeReward = 0;
 
-        int factor = 1;
-//        if(BoardType == TWO_BOARD)
-//            factor++;
-        clearArray(Card_Clicks, RowSize*factor, ColumnSize);
-        clearArray(CardLastClicked,RowSize*factor,ColumnSize);
-        clearArray(CardRetainingPower,RowSize*factor,ColumnSize);
-        DestroyedCards = new String[RowSize*ColumnSize*factor];
+        clearArray(Card_Clicks, RowSize, ColumnSize);
+        clearArray(CardLastClicked,RowSize,ColumnSize);
+        clearArray(CardRetainingPower,RowSize,ColumnSize);
+        DestroyedCards = new String[RowSize*ColumnSize];
         CardPair_Map = new SparseArray<>();
         CardAttempt_Map = new SparseArray<>();
         WAIT_LOCK.release();
@@ -373,7 +361,6 @@ public class Game {
 
     private void CreateImageMap(){
         Cards_ImageResID = getCardSet();
-
         for(int r=0;r<RowSize;r++)
         {
             for(int c=0;c<ColumnSize;c++)
@@ -384,9 +371,10 @@ public class Game {
         RandomizeImagesMatrix(Cards_ImageResID);
     }
 
-    private int[][] CreateCardSetForTwoBoard(int cards_B1[][],int cards_B2[][])
+    private void CreateImageMapForTwoBoard( )
     {
-        cards_B1 = getCardSet();
+        int[][] cards_B1 = getCardSet();
+        int cards_B2[][] = new int[RowSize][ColumnSize];
         for(int i=0;i<RowSize ;i++)
         {
             for(int j=0;j<ColumnSize;j++)
@@ -394,12 +382,8 @@ public class Game {
                 cards_B2[i][j] = cards_B1[i][j];
             }
         }
-        return cards_B1;
-    }
-    private void CreateImageMapForTwoBoard(int cards_B1[][],int cards_B2[][])
-    {
-        cards_B1 = CreateCardSetForTwoBoard(cards_B1, cards_B2);
         RandomizeImagesMatrix(cards_B1);
+        RandomizeImagesMatrix(cards_B2);
         Cards_ImageResID = new int[2*RowSize][ColumnSize];
         for (int i=0;i<RowSize;i++)
         {
@@ -434,7 +418,8 @@ public class Game {
                 IV_AllCards[i+row_adjustment][j+col_adjustment] = iv;
                 l_col.addView(iv);
                 iv.setImageResource(R.drawable.lock);
-                //iv.setImageResource(Cards_ImageResID[i+row_adjustment][j+col_adjustment]);
+//                iv.setImageResource(Cards_ImageResID[i+row_adjustment][j+col_adjustment]);//
+//                iv.setImageResource(ReplacementCards[count++]);//here
                 pad_px = ConvertToPx(mContext, 1);
                 iv.setPadding(pad_px,pad_px,pad_px,pad_px);
 
@@ -543,10 +528,8 @@ public class Game {
 
     private void CreateTwoBoardWithoutScroll_Game()
     {
-        int cards_B1[][] = new int[RowSize][ColumnSize];
-        int cards_B2[][]= new int[RowSize][ColumnSize];
+        CreateImageMapForTwoBoard();
         IV_AllCards = new ImageView[2*RowSize][ColumnSize];
-        CreateImageMapForTwoBoard(cards_B1, cards_B2);
         InitializeCardClickListener();
 
         LinearLayout.LayoutParams decidingLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -569,10 +552,8 @@ public class Game {
     }
     protected void CreateTwoBoardVerticalScroll_Game()
     {
-        int cards_B1[][] = new int[RowSize][ColumnSize];
-        int cards_B2[][]= new int[RowSize][ColumnSize];
         IV_AllCards = new ImageView[2*RowSize][ColumnSize];
-        CreateImageMapForTwoBoard(cards_B1, cards_B2);
+        CreateImageMapForTwoBoard();
         InitializeCardClickListener();
 
         int row_height = getRowHeightForTwoBoardVerticalScroll(ColumnSize);
@@ -602,11 +583,8 @@ public class Game {
     }
     protected void CreateTwoBoardHorizontalScroll_Game()
     {
-        int cards_B1[][] = new int[RowSize][ColumnSize];
-        int cards_B2[][]= new int[RowSize][ColumnSize];
         IV_AllCards = new ImageView[2*RowSize][ColumnSize];
-
-        CreateImageMapForTwoBoard(cards_B1, cards_B2);
+        CreateImageMapForTwoBoard();
         InitializeCardClickListener();
 
         int col_width = getFullRowWidthForTwoBoardHorizontalScroll();
@@ -635,11 +613,8 @@ public class Game {
     }
     protected void CreateTwoBoardBothScroll_Game()
     {
-        int cards_B1[][] = new int[RowSize][ColumnSize];
-        int cards_B2[][]= new int[RowSize][ColumnSize];
         IV_AllCards = new ImageView[2*RowSize][ColumnSize];
-
-        CreateImageMapForTwoBoard(cards_B1, cards_B2);
+        CreateImageMapForTwoBoard();
         InitializeCardClickListener();
 
         Point card_size = getDisplaySizeForTwoBoardScrollGame();
@@ -685,7 +660,7 @@ public class Game {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ConvertToPx(mContext,TwoBoardAdjustment));
         v.setLayoutParams(layoutParams);
-        v.setBackgroundColor(Color.argb(63,0,0,0));
+        v.setBackgroundColor(Color.argb(63, 0, 0, 0));
         return v;
     }
 
@@ -747,46 +722,6 @@ public class Game {
         objPower.AssignClickListener(Btn_Power);
         CreateCardPairMap();
 
-
-        //here
-//        tvScore.setText(String.valueOf(CurrentLevel+1)+
-//                ":"+String.valueOf(CurrentStage+1)+
-//                ":"+String.valueOf(CurrentChallenge+1));
-//
-//        tvPlayerTurn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (GameTimer!=null)
-//                    GameTimer.cancel();
-//                if(objTimeTrail!=null && objTimeTrail.TimeTrialTimer!=null)
-//                    objTimeTrail.TimeTrialTimer.cancel();
-//
-//                int ModuleLevelCount[] = {18,8,4,8,15,17,11};
-//                CurrentChallenge++;
-//                if(CurrentChallenge==4)
-//                {
-//                    CurrentStage++;
-//                    CurrentChallenge=0;
-//                }
-//                if(CurrentStage==5)
-//                {
-//                    CurrentLevel++;
-//                    CurrentStage=0;
-//                    CurrentChallenge=0;
-//                }
-//                if(ModuleLevelCount[CurrentModule]==CurrentLevel)
-//                {
-//                    CurrentModule++;
-//                    CurrentLevel=0;
-//                    CurrentStage=0;
-//                    CurrentChallenge=0;
-//                }
-//                StartGame obj = new StartGame(new WeakReference<>(mContext));
-//                obj.setStoryModeData(CurrentModule,CurrentLevel,CurrentStage,CurrentChallenge);
-//                obj.tempStart_Game();
-//            }
-//        });
     }
 
 
@@ -977,7 +912,7 @@ public class Game {
         }
     }
 
-    private void shuffleArray(int[] ar)
+    private void shuffleArray(int[] ar,int length)
     {
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd;
@@ -986,7 +921,7 @@ public class Game {
         else
             rnd = new Random();
 
-        for (int i = ar.length - 1; i > 0; i--)
+        for (int i = length - 1; i > 0; i--)
         {
             int index = rnd.nextInt(i + 1);
             // Simple swap
@@ -1026,8 +961,7 @@ public class Game {
     @Nullable
     private int[][] getCardSet()
     {
-        switch (CardSet)
-        {
+        switch (CardSet) {
             case CARD_SET_1:
                 return getCardSetOne();
             case CARD_SET_2:
@@ -1036,9 +970,8 @@ public class Game {
                 return getCardSetThree();
             case STORY_MODE_CARD_SET:
                 return getCardForStoryMode();
-            default:
-                return null;
         }
+        return null;
     }
 
     private int[][] getCardSetOne()
@@ -1046,6 +979,7 @@ public class Game {
         int AllCards[] = GetCardsFromResources(R.array.card_set_one);
         int ImageMap[][] = new int[RowSize][ColumnSize];
         int AllImages_length = AllCards.length;
+
         for(int i=0;i<RowSize;i++)
         {
             for(int j=0;j<ColumnSize;j++)
@@ -1055,32 +989,16 @@ public class Game {
                 //Remove from array
                 System.arraycopy(AllCards, index + 1, AllCards, index, AllImages_length - 1 - index);
                 AllImages_length--;
+                if(AllImages_length<70)
+                    break;
             }
+            if(AllImages_length<70)
+                break;
         }
+        createReplacementCards(AllCards,AllImages_length);
+
         return ImageMap;
     }
-
-    private int[][] getCardForStoryMode()
-    {
-        GameValues objGameValues = new GameValues(CurrentModule,CurrentLevel,CurrentStage,CurrentChallenge);
-        int AllCards[] = objGameValues.getCardSet();
-        shuffleArray(AllCards);
-        CardSet = objGameValues.getCardSetValue();
-        int ImageMap[][] = new int[RowSize][ColumnSize];
-        int index=0;
-        int AllCardsLength = AllCards.length;
-
-
-        for(int i=0;i<RowSize&&index<AllCardsLength;i++)
-        {
-            for(int j=0;j<ColumnSize&&index<AllCardsLength;j++)
-            {
-                ImageMap[i][j]=AllCards[index++];
-            }
-        }
-        return ImageMap;
-    }
-
 
     private int[][] getCardSetTwo()
     {
@@ -1119,6 +1037,9 @@ public class Game {
                 }
             }
         }
+        int []replacementCards = GetCardsFromResources(R.array.card_set_three_type2);
+        createReplacementCards(replacementCards,replacementCards.length);
+
         return ImageMap;
     }
 
@@ -1143,7 +1064,11 @@ public class Game {
                     index = index / 2 * 2;
                     ImageMap[r][c++] = AllType1Cards[index];
                     if(c==ColumnSize) {c=0;r++; }
-                    if(r==RowSize) break;
+                    if(r==RowSize)
+                    {
+                        type1Cards_length--;
+                        break;
+                    }
                     ImageMap[r][c] = AllType1Cards[index + 1];
                     //Remove these two card
                     System.arraycopy(AllType1Cards, index + 2, AllType1Cards, index , type1Cards_length - 2 - index);
@@ -1159,12 +1084,58 @@ public class Game {
                     ImageMap[r][c] = AllType2Cards[index + 1];
                     //Remove these two card
                     System.arraycopy(AllType2Cards, index + 2, AllType2Cards, index , type2Cards_length - 2 - index);
-                    type2Cards_length-=2;
+                    type2Cards_length -=2;
                 }
                 count++;
+                if(type1Cards_length<70)
+                    break;
+            }
+            if(type1Cards_length<70)
+                break;
+        }
+        createReplacementCards(AllType1Cards,type1Cards_length);
+
+
+        return ImageMap;
+    }
+
+    private int[][] getCardForStoryMode()
+    {
+        GameValues objGameValues = new GameValues(CurrentModule,CurrentLevel,CurrentStage,CurrentChallenge);
+        int AllCards[] = objGameValues.getCardSet();
+        shuffleArray(AllCards,AllCards.length);
+        CardSet = objGameValues.getCardSetValue();
+        int ImageMap[][] = new int[RowSize][ColumnSize];
+        int index=0;
+        int AllCardsLength = AllCards.length;
+        for(int i=0;i<RowSize&&index<AllCardsLength; i++) {
+            for(int j=0;j<ColumnSize&&index<AllCardsLength;j++)
+            {
+                ImageMap[i][j]=AllCards[index++];
             }
         }
+        ReplacementCards = objGameValues.getReplacementCards();
         return ImageMap;
+    }
+
+    private void createReplacementCards(int[] possibleReplacements,int length)
+    {
+        //create replacement array
+        int sizeOfReplacementArray = (TotalCardsOnBoard+1)/2;
+        ReplacementCards = new int[sizeOfReplacementArray*2];
+        for(int i=0;i<sizeOfReplacementArray;i++)
+        {
+            int index = (int)(Math.random()*1000%length);
+            ReplacementCards[i]=possibleReplacements[index];
+            //Remove from array
+            System.arraycopy(possibleReplacements, index + 1, possibleReplacements, index, length - 1 - index);
+            length--;
+        }
+        int j=sizeOfReplacementArray-1;
+        for (int i=sizeOfReplacementArray*2-1;i>=sizeOfReplacementArray;i--)
+        {
+            ReplacementCards[i]=ReplacementCards[j--];
+        }
     }
 
     public int[] GetCardsFromResources(int id)
@@ -1349,7 +1320,6 @@ public class Game {
 
                 if(EffectiveClickCount+clickAdjustment_destroyedCards >= TotalCardsOnBoard )
                 {
-                    EndTime = System.nanoTime() - StartTime;
                     GameTimer.cancel();
                     if(GameMode == TIME_TRIAL)
                         objTimeTrail.TimeTrialTimer.cancel();
@@ -1544,85 +1514,147 @@ public class Game {
 
         return mContext.playerTwoName;
     }
-    //here
+
+    //region Post Game Dialog
+    public void postGameLogic()
+    {
+        objGameSummary = new GameSummary(new WeakReference<>(this),
+                CurrentCard.getMeasuredHeight(), CurrentCard.getMeasuredWidth());
+        objGameSummary.CalculateScore();
+        if(StoryMode)
+        {
+            objGameSummary.writeCoinsToPreferences(0);
+            if(!powUsed)
+                objGameSummary.getHighestScore();
+
+            PostGame objPostGame = new PostGame(new WeakReference<>(mContext));
+            objPostGame.ShowLevelCompletedDialog();
+        }
+        else
+        {
+            ShowLevelCompletedDialog();
+        }
+    }
+
     public void ShowLevelCompletedDialog()
     {
-        String result;
-        if(PlayerOne_Score>PlayerTwo_Score)
-        {
-            result = mContext.playerOneName+" wins\nScore = " +
-                    String.valueOf(PlayerOne_Score) + " : " +
-                    String.valueOf(PlayerTwo_Score) +"\n";
-        }
-        else if(PlayerOne_Score<PlayerTwo_Score)
-        {
-            result = getPlayer2_Name() +" wins\nScore = " +
-                    String.valueOf(PlayerTwo_Score) + " : " +
-                    String.valueOf(PlayerOne_Score) +"\n";
-        }
-        else
-        {
-            result = "It's a tie!\nScore = " +
-                    String.valueOf(PlayerOne_Score) + " : " +
-                    String.valueOf(PlayerTwo_Score) + "\n";
-        }
+        LayoutInflater inflater = mContext.getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_normal_mode_summary, null, true);
 
-        if(PlayerMode == ONE_PLAYER)
-        {
-            result = "Time = " + String.valueOf(GameRunningTime + " Seconds\n");
-            result+= "Total moves = "+ String.valueOf(Player1_Moves) + "\n";
-        }
+        createSummaryMessage(view);
+        final Dialog dialog = new AlertDialog.Builder(mContext).show();
+        dialog.setCancelable(false);
+        dialog.setContentView(view);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        View v2 =  mContext.CurrentView;
+        lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
 
-
-        long prev_userHighScore;
-        if(powUsed)
-            prev_userHighScore=9999999999l;
-        else
-            prev_userHighScore= objGameSummary.getHighestScore();
-
-        String message = getScoreRelatedMessage(objGameSummary.Score, prev_userHighScore);
-        result+= message;
-
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-        alertDialog.setTitle("Level Complete!");
-        alertDialog.setMessage(result);
-        alertDialog.setCancelable(false);
-        // alertDialog.setIcon(R.drawable.delete);
-        alertDialog.setPositiveButton("Summary", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                objGameSummary.loadSummaryScreen();
-            }
-        });
-
-        alertDialog.setNegativeButton("Restart", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
+        view.findViewById(R.id.btnRestart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 dialog.dismiss();
                 resetGameData();
 
                 if (BoardType == TWO_BOARD) {
-                        RowSize /= 2;
+                    RowSize /= 2;
                 }
                 createGame();
             }
         });
-        alertDialog.show();
+        view.findViewById(R.id.btnGameSummary).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                objGameSummary.loadSummaryScreen();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
-    private String getScoreRelatedMessage(long score,long prev_userScore)
+    private void createSummaryMessage(View v)
     {
-        int extraCoins = 0;
+        String data[]=new String[12];
+        View region_stars = v.findViewById(R.id.region_stars);
+
+        //region Section1 : general game msg
+        if(PlayerMode == ONE_PLAYER)
+        {
+            computeStarsFor1PlayerGame(region_stars);
+            data[0] = "Time = " + String.valueOf(GameRunningTime + " Seconds");
+            data[1] = "Total moves = "+ String.valueOf(Player1_Moves);
+
+            ((TextView)v.findViewById(R.id.tvHeader_1)).setText("Level Complete!");
+        }
+        else
+        {
+            computeStarsFor2PlayerGame(region_stars);
+            if(PlayerOne_Score>PlayerTwo_Score)
+            {
+                data[0] = mContext.playerOneName+" wins";
+                data[1]= "Score = " + String.valueOf(PlayerOne_Score) + " : " + String.valueOf(PlayerTwo_Score);
+                ((TextView)v.findViewById(R.id.tvHeader_1)).setText("Yay!");
+            }
+            else if(PlayerOne_Score<PlayerTwo_Score)
+            {
+                data[0] = getPlayer2_Name() +" wins";
+                data[1] = "Score = " + String.valueOf(PlayerTwo_Score) + " : " + String.valueOf(PlayerOne_Score);
+                ((TextView)v.findViewById(R.id.tvHeader_1)).setText("Oh No!");
+            }
+            else
+            {
+                data[0] = "It's a tie!";
+                data[1] = "Score = " + String.valueOf(PlayerOne_Score) + " : " + String.valueOf(PlayerTwo_Score);
+                ((TextView)v.findViewById(R.id.tvHeader_1)).setText("Ah!");
+            }
+
+        }
+
+        ((TextView)v.findViewById(R.id.tv1)).setText(data[0]);
+        ((TextView)v.findViewById(R.id.tv2)).setText(data[1]);
+        //endregion
+
+        //region Section 2 : High Score related
+        long prev_userScore;
+        if(powUsed)
+            prev_userScore=9999999999l;
+        else
+            prev_userScore= objGameSummary.getHighestScore();
+        long score = objGameSummary.Score;
         long defaultMaxHighScore = TotalCardsOnBoard * 7 * 3;
         long defaultMinHighScore = TotalCardsOnBoard * 5;
-
-        String msg = "";
         if(score>prev_userScore && score>defaultMaxHighScore)
-            msg+= "\n**New High Score**\nNailed it!\n";
-        else if(score>prev_userScore && score>defaultMinHighScore)
-            msg+="\n**Personal Best Score**\nGreat job!\n";
+        {
+            data[2]= "**New High Score**";
+            data[3]="Nailed it!";
 
+            v.findViewById(R.id.region_row3).setVisibility(View.VISIBLE);
+            v.findViewById(R.id.region_row4).setVisibility(View.VISIBLE);
+            ((TextView)v.findViewById(R.id.tv3)).setText(data[2]);
+            ((TextView)v.findViewById(R.id.tv4)).setText(data[3]);
+        }
+        else if(score>prev_userScore && score>defaultMinHighScore)
+        {
+            data[2]="**Personal Best Score**";
+            data[3]="Great job!";
+
+            v.findViewById(R.id.region_row3).setVisibility(View.VISIBLE);
+            v.findViewById(R.id.region_row4).setVisibility(View.VISIBLE);
+            ((TextView)v.findViewById(R.id.tv3)).setText(data[2]);
+            ((TextView)v.findViewById(R.id.tv4)).setText(data[3]);
+        }
+        //endregion
+
+        //region Section 3 : Challenge related
+        int extraCoins = 0;
         if(isChallengeGame)
         {
+
+            v.findViewById(R.id.region_row5).setVisibility(View.VISIBLE);
             boolean challengeWon = false;
-            msg+= "\nChallenge summary: ";
             if(PlayerMode == ONE_PLAYER)
             {
                 int board_size = (int)(RowSize*ColumnSize*1.2f);
@@ -1636,13 +1668,23 @@ public class Game {
                 if(totalMoves<=max_moves)
                 {
                     challengeWon=true;
-                    msg+= "\nCongrats!" +
-                            "\nMoves made : " + String.valueOf(totalMoves) +
-                            "\nChallenge max limit : " +String.valueOf(max_moves) + "\n";
+                    data[5]= "Congrats!";
+                    data[6]= "Moves made : " + String.valueOf(totalMoves);
+                    data[7]= "Challenge max limit : " +String.valueOf(max_moves);
+
+                    v.findViewById(R.id.region_row6).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.region_row7).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.region_row8).setVisibility(View.VISIBLE);
+                    ((TextView)v.findViewById(R.id.tv6)).setText(data[5]);
+                    ((TextView)v.findViewById(R.id.tv7)).setText(data[6]);
+                    ((TextView)v.findViewById(R.id.tv8)).setText(data[7]);
                 }
                 else
                 {
-                    msg+= "\nYou failed to finish within " + String.valueOf(max_moves) +" moves.";
+                    data[5]= "You failed to finish within " + String.valueOf(max_moves) +" moves.";
+
+                    v.findViewById(R.id.region_row6).setVisibility(View.VISIBLE);
+                    ((TextView)v.findViewById(R.id.tv6)).setText(data[5]);
                 }
             }
             else
@@ -1650,44 +1692,101 @@ public class Game {
                 if(PlayerOne_Score>PlayerTwo_Score)
                 {
                     challengeWon=true;
-                    msg+= "\nCongrats! \nYou have defeated " + mContext.get_text(PlayerTwoType);
+                    data[5]= "Congrats!";
+                    data[6]="You have defeated " + mContext.get_text(PlayerTwoType);
+
+                    v.findViewById(R.id.region_row6).setVisibility(View.VISIBLE);
+                    v.findViewById(R.id.region_row7).setVisibility(View.VISIBLE);
+                    ((TextView)v.findViewById(R.id.tv6)).setText(data[5]);
+                    ((TextView)v.findViewById(R.id.tv7)).setText(data[6]);
                 }
                 else if (PlayerOne_Score ==PlayerTwo_Score)
-                    msg+= "\nIt was a good game. Better luck next time.";
+                {
+                    data[5]= "It was a good game. Better luck next time.";
+
+                    v.findViewById(R.id.region_row6).setVisibility(View.VISIBLE);
+                    ((TextView)v.findViewById(R.id.tv6)).setText(data[5]);
+                }
                 else
                 {
-                    msg+= "\nYou need more practice.";
+                    data[5]= "You need more practice.";
+
+                    v.findViewById(R.id.region_row6).setVisibility(View.VISIBLE);
+                    ((TextView)v.findViewById(R.id.tv6)).setText(data[5]);
                 }
             }
             if(challengeWon)
             {
-                msg+="\nReward = "+String.valueOf(ChallengeReward)+" extra coins!";
+                data[8]="Reward = "+String.valueOf(ChallengeReward)+" extra coins!";
+
+                v.findViewById(R.id.region_row9).setVisibility(View.VISIBLE);
+                ((TextView)v.findViewById(R.id.tv9)).setText(data[8]);
+
                 extraCoins = ChallengeReward;
             }
         }
+        //endregion
 
         objGameSummary.writeCoinsToPreferences(extraCoins);
         isChallengeGame = false;
         ChallengeReward = 0;
-        return msg;
     }
-
-    public void postGameLogic()
+    private void computeStarsFor1PlayerGame(View regionStars)
     {
-        objGameSummary = new GameSummary(new WeakReference<>(this),
-                CurrentCard.getMeasuredHeight(), CurrentCard.getMeasuredWidth());
-        objGameSummary.CalculateScore();
-        if(StoryMode)
-        {
-            objGameSummary.writeCoinsToPreferences(0);
-            PostGame objPostGame = new PostGame(new WeakReference<>(mContext));
-            objPostGame.ShowLevelCompletedDialog();
-        }
-        else
-        {
-            ShowLevelCompletedDialog();
-        }
+        int moves = mContext.objCardGame.Player1_Moves;
+        int minLimit = mContext.objCardGame.RowSize*mContext.objCardGame.ColumnSize;
+        minLimit = (minLimit/2) + (minLimit/4);
+        int maxLimit = minLimit*4;
+        int totalMiniStars = Math.round((float) 14 * (maxLimit - moves) / (maxLimit - minLimit) + 1);
+        totalMiniStars+=1;
+        createStarts(totalMiniStars, regionStars);
     }
+    private void computeStarsFor2PlayerGame(View regionStars)
+    {
+        int maxHits = mContext.objCardGame.RowSize*mContext.objCardGame.ColumnSize/2;
+        int minHits = 0;
+        int playerOneHits = mContext.objCardGame.PlayerOne_Score;
+        int totalMiniStars = Math.round((float) 14 * (playerOneHits - minHits) / (maxHits - minHits) + 1);
+        createStarts(totalMiniStars, regionStars);
+    }
+    private void createStarts(int totalMiniStars,View regionStars)
+    {
+        if(totalMiniStars==0)
+        {
+            regionStars.setVisibility(View.GONE);
+            return;
+        }
+        if(totalMiniStars>15)
+            totalMiniStars=15;
+        while (totalMiniStars>2)
+        {
+            ((LinearLayout)regionStars).addView(getStar(R.drawable.img_star_full));
+            totalMiniStars-=3;
+        }
+        if(totalMiniStars==2)
+            ((LinearLayout)regionStars).addView(getStar(R.drawable.img_star_two_third));
+        else if (totalMiniStars==1)
+            ((LinearLayout)regionStars).addView(getStar(R.drawable.img_star_one_third));
+    }
+    private View getStar(int drawableID)
+    {
+        RelativeLayout rl = new RelativeLayout(mContext);
+        LinearLayout.LayoutParams l_params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,1f);
+        rl.setLayoutParams(l_params);
+
+        TextView tv = new TextView(mContext);
+        RelativeLayout.LayoutParams r_params = new RelativeLayout.LayoutParams(
+                HelperClass.ConvertToPx(mContext,40),
+                HelperClass.ConvertToPx(mContext,40)
+        );
+        r_params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        tv.setLayoutParams(r_params);
+        tv.setBackgroundResource(drawableID);
+        rl.addView(tv);
+
+        return rl;
+    }
+    //endregion
 
     //Semaphores! To synchronize threads
     public void AcquireLOCK()
@@ -1747,8 +1846,6 @@ public class Game {
         ActualClickCount = 0;
         PlayerOne_Score = 0;
         PlayerTwo_Score = 0;
-        StartTime = 0;
-        EndTime = 0;
         GameRunningTime = 0;
         PlayerMode = 0;
         GameMode = 0;
@@ -1802,8 +1899,6 @@ public class Game {
         ActualClickCount = 0;
         PlayerOne_Score = 0;
         PlayerTwo_Score = 0;
-        StartTime = 0;
-        EndTime = 0;
         GameRunningTime = 0;
         PlayerMode = 0;
         GameMode = 0;

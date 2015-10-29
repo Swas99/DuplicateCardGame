@@ -35,26 +35,22 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
 public class ScreenCreation {
 
+    final int STATUS_LOCKED = 101;
+    final int STATUS_COMPLETED = 102;
+    final int STATUS_NEW = 103;
+    final int STATUS_IN_PROGRESS = 104;
     MainActivity mContext;
-
-
     View.OnClickListener ProcessLevel;
     View.OnClickListener ProcessStage;
     View.OnClickListener ProcessChallenge;
     View.OnClickListener NextClick;
     View.OnClickListener StartContinueClick;
     Dialog DialogWindow;
-
     View tv_module_header;
     View btn_expand_collapse;
     View module_levels;
     String Modules[] = {"Love Affair","Thunder-bolt","Jet","Hit or Miss","Stars 1.0","Shelter","Stars 2.0"};
     int ModuleLevelCount[] = {18,8,4,8,15,17,11};
-    final int STATUS_LOCKED = 101;
-    final int STATUS_COMPLETED = 102;
-    final int STATUS_NEW = 103;
-    final int STATUS_IN_PROGRESS = 104;
-
     int SelectedModule;
     int SelectedLevel;
     int SelectedStage;
@@ -327,7 +323,7 @@ public class ScreenCreation {
             layoutParams_r.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
             tv.setLayoutParams(layoutParams_r);
-            tv.setTextSize(screen_width / 13);
+            tv.setTextSize(18);
             tv.setGravity(Gravity.CENTER);
             tv.setHeight(screen_width / 5);
             tv.setWidth(screen_width / 5);
@@ -540,6 +536,7 @@ public class ScreenCreation {
 
     private int getDefaultCompletionStatus(int M,int L,int S,int C)
     {
+        //here
         int ModuleLevelCount[] = {18,8,4,8,15,17,11};
         if(ModuleLevelCount[M]-1==L)
             return STATUS_NEW;
@@ -626,7 +623,6 @@ public class ScreenCreation {
         return result;
     }
 
-
     public void cleanUp()
     {
         Runnable myRunnable = new Runnable(){
@@ -648,9 +644,3 @@ public class ScreenCreation {
         thread.start();
     }
 }
-
-
-//SharedPreferences.Editor editor = mContext.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//editor.putString("name", "Elena");
-//        editor.putInt("idName", 12);
-//        editor.commit();

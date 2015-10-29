@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -105,14 +104,14 @@ public class Store {
 
     private void addListenerToControls()
     {
-        Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
-        Button btn_Pow = (Button)mContext.findViewById(R.id.btn_power);
-        Button btn_Coin = (Button)mContext.findViewById(R.id.btn_coin);
-        Button btn_RemoveAds = (Button)mContext.findViewById(R.id.btn_removeAds);
-        Button btnBack = (Button)mContext.findViewById(R.id.btnBack);
-        Button btn_back = (Button)mContext.findViewById(R.id.btn_back);
+        View btnPow = mContext.findViewById(R.id.btnPower);
+        View btnCoin = mContext.findViewById(R.id.btnCoin);
+        View btnRemoveAds = mContext.findViewById(R.id.btnRemoveAds);
+        View btn_Pow = mContext.findViewById(R.id.btn_power);
+        View btn_Coin = mContext.findViewById(R.id.btn_coin);
+        View btn_RemoveAds = mContext.findViewById(R.id.btn_removeAds);
+        View btnBack = mContext.findViewById(R.id.btnBack);
+        View btn_back = mContext.findViewById(R.id.btn_back);
 
         btnBack.setOnClickListener(BackButton_Click);
         btnPow.setOnClickListener(Power_Click);
@@ -126,9 +125,9 @@ public class Store {
 
     private void powerClick()
     {
-        Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
+        View btnPow = mContext.findViewById(R.id.btnPower);
+        View btnCoin = mContext.findViewById(R.id.btnCoin);
+        View btnRemoveAds = mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
         btnPow.setBackgroundResource(R.drawable.btn_white_reverse);
@@ -148,9 +147,9 @@ public class Store {
 
     private void removeAdsClick()
     {
-        Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
+        View btnPow = mContext.findViewById(R.id.btnPower);
+        View btnCoin = mContext.findViewById(R.id.btnCoin);
+        View btnRemoveAds = mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
         btnRemoveAds.setBackgroundResource(R.drawable.btn_white_reverse);
@@ -174,9 +173,9 @@ public class Store {
 
     private void coinsClick()
     {
-        Button btnPow = (Button)mContext.findViewById(R.id.btnPower);
-        Button btnCoin = (Button)mContext.findViewById(R.id.btnCoin);
-        Button btnRemoveAds = (Button)mContext.findViewById(R.id.btnRemoveAds);
+        View btnPow = mContext.findViewById(R.id.btnPower);
+        View btnCoin = mContext.findViewById(R.id.btnCoin);
+        View btnRemoveAds = mContext.findViewById(R.id.btnRemoveAds);
 
         //Select
         btnCoin.setBackgroundResource(R.drawable.btn_white_reverse);
@@ -207,9 +206,9 @@ public class Store {
         }
         public void InitializeBuyCoinsView()
         {
-            Button btnBuyPouchOfCoins = (Button)mContext.findViewById(R.id.btnBuyPouchOfCoins);
-            Button btnBuyBagOfCoins = (Button)mContext.findViewById(R.id.btnBuyBagOfCoins);
-            Button btnBuyTrunkOfCoins = (Button)mContext.findViewById(R.id.btnBuyTrunkOfCoins);
+            View btnBuyPouchOfCoins = mContext.findViewById(R.id.btnBuyPouchOfCoins);
+            View btnBuyBagOfCoins = mContext.findViewById(R.id.btnBuyBagOfCoins);
+            View btnBuyTrunkOfCoins = mContext.findViewById(R.id.btnBuyTrunkOfCoins);
 
             btnBuyPouchOfCoins.setOnClickListener(BuyPouchOfCoins_Click);
             btnBuyBagOfCoins.setOnClickListener(BuyBagOfCoins_Click);
@@ -246,7 +245,7 @@ public class Store {
 
         public void InitializeRemoveAdsView()
         {
-            Button btnRemoveAdNow = (Button)mContext.findViewById(R.id.btnRemoveAdNow);
+            View btnRemoveAdNow = mContext.findViewById(R.id.btnRemoveAdNow);
 
             btnRemoveAdNow.setOnClickListener(RemoveAdNow_Click);
         }
@@ -309,14 +308,14 @@ public class Store {
 
         public void InitializeBuyCoinsView()
         {
-            Button btnMyPower = (Button)mContext.findViewById(R.id.btnMyPower);
-            Button btn_prev_power = (Button)mContext.findViewById(R.id.btn_prev_power);
-            Button btn_next_power = (Button)mContext.findViewById(R.id.btn_next_power);
-            Button btnIncreaseRange = (Button)mContext.findViewById(R.id.btnIncreaseRange);
-            Button btnDecreaseRange = (Button)mContext.findViewById(R.id.btnDecreaseRange);
-            Button btnIncreaseQuantity = (Button)mContext.findViewById(R.id.btnIncreaseQuantity);
-            Button btnDecreaseQuantity = (Button)mContext.findViewById(R.id.btnDecreaseQuantity);
-            Button btnBuy = (Button)mContext.findViewById(R.id.btnBuy);
+            View btnMyPower = mContext.findViewById(R.id.btnMyPower);
+            View btn_prev_power = mContext.findViewById(R.id.btn_prev_power);
+            View btn_next_power = mContext.findViewById(R.id.btn_next_power);
+            View btnIncreaseRange = mContext.findViewById(R.id.btnIncreaseRange);
+            View btnDecreaseRange = mContext.findViewById(R.id.btnDecreaseRange);
+            View btnIncreaseQuantity = mContext.findViewById(R.id.btnIncreaseQuantity);
+            View btnDecreaseQuantity = mContext.findViewById(R.id.btnDecreaseQuantity);
+            View btnBuy = mContext.findViewById(R.id.btnBuy);
 
 
             btnMyPower.setOnClickListener(MyPower_Click);

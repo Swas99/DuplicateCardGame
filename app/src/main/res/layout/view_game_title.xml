@@ -3,13 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#90FFFFFF">
+    android:background="#90FFFFFF"
+    android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,38 +18,38 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:clipChildren="false">
+                    android:clipChildren="false"
+                    android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tvPlayerTurn"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:text="Player 1' Turn"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="3dp"
-                        android:id="@+id/tvPlayerTurn"/>
+                        android:text="Player 1' Turn"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="-6dp"
                         android:layout_marginLeft="13dp"
                         android:layout_marginRight="1dp"
+                        android:layout_marginTop="-6dp"
                         android:background="@color/black"/>
                 </LinearLayout>
 
 
             <TextView
+                android:id="@+id/tvTimer"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_margin="4dp"
                 android:gravity="center"
-                android:textColor="@color/red"
                 android:text=""
-                android:id="@+id/tvTimer"
+                android:textColor="@color/red"
                 />
         </LinearLayout>
         <LinearLayout
@@ -57,44 +57,46 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/tvScore"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/border"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp"
                 android:text="P1-0  P2-0"
-                android:textSize="13dp"
-                android:background="@drawable/border"
-                android:id="@+id/tvScore"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:minWidth="72dp"
-                android:layout_height="30dp"
-                android:gravity="center"
                 android:textColor="@color/black"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:textSize="13dp"/>
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="13dp"
-                android:text="Time : 553"
                 android:background="@drawable/border"
-                android:id="@+id/tvTime"/>
+                android:gravity="center"
+                android:minWidth="72dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Time : 553"
+                android:textColor="@color/black"
+                android:textSize="13dp"/>
         </LinearLayout>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:minWidth="60dp"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvWinningStreak"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -102,30 +104,27 @@
             android:paddingEnd="8dp"
             android:paddingRight="8dp"
             android:textColor="@color/dark_green"
-            android:text="Winning Streak : "
-            android:textSize="9dp"
-            android:visibility="invisible"
-            android:id="@+id/tvWinningStreak"/>
+            android:textSize="9dp"/>
         <TextView
+            android:id="@+id/tvHitStreak"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="0dp"
             android:layout_gravity="end|center"
+            android:layout_weight="1"
             android:gravity="center"
             android:paddingEnd="8dp"
             android:paddingRight="8dp"
-            android:textSize="9dp"
             android:textColor="@color/royal_blue"
-            android:id="@+id/tvHitStreak"/>
+            android:textSize="9dp"/>
         <TextView
+            android:id="@+id/tvMoves"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text=""
-            android:textSize="14sp"
             android:textColor="@color/black"
-            android:id="@+id/tvMoves"/>
+            android:textSize="14sp"/>
 
     </LinearLayout>
     <RelativeLayout
@@ -133,18 +132,18 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/btnPower"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="10dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginBottom="12dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/btn_power"
             android:text="POW"
             android:textSize="17dp"
-            android:id="@+id/btnPower"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
-            android:background="@drawable/btn_power"
             />
     </RelativeLayout>
 

@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,12 +38,11 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
 
 public class PostGame implements View.OnClickListener {
 
-    MainActivity mContext;
     final int STATUS_COMPLETED = 102;
     final int STATUS_IN_PROGRESS = 104;
     final int STATUS_NEW = 103;
     final int STATUS_LOCKED = 101;
-
+    MainActivity mContext;
     Dialog DialogWindow;
     int M,L,S,C;//Module-Level-Stage-Challenge
 
@@ -201,7 +206,6 @@ public class PostGame implements View.OnClickListener {
         return false;
     }
 
-
     public void ShowLevelCompletedDialog()
     {
         boolean result = getResult();
@@ -238,12 +242,22 @@ public class PostGame implements View.OnClickListener {
 
             ((TextView)view.findViewById(R.id.tvScore)).setText(String.valueOf(currentScore));
             ((TextView)view.findViewById(R.id.tvTopScore)).setText(String.valueOf(topScore));
+            String gameNumber = "#Game "+String.valueOf(getGameNumber()) ;
+            ((TextView) view.findViewById(R.id.tvGameNumber)).setText(gameNumber);
             view.findViewById(R.id.btnGameSummary).setOnClickListener(this);
             TextView tvNext = (TextView)view.findViewById(R.id.btnNext);
             tvNext.setOnClickListener(this);
             Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
             tvNext.setTypeface(font);
             view.findViewById(R.id.btnRestart).setOnClickListener(this);
+            view.findViewById(R.id.btn_store).setOnClickListener(this);
+            view.findViewById(R.id.btnStore).setOnClickListener(this);
+            view.findViewById(R.id.tv_share).setOnClickListener(this);
+
+            View tvShare = view.findViewById(R.id.tvShare);
+            AnimationSet Beats_InOut = Beats_InOut();
+            tvShare.startAnimation(Beats_InOut);
+            tvShare.setOnClickListener(this);
         }
         //endregion
         //region Game Lost
@@ -263,13 +277,40 @@ public class PostGame implements View.OnClickListener {
                 view.findViewById(R.id.region_two_player_result_row_1).setVisibility(View.VISIBLE);
 
                 TextView tvRow3 =  (TextView)view.findViewById(R.id.tvRow3);
-                tvRow3.setText("You lose\nNever Give Up.");
-
-
+                tvRow3.setText("Try Again");
             }
+
             view.findViewById(R.id.btnGameSummary).setOnClickListener(this);
-            view.findViewById(R.id.btnNext).setOnClickListener(this);
             view.findViewById(R.id.btnRestart).setOnClickListener(this);
+
+            TextView btnNext = (TextView)view.findViewById(R.id.btnNext);
+            int []nextGame = getNextGame();
+            int nxt_m = nextGame[0];
+            int nxt_l = nextGame[1];
+            int nxt_s = nextGame[2];
+            int nxt_c = nextGame[3];
+            if(getCompletionStatus(nxt_m,nxt_l,nxt_s,nxt_c)==STATUS_LOCKED)
+            {
+                btnNext.setClickable(false);
+                btnNext.setTextColor(Color.argb(153,170,170,170));
+            }
+            else
+            {
+                btnNext.setTextColor(Color.WHITE);
+                btnNext.setClickable(true);
+                btnNext.setOnClickListener(this);
+            }
+
+            View btn_restart = view.findViewById(R.id.btn_restart);
+            btn_restart.setOnClickListener(this);
+            Animation rotateAnim = RotateAnim();
+            btn_restart.startAnimation(rotateAnim);
+
+            View btnBuy = view.findViewById(R.id.btnBuy);
+            Animation zoomInOut = ZoomInOut_Slow();
+            btnBuy.startAnimation(zoomInOut);
+            btnBuy.setOnClickListener(this);
+
         }
         //endregion
 
@@ -282,7 +323,7 @@ public class PostGame implements View.OnClickListener {
         lp.copyFrom(window.getAttributes());
         View v2 =  mContext.CurrentView;
         lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height =  ConvertToPx(mContext, 360);
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
     }
 
@@ -346,10 +387,52 @@ public class PostGame implements View.OnClickListener {
         editor.apply();
     }
 
-
     private void NextGame()
     {
         //region create next_game values
+        int []nextGame = getNextGame();
+        int nxt_m = nextGame[0];
+        int nxt_l = nextGame[1];
+        int nxt_s = nextGame[2];
+        int nxt_c = nextGame[3];
+        //endregion
+
+        StartGame objStartGame = new StartGame(new WeakReference<>(mContext),DialogWindow);
+        objStartGame.setStoryModeData(nxt_m, nxt_l, nxt_s, nxt_c);
+        objStartGame.showObjective();
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = DialogWindow.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.height =  ConvertToPx(mContext, 390);
+        window.setAttributes(lp);
+        DialogWindow.findViewById(R.id.btnClose).setBackgroundColor(Color.BLACK);
+    }
+
+    private int getCompletionStatus(int M,int L,int S,int C)
+    {
+        String id = String.valueOf(M)+"_"+String.valueOf(L)+
+                "_"+String.valueOf(S)+"_"+String.valueOf(C);
+
+        SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA),
+                mContext.MODE_PRIVATE);
+        //get data from preferences
+        return prefs.getInt(id,getDefaultCompletionStatus(M,L,S,C));
+    }
+    private int getDefaultCompletionStatus(int M,int L,int S,int C)
+    {
+        int ModuleLevelCount[] = {18,8,4,8,15,17,11};
+        if(ModuleLevelCount[M]-1==L)
+            return STATUS_NEW;
+
+        if(L<1 && S<1 && C<1)
+            return STATUS_NEW;
+        else
+            return STATUS_LOCKED;
+    }
+
+    private int[] getNextGame()
+    {
         int ModuleLevelCount[] = {18,8,4,8,15,17,11};
         int nxt_m = M;
         int nxt_l = L;
@@ -375,18 +458,52 @@ public class PostGame implements View.OnClickListener {
                 }
             }
         }
-        //endregion
 
-        StartGame objStartGame = new StartGame(new WeakReference<>(mContext),DialogWindow);
-        objStartGame.setStoryModeData(nxt_m, nxt_l, nxt_s, nxt_c);
-        objStartGame.showObjective();
+        int nextGame[]= {nxt_m,nxt_l,nxt_s,nxt_c};
+        return nextGame;
+    }
+    public AnimationSet Beats_InOut()
+    {
+        ScaleAnimation zoom = new ScaleAnimation(1.05f,.96f,1.05f,.96f,
+                Animation.RELATIVE_TO_SELF,.5f,
+                Animation.RELATIVE_TO_SELF,.5f);
+        zoom.setDuration(800);
+        zoom.setStartOffset(200);
+        zoom.setFillAfter(true);
+        zoom.setRepeatCount(Animation.INFINITE);
+        zoom.setInterpolator(new OvershootInterpolator(1f));
 
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = DialogWindow.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.height =  ConvertToPx(mContext, 390);
-        window.setAttributes(lp);
-        DialogWindow.findViewById(R.id.btnClose).setBackgroundColor(Color.BLACK);
+        AnimationSet ZoomIn = new AnimationSet(true);
+        ZoomIn.addAnimation(zoom);
+        return ZoomIn;
+    }
+
+    public Animation RotateAnim()
+    {
+
+        RotateAnimation rotate = new RotateAnimation(360f,0f,Animation.RELATIVE_TO_SELF,.5f,Animation.RELATIVE_TO_SELF,.5f);
+        rotate.setDuration(800);
+        rotate.setStartOffset(500);
+        rotate.setRepeatCount(Animation.INFINITE);
+        rotate.setFillAfter(true);
+        rotate.setInterpolator(new AccelerateInterpolator(1.1f));
+
+        AnimationSet Reload = new AnimationSet(true);
+        Reload.addAnimation(rotate);
+        Reload.setInterpolator(new AccelerateInterpolator(1.1f));
+        return rotate;
+    }
+    public Animation ZoomInOut_Slow()
+    {
+        ScaleAnimation zoom = new ScaleAnimation(.9f,1f,.9f,1f,
+                Animation.RELATIVE_TO_SELF,.5f,
+                Animation.RELATIVE_TO_SELF, .5f);
+        zoom.setDuration(2700);
+        zoom.setStartOffset(100);
+        zoom.setFillAfter(true);
+        zoom.setRepeatMode(Animation.REVERSE);
+        zoom.setRepeatCount(Animation.INFINITE);
+        return zoom;
     }
 
     @Override
@@ -395,6 +512,7 @@ public class PostGame implements View.OnClickListener {
         {
             case R.id.btnGameSummary:
                 DialogWindow.dismiss();
+                mContext.objCardGame.StoryMode=false;
                 mContext.objCardGame.objGameSummary.loadSummaryScreen_StoryMode();
                 break;
             case R.id.btnNext:
@@ -409,10 +527,17 @@ public class PostGame implements View.OnClickListener {
                 mContext.objCardGame.createGame();
                 DialogWindow.dismiss();
                 break;
+            case R.id.btnStore:
+            case R.id.btn_store:
             case R.id.btnBuy:
+            case R.id.btn_buy:
                 mContext.loadStoreScreen();
                 mContext.objCardGame.CleanUp();
                 DialogWindow.dismiss();
+                break;
+            case R.id.btnShare:
+            case R.id.btn_share:
+
                 break;
         }
     }

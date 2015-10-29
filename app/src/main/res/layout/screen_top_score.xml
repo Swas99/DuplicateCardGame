@@ -1,80 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/screen_topScores"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_background_portrait"
-    android:id="@+id/screen_topScores">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#36FFFFFF">
         <Button
-            android:layout_width="40dp"
+            android:id="@+id/btn_prev_page"
+            android:layout_width="36dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="@drawable/btn_back"
-            android:id="@+id/btn_prev_page"
+            android:background="@drawable/btn_prev_page"
             />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Top Scores"
                 android:textColor="@color/black"
-                android:gravity="center"
-                android:textSize="36sp"
-                android:id="@+id/tvTitle"/>
+                android:textSize="36sp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#A1000000"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="2dp"
                 android:layout_marginTop="-5dp"
-                android:layout_centerInParent="true"
+                android:background="#A1000000"
                 />
         </LinearLayout>
         <Button
-            android:layout_width="40dp"
+            android:id="@+id/btn_next_page"
+            android:layout_width="36dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="@drawable/btn_next"
-            android:id="@+id/btn_next_page"
+            android:background="@drawable/btn_next_page"
             />
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:id="@+id/mainContainer"
-        android:background="#18FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:background="#18FFFFFF">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:clipChildren="false">
+            android:clipChildren="false"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:textColor="@color/black"
                 android:gravity="center"
                 android:text="Board Details"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 />
             <RelativeLayout
@@ -97,31 +93,31 @@
                         android:orientation="horizontal"
                         android:padding="2dp">
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:orientation="horizontal"
                             >
                             <Button
+                                android:id="@+id/GameMode"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:id="@+id/GameMode"
-                                android:textSize="12sp"
-                                android:textColor="@color/black"
                                 android:layout_margin="4dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/btn_white_transparency_20"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
                                 />
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="4">
                                 <Button
+                                    android:id="@+id/btnGameMode"
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:background="@drawable/ic_action_edit"
                                     android:layout_centerInParent="true"
-                                    android:id="@+id/btnGameMode"
+                                    android:background="@drawable/ic_action_edit"
                                     />
 
                             </RelativeLayout>
@@ -133,30 +129,30 @@
                             android:layout_height="match_parent"/>
 
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
                             <Button
+                                android:id="@+id/CardSet"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:id="@+id/CardSet"
-                                android:textSize="12sp"
-                                android:textColor="@color/black"
                                 android:layout_margin="4dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/btn_white_transparency_20"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
                                 />
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="4">
                                 <Button
+                                    android:id="@+id/btnCardSet"
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
-                                    android:background="@drawable/ic_action_edit"
                                     android:layout_centerInParent="true"
-                                    android:id="@+id/btnCardSet"
+                                    android:background="@drawable/ic_action_edit"
                                     />
 
                             </RelativeLayout>
@@ -176,30 +172,30 @@
                     android:padding="2dp">
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
                         <Button
+                            android:id="@+id/PlayerMode"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="12sp"
-                            android:id="@+id/PlayerMode"
-                            android:textColor="@color/black"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_white_transparency_20"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
                             />
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4">
                             <Button
+                                android:id="@+id/btnPlayerMode"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:background="@drawable/ic_action_edit"
                                 android:layout_centerInParent="true"
-                                android:id="@+id/btnPlayerMode"
+                                android:background="@drawable/ic_action_edit"
                                 />
 
                         </RelativeLayout>
@@ -212,11 +208,11 @@
                         android:layout_height="match_parent"/>
 
                         <SeekBar
+                            android:id="@+id/RobotMemory"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
-                            android:layout_weight="1"
                             android:layout_gravity="center"
-                            android:id="@+id/RobotMemory"
+                            android:layout_weight="1"
                             android:max="9"
                             />
                 </LinearLayout>
@@ -229,33 +225,33 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
-                    android:padding="2dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="2dp">
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
                         <Button
+                            android:id="@+id/BoardType"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:id="@+id/BoardType"
-                            android:textSize="12sp"
-                            android:textColor="@color/black"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_white_transparency_20"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
                             />
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4">
                             <Button
+                                android:id="@+id/btnBoardType"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:background="@drawable/ic_action_edit"
                                 android:layout_centerInParent="true"
-                                android:id="@+id/btnBoardType"
+                                android:background="@drawable/ic_action_edit"
                                 />
 
                         </RelativeLayout>
@@ -268,32 +264,32 @@
                         android:layout_height="match_parent"/>
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:orientation="horizontal"
                         >
 
                         <Button
+                            android:id="@+id/ScrollType"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="12sp"
-                            android:id="@+id/ScrollType"
-                            android:textColor="@color/black"
                             android:layout_margin="4dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_white_transparency_20"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
                             />
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4">
                             <Button
+                                android:id="@+id/btnScrollType"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:background="@drawable/ic_action_edit"
                                 android:layout_centerInParent="true"
-                                android:id="@+id/btnScrollType"
+                                android:background="@drawable/ic_action_edit"
                                 />
 
                         </RelativeLayout>
@@ -315,57 +311,57 @@
 
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:paddingRight="5dp"
                         android:layout_gravity="left"
+                        android:layout_weight="3"
+                        android:orientation="horizontal"
+                        android:paddingRight="5dp"
                         >
                         <TextView
+                            android:id="@+id/RowSize"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="3"
-                            android:textSize="12sp"
-                            android:id="@+id/RowSize"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:onClick="myClickHandler"
                             android:layout_margin="5dp"
+                            android:layout_weight="3"
                             android:background="@drawable/btn_white_transparency_20"
+                            android:gravity="center"
+                            android:onClick="myClickHandler"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="x"
                             android:gravity="center"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
-                            android:textSize="16sp"
+                            android:text="x"
                             android:textColor="@color/black"
+                            android:textSize="16sp"
                             />
                         <TextView
+                            android:id="@+id/ColSize"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="3"
-                            android:id="@+id/ColSize"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:onClick="myClickHandler"
-                            android:textSize="12sp"
                             android:layout_margin="5dp"
+                            android:layout_weight="3"
                             android:background="@drawable/btn_white_transparency_20"
+                            android:gravity="center"
+                            android:onClick="myClickHandler"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
                             />
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="4">
                             <Button
+                                android:id="@+id/btnBoardSize"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:background="@drawable/ic_action_edit"
                                 android:layout_centerInParent="true"
-                                android:id="@+id/btnBoardSize"
+                                android:background="@drawable/ic_action_edit"
                                 />
 
                         </RelativeLayout>
@@ -383,17 +379,17 @@
                         android:layout_height="match_parent" >
 
                       <Button
+                          android:id="@+id/btnLoadScores"
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
-                          android:id="@+id/btnLoadScores"
+                          android:layout_marginBottom="2dp"
                           android:layout_marginRight="10dp"
                           android:layout_marginTop="2dp"
-                          android:layout_marginBottom="2dp"
+                          android:background="@drawable/btn_rectangle_sky_blue"
                           android:gravity="center"
                           android:text="Load"
-                          android:textSize="12sp"
                           android:textColor="@color/white"
-                          android:background="@drawable/btn_rectangle_sky_blue"
+                          android:textSize="12sp"
                           />
 
                     </LinearLayout>
@@ -410,14 +406,14 @@
                 android:background = "@color/black"/>
 
             <TextView
+                android:id="@+id/tvUserScore"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/white_transparent_20"
-                android:text="Your top score is ##~~!~~##"
                 android:gravity="center"
+                android:text="Your top score is ##~~!~~##"
                 android:textColor="@color/black"
-                android:textSize="19sp"
-                android:id="@+id/tvUserScore"/>
+                android:textSize="19sp"/>
 
 
 
@@ -428,24 +424,24 @@
                 />
 
             <TextView
+                android:id="@+id/tvMsg"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
+                android:gravity="center_vertical"
                 android:paddingLeft="5dp"
                 android:text="*Only games won by you are considered"
-                android:gravity="center_vertical"
                 android:textColor="@color/white"
-                android:visibility="visible"
                 android:textSize="10dp"
-                android:id="@+id/tvMsg"/>
+                android:visibility="visible"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
+                android:gravity="center_vertical"
                 android:paddingLeft="5dp"
                 android:text="**Games where power was used are not considered"
-                android:gravity="center_vertical"
-                android:visibility="visible"
+                android:textColor="@color/white"
                 android:textSize="10dp"
-                android:textColor="@color/white"/>
+                android:visibility="visible"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -466,21 +462,21 @@
                         <TextView
                             android:layout_width="33dp"
                             android:layout_height="match_parent"
-                            android:textSize="16sp"
-                            android:text="#"
                             android:gravity="center"
                             android:padding="5dp"
+                            android:text="#"
+                            android:textSize="16sp"
                             />
                         <TextView
+                            android:id="@+id/tvSubTitle"
                             android:layout_width="match_parent"
                             android:layout_height="29dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:textSize="16sp"
                             android:text="Top scores"
-                            android:id="@+id/tvSubTitle"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
                     </LinearLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -503,31 +499,31 @@
                             <TextView
                                 android:layout_width="33dp"
                                 android:layout_height="match_parent"
-                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:padding="5dp"
                                 android:text="1"
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:textSize="15sp"
                                 />
                             <TextView
+                                android:id="@+id/tvPlayerName_1"
                                 android:layout_width="match_parent"
                                 android:layout_height="29dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Player"
-                                android:textSize="15sp"
                                 android:textColor="@color/black"
-                                android:id="@+id/tvPlayerName_1"/>
+                                android:textSize="15sp"/>
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/black"
-                                android:text="Score"
                                 android:id="@+id/tvPlayerScore_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="Score"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
                                 />
                         </LinearLayout>
 
@@ -542,31 +538,31 @@
                             <TextView
                                 android:layout_width="33dp"
                                 android:layout_height="match_parent"
-                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:padding="5dp"
                                 android:text="2"
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:textSize="15sp"
                                 />
                             <TextView
+                                android:id="@+id/tvPlayerName_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="29dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Player"
-                                android:textSize="15sp"
                                 android:textColor="@color/black"
-                                android:id="@+id/tvPlayerName_2"/>
+                                android:textSize="15sp"/>
                             <TextView
+                                android:id="@+id/tvPlayerScore_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/black"
                                 android:text="Score"
-                                android:id="@+id/tvPlayerScore_2"/>
+                                android:textColor="@color/black"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
                         <RelativeLayout
@@ -580,32 +576,32 @@
                             <TextView
                                 android:layout_width="33dp"
                                 android:layout_height="match_parent"
-                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:padding="5dp"
                                 android:text="3"
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:textSize="15sp"
                                 />
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="29dp"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:padding="5dp"
-                                android:text="Player"
-                                android:textSize="15sp"
-                                android:textColor="@color/black"
                                 android:id="@+id/tvPlayerName_3"
-                                />
-                            <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="29dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:textSize="15sp"
+                                android:text="Player"
                                 android:textColor="@color/black"
-                                android:text="Score"
+                                android:textSize="15sp"
+                                />
+                            <TextView
                                 android:id="@+id/tvPlayerScore_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="Score"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
                                 />
                         </LinearLayout>
 
@@ -620,31 +616,31 @@
                             <TextView
                                 android:layout_width="33dp"
                                 android:layout_height="match_parent"
-                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:padding="5dp"
                                 android:text="4"
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:textSize="15sp"
                                 />
                             <TextView
+                                android:id="@+id/tvPlayerName_4"
                                 android:layout_width="match_parent"
                                 android:layout_height="29dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Player"
-                                android:textSize="15sp"
                                 android:textColor="@color/black"
-                                android:id="@+id/tvPlayerName_4"/>
+                                android:textSize="15sp"/>
                             <TextView
+                                android:id="@+id/tvPlayerScore_4"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/black"
                                 android:text="Score"
-                                android:id="@+id/tvPlayerScore_4"/>
+                                android:textColor="@color/black"
+                                android:textSize="15sp"/>
                         </LinearLayout>
 
                         <RelativeLayout
@@ -658,31 +654,31 @@
                             <TextView
                                 android:layout_width="33dp"
                                 android:layout_height="match_parent"
-                                android:textSize="15sp"
-                                android:text="5"
                                 android:gravity="center"
                                 android:padding="5dp"
+                                android:text="5"
+                                android:textSize="15sp"
                                 />
                             <TextView
+                                android:id="@+id/tvPlayerName_5"
                                 android:layout_width="match_parent"
                                 android:layout_height="29dp"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
                                 android:text="Player"
-                                android:textSize="15sp"
                                 android:textColor="@color/black"
-                                android:id="@+id/tvPlayerName_5"/>
+                                android:textSize="15sp"/>
                             <TextView
+                                android:id="@+id/tvPlayerScore_5"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center"
                                 android:padding="5dp"
-                                android:textSize="15sp"
-                                android:textColor="@color/black"
                                 android:text="Score"
-                                android:id="@+id/tvPlayerScore_5"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
                                 />
                         </LinearLayout>
 
@@ -707,18 +703,18 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1">
                             <TextView
+                                android:id="@+id/btnResetScores"
                                 android:layout_width="130dp"
                                 android:layout_height="29dp"
-                                android:layout_weight="1"
-                                android:id="@+id/btnResetScores"
-                                android:padding="5dp"
-                                android:textSize="16sp"
-                                android:gravity="center"
+                                android:layout_centerInParent="true"
                                 android:layout_margin="3dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_rectangle_sky_blue"
+                                android:gravity="center"
+                                android:padding="5dp"
                                 android:text="Reset"
                                 android:textColor="@color/white"
-                                android:layout_centerInParent="true"
-                                android:background="@drawable/btn_rectangle_sky_blue"
+                                android:textSize="16sp"
                                 />
                         </RelativeLayout>
                     </LinearLayout>
@@ -735,20 +731,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:padding="2dp">
         <RelativeLayout
+            android:id="@+id/btnExit"
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:layout_margin="2dp"
-            android:id="@+id/btnExit"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_margin="2dp"
             android:background="@drawable/btn_rectangle_sky_blue">
             <Button
                 android:id="@+id/btn_exit"
@@ -759,34 +750,36 @@
                 />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/btnBack"
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:layout_margin="2dp"
-            android:id="@+id/btnBack"
-            android:visibility="invisible"
             android:layout_centerInParent="true"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:layout_margin="2dp"
+            android:background="@drawable/btn_rectangle_sky_blue"
+            android:onClick="myClickHandler"
+            android:visibility="invisible">
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/img_home"
+                android:onClick="myClickHandler"
                 />
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/btnStore"
             android:layout_width="100dp"
             android:layout_height="45dp"
-            android:layout_margin="2dp"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:onClick="myClickHandler"
-            android:id="@+id/btnStore"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:layout_alignParentRight="true"
+            android:layout_margin="2dp"
+            android:background="@drawable/btn_rectangle_sky_blue"
+            android:onClick="myClickHandler">
             <Button
+                android:id="@+id/btn_store"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/btn_store"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_store"
             />

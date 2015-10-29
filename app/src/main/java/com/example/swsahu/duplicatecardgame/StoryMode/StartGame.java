@@ -9,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.ScaleAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -116,6 +120,7 @@ public class StartGame implements View.OnClickListener {
         TextView btnScrollType = (TextView)ContentView.findViewById(R.id.btnScrollType);
         TextView btnStart = (TextView)ContentView.findViewById(R.id.btnStart);
 
+
         long topScore = getScore();
         tvGameNumber.setText("#Game "+String.valueOf(getGameNumber()));
         tvObjective.setText(getObjectiveInfo());
@@ -141,6 +146,12 @@ public class StartGame implements View.OnClickListener {
         int totalMiniStars = readStars();
         if(totalMiniStars==0)
             return;
+
+        View tvShare = ContentView.findViewById(R.id.tvShare);
+        tvShare.setVisibility(View.VISIBLE);
+        AnimationSet zoomInOut = ZoomInOut();
+        tvShare.startAnimation(zoomInOut);
+        tvShare.setOnClickListener(this);
 
         regionStars.setVisibility(View.VISIBLE);
         while (totalMiniStars>2)
@@ -171,7 +182,6 @@ public class StartGame implements View.OnClickListener {
 
         return rl;
     }
-
 
     private int getGameNumber()
     {
@@ -301,6 +311,22 @@ public class StartGame implements View.OnClickListener {
         return pref.getInt(String.valueOf(getGameNumber()), 0);
     }
 
+    public AnimationSet ZoomInOut()
+    {
+        ScaleAnimation zoom = new ScaleAnimation(1.05f,.96f,1.05f,.96f,
+                Animation.RELATIVE_TO_SELF,.5f,
+                Animation.RELATIVE_TO_SELF,.5f);
+        zoom.setDuration(800);
+        zoom.setStartOffset(200);
+        zoom.setFillAfter(true);
+        zoom.setRepeatCount(Animation.INFINITE);
+        zoom.setInterpolator(new OvershootInterpolator(1f));
+
+        AnimationSet ZoomIn = new AnimationSet(true);
+        ZoomIn.addAnimation(zoom);
+        return ZoomIn;
+    }
+
     @Override
     public void onClick(View v) {
 
@@ -340,8 +366,11 @@ public class StartGame implements View.OnClickListener {
                         break;
                 }
                 break;
+            case R.id.tvShare:
+                break;
             case R.id.btnStart:
                 Start_Game();
+                DialogWindow.dismiss();
                 CleanUp();
                 break;
         }
@@ -366,38 +395,4 @@ public class StartGame implements View.OnClickListener {
         thread.start();
     }
 
-//    //here
-//    public void tempStart_Game()
-//    {
-//        mContext.objCardGame.StoryMode=true;
-//        mContext.objCardGame.CurrentModule=CurrentModule;
-//        mContext.objCardGame.CurrentLevel=CurrentLevel;
-//        mContext.objCardGame.CurrentStage=CurrentStage;
-//        mContext.objCardGame.CurrentChallenge=CurrentChallenge;
-//
-//        mContext.objCardGame.GameBackground = GameBackGroundIndex;
-//        mContext.objCardGame.LockingTime = LockingTime;
-//        mContext.objCardGame.PlayerOne_Turn = true;
-//        mContext.objCardGame.setGameConfiguration(
-//                PlayerMode,
-//                PlayerTwoType,
-//                RobotMemoryLevel,
-//                GameMode,
-//                TTT_Value,
-//                BoardType,
-//                RowSize,
-//                ColSize,
-//                ScrollType,
-//                HelperClass.STORY_MODE_CARD_SET
-//        );
-//
-//        mContext.objCardGame.StartGame();
-//        mContext.CURRENT_SCREEN = HelperClass.SCREEN_GAME;
-//
-//    }
-//    //here
-//    public StartGame(WeakReference<MainActivity> m_context)
-//    {
-//        mContext=m_context.get();
-//    }
 }

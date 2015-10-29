@@ -41,18 +41,19 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.getWindowSize;
 
 public class SettingsScreen {
     
+    final int BUTTON_OK =-1;
+    final int BUTTON_CLEAR = -2;
+    final int BUTTON_CANCEL = -3;
+    final String DELIMITER = HelperClass.DELIMITER + HelperClass.DELIMITER_2 + HelperClass.DELIMITER;
     MainActivity mContext;
-
     View.OnClickListener PlayerOneName_Edit_Click;
     View.OnClickListener PlayerTwoName_Edit_Click;
     View.OnClickListener OneTouchFlip_Click;
     View.OnClickListener LockingTime_Click;
     View.OnClickListener RestoreDefaults_Click;
     View.OnClickListener BackButton_Click;
-
     View.OnClickListener Process_Input;
     AlertDialog CommonDialog;
-
     TextView PlayerOneName;
     TextView PlayerTwoName;
     TextView btnPlayerOneName;
@@ -61,13 +62,8 @@ public class SettingsScreen {
     TextView btnLockingTime;
     TextView OneTouchFlip;
     TextView btnRestoreDefaults;
-    Button btnBack;
+    View btnBack;
     EditText edit_PlayerName;
-
-    final int BUTTON_OK =-1;
-    final int BUTTON_CLEAR = -2;
-    final int BUTTON_CANCEL = -3;
-    final String DELIMITER = HelperClass.DELIMITER + HelperClass.DELIMITER_2 + HelperClass.DELIMITER;
     
     public SettingsScreen(WeakReference<MainActivity> context)
     {
@@ -122,8 +118,8 @@ public class SettingsScreen {
         btnLockingTime = (TextView)mContext.findViewById(R.id.btnLockingTime);
 
         btnRestoreDefaults = (TextView)mContext.findViewById(R.id.btnRestoreDefaults);
-        btnBack = (Button)mContext.findViewById(R.id. btnBack);
-        Button btn_back = (Button)mContext.findViewById(R.id.btn_back);
+        btnBack = mContext.findViewById(R.id. btnBack);
+        View btn_back = mContext.findViewById(R.id.btn_back);
 
 
         InitializeListeners();

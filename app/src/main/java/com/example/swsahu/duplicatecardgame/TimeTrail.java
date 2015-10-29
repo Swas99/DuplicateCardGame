@@ -24,8 +24,8 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.SwapAnimation;
 
 public class TimeTrail {
 
-    Game CurrentGame;
     public CountDownTimer TimeTrialTimer;
+    Game CurrentGame;
     int SecondsLeft_TimeTrial;
     int TimeTrial_TimerValue;
     boolean isAnimating;
@@ -156,15 +156,6 @@ public class TimeTrail {
 
     private void ReplaceImageRes(int oldResId,int newResId)
     {
-//        if(CurrentGame.ActualClickCount%2 == 1)
-//        {
-//            int iv1_r = Integer.parseInt(CurrentGame.FirstCard.getTag().toString().split(DELIMITER)[0]);
-//            int iv1_c = Integer.parseInt(CurrentGame.FirstCard.getTag().toString().split(DELIMITER)[1]);
-//
-//            if (CurrentGame.Cards_ImageResID[iv1_r][iv1_c] == oldResId) {
-//                CurrentGame.FirstCard.setImageResource(newResId);
-//            }
-//        }
         for(int i = 0;i<CurrentGame.RowSize;i++)
         {
             for(int j=0;j<CurrentGame.ColumnSize;j++)
@@ -334,21 +325,16 @@ public class TimeTrail {
                 flag = true;
                 int r,c;
                 int imgResToReplace;
-
-                int []AllImages = CurrentGame.GetCardsFromResources(R.array.card_set_three_type2);
-                int length_allImages = AllImages.length;
+                int indexOfReplacement=0;
                 for(int i=0;i<length;i++)
                 {
                     r = Integer.parseInt(cardsToReplace[i].getTag().toString().split(DELIMITER)[0]);
                     c = Integer.parseInt(cardsToReplace[i].getTag().toString().split(DELIMITER)[1]);
                     imgResToReplace = CurrentGame.Cards_ImageResID[r][c];
 
-                    int indexOfImage = (int)(Math.random()*1000)%length_allImages;
-                    int new_imageRes = AllImages[indexOfImage];
+                    int new_imageRes = CurrentGame.ReplacementCards[indexOfReplacement];
+                    CurrentGame.ReplacementCards[indexOfReplacement++] = imgResToReplace;
                     ReplaceImageRes(imgResToReplace,new_imageRes);
-                    //Remove from array
-                    System.arraycopy(AllImages, indexOfImage + 1, AllImages, indexOfImage, length_allImages - 1 - indexOfImage);
-                    length_allImages--;
                 }
 
                 //Sync threads !!

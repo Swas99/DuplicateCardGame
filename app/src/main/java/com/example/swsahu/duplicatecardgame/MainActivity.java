@@ -84,20 +84,18 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawab
 //implements GestureDetector.OnGestureListener
 public class MainActivity extends Activity {
 
-    public View CurrentView;
     final MainActivity thisContext = this;
+    public View CurrentView;
     public int CURRENT_SCREEN;
     public Game objCardGame;
+    public int LockingTime;
     HomePageTitleBar objHomePageTitleBar;
-
     AlertDialog CommonDialog;
     View.OnClickListener Process_Input;
-
     //user data
     long coins;
     String playerOneName;
     String playerTwoName;
-
     //region Game Related
     int PlayerMode;
     int PlayerTwoType;
@@ -109,10 +107,10 @@ public class MainActivity extends Activity {
     int ColSize;
     int ScrollType;
     int CardSet;
-    public int LockingTime;
     int GameBackground;
     boolean PlayerOne_FirstMove;
 //endregion
+    int data;
 
     public void loadSettingsScreen() {
         SettingsScreen objSettings = new SettingsScreen(new WeakReference<>(thisContext));
@@ -144,10 +142,12 @@ public class MainActivity extends Activity {
         if (CurrentView != null)
             CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
 
-        LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(layout_id, null, false);
-        Typeface font = Typeface.createFromAsset(thisContext.getAssets(), "fonts/hurry up.ttf");
-        SetFontToControls(font, (ViewGroup) view);
+        View view;
+            LayoutInflater inflater = getLayoutInflater();
+            view = inflater.inflate(layout_id, null, false);
+            Typeface font = Typeface.createFromAsset(thisContext.getAssets(), "fonts/hurry up.ttf");
+            SetFontToControls(font, (ViewGroup) view);
+
         view.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
         setContentView(view);
         CurrentView = view;
@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
         switch (CURRENT_SCREEN) {
             case R.layout.screen_home:
                 ((TextView)findViewById(R.id.tvCoins)).setTypeface(Typeface.SANS_SERIF);
-                updateCoins(0);
+                updateCoins(0);//here
                 setCoins();
                 setPlayerNames();
                 InitializeDialogInputListener();
@@ -216,7 +216,6 @@ public class MainActivity extends Activity {
         ((TextView) findViewById(R.id.tvCoins)).setText(String.valueOf(coins));
     }
 
-
     private void setPlayerNames() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(thisContext);
         playerOneName = preferences.getString(String.valueOf(PLAYER_ONE_NAME), "Player 1");
@@ -234,7 +233,6 @@ public class MainActivity extends Activity {
             }
         });
     }
-
 
     public void myClickHandler(View v) {
         switch (v.getId()) {
@@ -307,7 +305,6 @@ public class MainActivity extends Activity {
             //
         }
     }
-
 
     public void myClickHandler_QuickGame(View v)
     {
@@ -560,7 +557,6 @@ public class MainActivity extends Activity {
         InitializeScreenControls_PlayerMode();
     }
 
-
     private void InitializeScreenControls_PlayerMode() {
         View temp_view;
         int playerMode_views[] = {R.id.value_1P, R.id.value_2P};
@@ -617,7 +613,6 @@ public class MainActivity extends Activity {
             SetBackgroundToViewFromArray(robotMemory_id, robotMemory_views, RobotMemoryLevel, R.drawable.background_white_orange);
         }
     }
-
 
     public void myClickHandler_BoardDetails(View v) {
         switch (v.getId()) {
@@ -688,7 +683,6 @@ public class MainActivity extends Activity {
         }
         InitializeScreenControls_BoardDetails();
     }
-
 
     public void InitializeScreenControls_BoardDetails() {
 
@@ -941,6 +935,7 @@ public class MainActivity extends Activity {
         int tag [] =  {MANUAL,HURRICANE,ROCK,ANDROBOT,RANDOM_BOT};
         return addToMainContainer(tag,text,String.valueOf(PLAYER_TWO_TYPE),tag.length, titleText);
     }
+
     private View getGameModes()
     {
         String titleText = "Select Game Mode";
@@ -948,18 +943,21 @@ public class MainActivity extends Activity {
         int tag [] =  {ARCADE, TIME_TRIAL};
         return addToMainContainer(tag,text,String.valueOf(GAME_MODE),tag.length, titleText);
     }
+
     private View getPlayerModes()
     {
         String text[] =  {"1P", "2P - AndroBot","2P - Hurricane","2P - Rocky","2P - All Robots"};
         int tag [] =  {ONE_PLAYER, ROBOT_PLAYER,ROBOT_PLAYER,ROBOT_PLAYER,ROBOT_PLAYER};
         return addToMainContainer(tag,text,String.valueOf(PLAYER_MODE),tag.length,"Select Player Mode");
     }
+
     private View getRobotMemory()
     {
         String text[] =  {"1","2","3","4","5","6","7","8","9","10"};
         int tag [] =  {1,2,3,4,5,6,7,8,9,10};
         return addToMainContainer(tag,text,String.valueOf(ROBOT_MEMORY),tag.length,"Select Robot Memory");
     }
+
     private View getBoardType()
     {
         String text[] =  {"One-Board","Two-Board"};
@@ -980,6 +978,7 @@ public class MainActivity extends Activity {
 
         return addToBoardSizeContainer(tag, text, String.valueOf(TIME_TRIAL_TIMER), tag.length, "Time Trail Time");
     }
+
     private View getColSize()
     {
         int size;
@@ -988,7 +987,7 @@ public class MainActivity extends Activity {
         else
             size = Math.min(2*RowSize,MAX_COL_SIZE);
 
-        int i =2; 
+        int i =2;
         String text[] =  new String [size];
         int tag [] =  new int[size];
         while (i<=size)
@@ -999,6 +998,7 @@ public class MainActivity extends Activity {
         }
         return addToBoardSizeContainer(tag, text, String.valueOf(COLUMN_SIZE),i-2,"Select Column Size");
     }
+
     private View getRowSize()
     {
         int size;
@@ -1015,7 +1015,7 @@ public class MainActivity extends Activity {
             tag[i-2]=i;
             text[i-2]=String.valueOf(i);
             i++;
-        } 
+        }
         return addToBoardSizeContainer(tag, text, String.valueOf(ROW_SIZE), i - 2, "Select Row Size");
     }
 
@@ -1030,6 +1030,7 @@ public class MainActivity extends Activity {
         int tag [] =  {NO_SCROLL, VERTICAL,HORIZONTAL,BOTH};
         return addToMainContainer(tag, text, String.valueOf(SCROLL_TYPE), tag.length, "Select Scroll Type");
     }
+
     private View getCardSet()
     {
         String text[] =  {"I","II","III"};
@@ -1037,14 +1038,12 @@ public class MainActivity extends Activity {
         return addToMainContainer(tag, text, String.valueOf(CARD_SET),tag.length,"Select Card Set");
     }
 
-
     private View getLockingTimeValue()
     {
         String text[] =  {"200 ms","400 ms","600 ms","800 ms","1000 ms","1200 ms","1400 ms" };
         int tag [] =  {200,400,600,800,1000,1200,1400};
         return addToMainContainer(tag, text, String.valueOf(LOCKING_TIME), tag.length, "Select Locking Time");
     }
-
 
     private View addToMainContainer(int[] tag, String[] text,String identifier,int length,String titleText) {
         LinearLayout mainContainer = new LinearLayout(thisContext);
@@ -1127,7 +1126,6 @@ public class MainActivity extends Activity {
         return mainContainer;
     }
 
-
     private View getDivider(RelativeLayout.LayoutParams rl_params)
     {
         RelativeLayout divider = new RelativeLayout(thisContext);
@@ -1150,6 +1148,8 @@ public class MainActivity extends Activity {
         tvTitle.setPadding(4 * five_dip, 2 * five_dip, 4 * five_dip, 2 * five_dip);
         return tvTitle;
     }
+
+    //endregion Dialog logic
 
     private void InitializeDialogInputListener() {
         Process_Input = new View.OnClickListener() {
@@ -1206,7 +1206,7 @@ public class MainActivity extends Activity {
         };
     }
 
-    //endregion Dialog logic
+    //region Load default Values
 
     public void updateCoins(long value)
     {
@@ -1219,7 +1219,7 @@ public class MainActivity extends Activity {
         editor.apply();
     }
 
-    //region Load default Values
+    //endregion
 
     private void LoadDefaultValues(String identifier) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -1235,8 +1235,6 @@ public class MainActivity extends Activity {
         CardSet = preferences.getInt(String.valueOf(CARD_SET)+ identifier,CARD_SET_1);
     }
 
-    //endregion
-
     private void RandomizeValues() {
 
         int []AllPlayerModes = {ONE_PLAYER,TWO_PLAYER};
@@ -1248,7 +1246,12 @@ public class MainActivity extends Activity {
         int []AllScrollType = {NO_SCROLL,VERTICAL,HORIZONTAL,BOTH};
         int []AllCardSet = {CARD_SET_1,CARD_SET_2,CARD_SET_3};
 
-        PlayerMode = AllPlayerModes[(int)(Math.random()*1000)%AllPlayerModes.length];
+
+        if(PlayerMode==ONE_PLAYER)
+            PlayerMode=TWO_PLAYER;
+        else
+            PlayerMode = AllPlayerModes[(int)(Math.random()*1000)%AllPlayerModes.length];
+
         PlayerTwoType = AllPlayerTwoType[(int)(Math.random()*1000)%AllPlayerTwoType.length];
         RobotMemoryLevel = AllRobotMemory[(int)(Math.random()*1000)%AllRobotMemory.length];
         GameMode = AllGameMode[(int)(Math.random()*1000)%AllGameMode.length];
@@ -1331,6 +1334,7 @@ public class MainActivity extends Activity {
                 break;
         }
     }
+
     private void CleanUp()
     {
         CurrentView = null;
@@ -1423,6 +1427,58 @@ public class MainActivity extends Activity {
         alertDialog.show();
     }
 
+
+//region Continue
+
+    //Temp data : for restore
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+
+        savedInstanceState.putInt("Layout", 99);
+        // etc.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        data =  savedInstanceState.getInt("Layout");
+    }
+
+    public void setBackgroundToViews(int view_id[],int backgroundColor,int borderColor,int cornerRadius,int borderThickness)
+    {
+        View v;
+        for (int id:view_id)
+        {
+            v = findViewById(id);
+            applyBorderDrawableToView(v, backgroundColor, borderColor, cornerRadius, borderThickness);
+        }
+    }
+
+    //endregion
+
+
+    //region recycle
+
+    public void SetBackgroundToViewFromArray(int identifier[],int view_id[],int id,int backgroundColor,int borderColor,
+                                             int cornerRadius,int borderThickness)
+    {
+        for(int i=0;i<identifier.length;i++)
+        {
+            if(identifier[i]==id)
+            {
+                applyBorderDrawableToView(findViewById(view_id[i]),backgroundColor,borderColor,
+                        cornerRadius,borderThickness);
+                break;
+            }
+        }
+    }
+
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int SWIPE_MIN_DISTANCE = 20;
         @Override
@@ -1468,58 +1524,6 @@ public class MainActivity extends Activity {
 //            }
 //            return true;
 //        }
-    }
-
-
-//region Continue
-
-    //Temp data : for restore
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-
-        savedInstanceState.putInt("Layout", 99);
-        // etc.
-    }
-
-    int data;
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        data =  savedInstanceState.getInt("Layout");
-    }
-
-    //endregion
-
-
-    //region recycle
-
-    public void setBackgroundToViews(int view_id[],int backgroundColor,int borderColor,int cornerRadius,int borderThickness)
-    {
-        View v;
-        for (int id:view_id)
-        {
-            v = findViewById(id);
-            applyBorderDrawableToView(v, backgroundColor, borderColor, cornerRadius, borderThickness);
-        }
-    }
-    public void SetBackgroundToViewFromArray(int identifier[],int view_id[],int id,int backgroundColor,int borderColor,
-                                             int cornerRadius,int borderThickness)
-    {
-        for(int i=0;i<identifier.length;i++)
-        {
-            if(identifier[i]==id)
-            {
-                applyBorderDrawableToView(findViewById(view_id[i]),backgroundColor,borderColor,
-                        cornerRadius,borderThickness);
-                break;
-            }
-        }
     }
 
     //endregion

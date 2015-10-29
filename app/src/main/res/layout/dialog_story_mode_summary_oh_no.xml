@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_blue_home"
+        android:orientation="vertical"
         >
 
         <LinearLayout
@@ -15,25 +15,23 @@
             android:layout_height="wrap_content"
             android:background="@color/black">
             <TextView
+                android:id="@+id/tvGameNumber"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
+                android:background="@color/black"
                 android:gravity="center"
                 android:text="Oh No!"
-                android:layout_marginStart="-9dp"
-                android:layout_marginLeft="-9dp"
-                android:textSize="22sp"
                 android:textColor="@color/white"
-                android:background="@color/black"
-                android:id="@+id/tvGameNumber"
+                android:textSize="22sp"
                 />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:orientation="vertical"
             android:background="#09FAFAFA"
+            android:orientation="vertical"
+            android:padding="7dp"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,101 +49,101 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginEnd="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_circle_white_20_unpressed"
+                    android:background="@drawable/background_white_09"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/region_moves_limit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/region_moves_limit">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_marginStart="5dp"
-                            android:textSize="18sp"
-                            android:text="● "
                             android:gravity="center"
+                            android:text="● "
                             android:textColor="@color/black"
+                            android:textSize="18sp"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
                             android:text="Moves limit : "
-                            android:typeface="monospace"
-                            android:textColor="@color/lemon_grass"/>
+                            android:textColor="@color/lemon_grass"
+                            android:textSize="18sp"
+                            android:typeface="monospace"/>
                         <TextView
+                            android:id="@+id/tvChallengeLimit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
                             android:text="67"
-                            android:id="@+id/tvChallengeLimit"
-                            android:typeface="monospace"
-                            android:textColor="@color/lemon_grass"/>
+                            android:textColor="@color/lemon_grass"
+                            android:textSize="18sp"
+                            android:typeface="monospace"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/region_moves_made"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/region_moves_made">
+                        android:layout_height="wrap_content">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="5dp"
                             android:layout_marginStart="5dp"
-                            android:textSize="18sp"
-                            android:text="● "
                             android:gravity="center"
-                            android:layout_gravity="center"
+                            android:text="● "
                             android:textColor="@color/black"
+                            android:textSize="18sp"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="19sp"
                             android:text="Moves made : "
-                            android:typeface="monospace"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white"
+                            android:textSize="19sp"
+                            android:typeface="monospace"/>
                         <TextView
+                            android:id="@+id/tvMoves"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="19sp"
                             android:text="60"
-                            android:id="@+id/tvMoves"
-                            android:typeface="monospace"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white"
+                            android:textSize="19sp"
+                            android:typeface="monospace"/>
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/region_two_player_result_row_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/region_two_player_result_row_1"
                         android:visibility="gone">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginLeft="5dp"
                             android:layout_marginStart="5dp"
-                            android:textSize="18sp"
-                            android:text="● "
                             android:gravity="center"
-                            android:layout_gravity="center"
+                            android:text="● "
                             android:textColor="@color/black"
+                            android:textSize="18sp"
                             />
                         <TextView
+                            android:id="@+id/tvRow3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="19sp"
                             android:text="You lose."
-                            android:id="@+id/tvRow3"
-                            android:typeface="monospace"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white"
+                            android:textSize="19sp"
+                            android:typeface="monospace"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -171,19 +169,35 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_margin="7dp">
-                    <TextView
-                        android:layout_width="200dp"
+                    android:layout_margin="7dp"
+                    android:layout_weight="1">
+                    <RelativeLayout
+                        android:id="@+id/btn_buy"
+                        android:layout_width="190dp"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:padding="10dp"
-                        android:gravity="center"
-                        android:textSize="27sp"
-                        android:text="Buy Powers!"
-                        android:textColor="#000000"
-                        android:id="@+id/btnBuy"
-                        android:background="@drawable/btn_circle_white_20"/>
+                        android:background="@drawable/btn_white_09_rectangle"
+                        android:clickable="true">
+                        <TextView
+                            android:id="@+id/btnBuy"
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Buy Powers"
+                            android:textColor="#FECE00"
+                            android:textSize="27sp"/>
+                        <TextView
+                            android:layout_width="54dp"
+                            android:layout_height="45dp"
+                            android:layout_centerInParent="true"
+                            android:alpha=".1"
+                            android:background="@drawable/btn_store"
+                            />
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
 
@@ -204,61 +218,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
             android:paddingBottom="9dp"
-            android:paddingStart="8dp"
-            android:paddingLeft="8dp"
             android:paddingEnd="8dp"
-            android:paddingRight="8dp">
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="5dp">
             <TextView
+                android:id="@+id/btnNext"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginRight="15dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="2dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="bottom"
-                android:text="Skip"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_09_rectangle"
                 android:gravity="center"
-                android:textColor="@color/black"
-                android:id="@+id/btnNext"
-                android:enabled="false"
-                android:background="@drawable/background_white45_white196_disabled"/>
+                android:text=">>"
+                android:textColor="@color/white"
+                android:textSize="22sp"/>
             <RelativeLayout
+                android:id="@+id/btnRestart"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:layout_weight="1.4"
-                android:id="@+id/btnRestart"
                 android:background="@drawable/btn_rectangle_sky_blue">
                 <TextView
+                    android:id="@+id/btn_restart"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:id="@+id/btn_restart"
-                    android:background="@drawable/img_restart"
                     android:layout_centerInParent="true"
+                    android:background="@drawable/img_restart"
+                    android:gravity="center"
+                    android:textSize="18sp"
                     />
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/btnGameSummary"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="2dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginBottom="2dp"
-                android:layout_gravity="bottom"
-                android:text="Summary"
-                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_09_rectangle"
                 android:clickable="true"
-                android:textColor="@color/black"
-                android:id="@+id/btnGameSummary"
-                android:background="@drawable/btn_circle_white_20"/>
+                android:gravity="center"
+                android:text="Summary"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -50,17 +50,16 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TIME_TRIAL;
 public class Power {
 
     Game CurrentGame;
-
+    int CurrentCardCount;
+    int MaxCardCount;
+    ImageView CurrentCard;
+    ImageView SelectedCards[];
     private View.OnClickListener lsSwapLogic;
     private View.OnClickListener lsShuffleLogic;
     private View.OnClickListener lsReplaceLogic;
     private View.OnClickListener lsDestroyLogic;
     private View.OnClickListener lsPeekLogic;
     private View.OnClickListener lsExtraMovesLogic;
-    int CurrentCardCount;
-    int MaxCardCount;
-    ImageView CurrentCard;
-    ImageView SelectedCards[];
 
     public Power(final WeakReference<Game> parentGame)
     {
@@ -155,7 +154,11 @@ public class Power {
           lsSwapLogic = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if( CurrentGame.ActualClickCount==0 )
+                {
+                    CurrentGame.GameTimer.cancel();
+                    CurrentGame.GameTimer.start();
+                }
                 if(CurrentCardCount<MaxCardCount) {
                     ImageView card = (ImageView)view;
                     SelectedCards[CurrentCardCount++] = card;
@@ -259,7 +262,11 @@ public class Power {
         lsShuffleLogic = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if( CurrentGame.ActualClickCount==0 )
+                {
+                    CurrentGame.GameTimer.cancel();
+                    CurrentGame.GameTimer.start();
+                }
                 SetEnableControls(false,CurrentGame.GameBoard);
                 int x[] = new int[CurrentGame.RowSize*CurrentGame.ColumnSize];
                 int y[] = new int[CurrentGame.RowSize*CurrentGame.ColumnSize];
@@ -374,6 +381,12 @@ public class Power {
         lsReplaceLogic = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if( CurrentGame.ActualClickCount==0 )
+                {
+                    CurrentGame.GameTimer.cancel();
+                    CurrentGame.GameTimer.start();
+                }
                 if(CurrentCardCount<MaxCardCount) {
                     ImageView card = (ImageView)view;
                     SelectedCards[CurrentCardCount++] = card;
@@ -405,20 +418,15 @@ public class Power {
                             flag = true;
                             int r, c;
                             int imgResToReplace;
-
-                            int[] AllImages = CurrentGame.GetCardsFromResources(R.array.card_set_three_type2);
-                            int length_allImages = AllImages.length;
+                            int indexOfReplacement=0;
                             for (int i = 0; i < MaxCardCount; i++) {
                                 r = Integer.parseInt(SelectedCards[i].getTag().toString().split(DELIMITER)[0]);
                                 c = Integer.parseInt(SelectedCards[i].getTag().toString().split(DELIMITER)[1]);
                                 imgResToReplace = CurrentGame.Cards_ImageResID[r][c];
 
-                                int indexOfImage = (int) (Math.random() * 1091) % length_allImages;
-                                int new_imageRes = AllImages[indexOfImage];
+                                int new_imageRes = CurrentGame.ReplacementCards[indexOfReplacement];
+                                CurrentGame.ReplacementCards[indexOfReplacement++] = imgResToReplace;
                                 ReplaceImageRes(imgResToReplace, new_imageRes);
-                                //Remove from array
-                                System.arraycopy(AllImages, indexOfImage + 1, AllImages, indexOfImage, length_allImages - 1 - indexOfImage);
-                                length_allImages--;
                             }
 
                             //Sync threads !!
@@ -493,7 +501,11 @@ public class Power {
             @Override
             public void onClick(View view) {
 
-
+                if( CurrentGame.ActualClickCount==0 )
+                {
+                    CurrentGame.GameTimer.cancel();
+                    CurrentGame.GameTimer.start();
+                }
                 TransitionDrawable cross_fade = CreateTransitionDrawable(R.drawable.lock,R.drawable.card_destroyed,CurrentGame.mContext);
                 if(CurrentCardCount<MaxCardCount) {
                     ImageView card = (ImageView)view;
@@ -578,6 +590,7 @@ public class Power {
                 card.startAnimation(fade_in);
                 if( CurrentGame.ActualClickCount==0 )
                 {
+                    CurrentGame.GameTimer.cancel();
                     CurrentGame.GameTimer.start();
                 }
                 CurrentCardCount++;
@@ -677,7 +690,9 @@ public class Power {
                 CurrentGame.isAnimating = true;
 
                 SetEnableControls(false,CurrentGame.GameBoard);
-                if (CurrentGame.ActualClickCount == 0) {
+                if( CurrentGame.ActualClickCount==0 )
+                {
+                    CurrentGame.GameTimer.cancel();
                     CurrentGame.GameTimer.start();
                 }
 
@@ -827,7 +842,6 @@ public class Power {
                     if (CurrentGame.EffectiveClickCount + CurrentGame.clickAdjustment_destroyedCards
                             == CurrentGame.TotalCardsOnBoard)
                     {
-                        CurrentGame.EndTime = System.nanoTime() - CurrentGame.StartTime;
                         if (CurrentGame.GameTimer != null) {
                             CurrentGame.GameTimer.cancel();
                         }
@@ -887,6 +901,7 @@ public class Power {
 
                 if( CurrentGame.ActualClickCount==0 )
                 {
+                    CurrentGame.GameTimer.cancel();
                     CurrentGame.GameTimer.start();
                 }
 

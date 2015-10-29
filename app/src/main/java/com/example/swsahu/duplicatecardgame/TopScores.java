@@ -58,18 +58,19 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
 
 public class TopScores implements View.OnClickListener {
 
+    final int SUMMARY_SCREEN = 3;
+    final int TOP_SCORES = 0;
+    final int BEST_TIME = 1;
+    final int LEAST_MOVES = 2;
     Game CurrentGame;
     MainActivity mContext;
     boolean isFromGameScreen;
-
     AlertDialog CommonDialog;
     View.OnClickListener Process_Input;
-
     String defaultPlayerNames[] = { "Andro-Bot","Hurricane","Rock","Rock","Hurricane" };
     int defaultScores[] = new int[5];
     TextView PlayerNames[] = new TextView[5];
     TextView PlayerScore[] = new TextView[5];
-
     //Selected Values
     int GameMode;
     int TimeTrialTimerValue;
@@ -81,12 +82,6 @@ public class TopScores implements View.OnClickListener {
     int CardSet;
     int RowSize;
     int ColumnSize;
-
-    final int SUMMARY_SCREEN = 3;
-    final int TOP_SCORES = 0;
-    final int BEST_TIME = 1;
-    final int LEAST_MOVES = 2;
-
     int [] SCREENS = {TOP_SCORES,BEST_TIME,LEAST_MOVES,SUMMARY_SCREEN};
     int current_screen_index = TOP_SCORES;
 
@@ -154,39 +149,37 @@ public class TopScores implements View.OnClickListener {
         mContext.findViewById(R.id.btnExit).setVisibility(View.INVISIBLE);
         mContext.findViewById(R.id.btnStore).setVisibility(View.INVISIBLE);
 
-        btn_back.setVisibility(View.VISIBLE);
-        btnBack.setOnClickListener(this);
-        btn_back.setOnClickListener(this);
+        btnBack.setVisibility(View.VISIBLE);
     }
 
     private void addListenerToControls()
     {
 
-        Button btn_prev_page = (Button)mContext.findViewById(R.id.btn_prev_page);
-        Button btn_next_page = (Button)mContext.findViewById(R.id.btn_next_page);
+        View btn_prev_page = mContext.findViewById(R.id.btn_prev_page);
+        View btn_next_page = mContext.findViewById(R.id.btn_next_page);
 
         //buttons
-        Button GameMode = (Button)mContext.findViewById(R.id.GameMode);
-        Button PlayerMode = (Button)mContext.findViewById(R.id.PlayerMode);
-        Button BoardType = (Button)mContext.findViewById(R.id.BoardType);
-        Button ScrollType = (Button)mContext.findViewById(R.id.ScrollType);
-        Button CardSet = (Button)mContext.findViewById(R.id.CardSet);
+        View GameMode = mContext.findViewById(R.id.GameMode);
+        View PlayerMode = mContext.findViewById(R.id.PlayerMode);
+        View BoardType = mContext.findViewById(R.id.BoardType);
+        View ScrollType = mContext.findViewById(R.id.ScrollType);
+        View CardSet = mContext.findViewById(R.id.CardSet);
         TextView RowSize = (TextView)mContext.findViewById(R.id.RowSize);
         TextView ColSize = (TextView)mContext.findViewById(R.id.ColSize);
 
         //Edit buttons
-        Button btnGameMode = (Button)mContext.findViewById(R.id.btnGameMode);
-        Button btnPlayerMode = (Button)mContext.findViewById(R.id.btnPlayerMode);
-        Button btnBoardType = (Button)mContext.findViewById(R.id.btnBoardType);
-        Button btnScrollType = (Button)mContext.findViewById(R.id.btnScrollType);
-        Button btnCardSet = (Button)mContext.findViewById(R.id.btnCardSet);
+        View btnGameMode = mContext.findViewById(R.id.btnGameMode);
+        View btnPlayerMode = mContext.findViewById(R.id.btnPlayerMode);
+        View btnBoardType = mContext.findViewById(R.id.btnBoardType);
+        View btnScrollType = mContext.findViewById(R.id.btnScrollType);
+        View btnCardSet = mContext.findViewById(R.id.btnCardSet);
         TextView btnBoardSize = (TextView)mContext.findViewById(R.id.btnBoardSize);
 
-        Button btnLoadScores = (Button)mContext.findViewById(R.id.btnLoadScores);
+        View btnLoadScores = mContext.findViewById(R.id.btnLoadScores);
         TextView btnResetScores = (TextView)mContext.findViewById(R.id.btnResetScores);
 
-        Button btnStore = (Button)mContext.findViewById(R.id.btnStore);
-        Button btnExit = (Button)mContext.findViewById(R.id.btnExit);
+        View btnStore = mContext.findViewById(R.id.btnStore);
+        View btnExit = mContext.findViewById(R.id.btnExit);
 
         btnLoadScores.setOnClickListener(this);
         btnResetScores.setOnClickListener(this);
@@ -249,8 +242,6 @@ public class TopScores implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.btnBack:
-            case R.id.btn_back:
             case R.id.btnExit:
             case R.id.btn_exit:
                 mContext.loadView(R.layout.screen_home);
@@ -299,38 +290,6 @@ public class TopScores implements View.OnClickListener {
                 break;
         }
     }
-
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        private final int SWIPE_MIN_DISTANCE = 40;
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-            {
-                incrementScreenIndex();
-                return false; //Right to left
-            }
-            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
-            {
-                decrementScreenIndex();
-                return false; // Left to right
-            }
-
-            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
-            {
-                return false; // Bottom to top
-            }
-            else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
-            {
-                return false; // Top to bottom
-            }
-            return true;
-        }
-    }
-
-    //endregion
-
-
-    //region dialog logic
 
     private void InitializeDialogInputListener() {
         Process_Input = new View.OnClickListener() {
@@ -425,6 +384,10 @@ public class TopScores implements View.OnClickListener {
         };
     }
 
+    //endregion
+
+
+    //region dialog logic
 
     private void displayDialog(View v,boolean isCancelable)
     {
@@ -442,18 +405,21 @@ public class TopScores implements View.OnClickListener {
         int tag [] =  {ARCADE, TIME_TRIAL};
         return addToMainContainer(tag,text,String.valueOf(GAME_MODE),tag.length, titleText);
     }
+
     private View getPlayerModes()
     {
         String text[] =  {"1P", "2P - Manual","2P - AndroBot","2P - Hurricane","2P - Rocky","2P - Random-Bot"};
         int tag [] =  {0, 1,2,3,4,5};
         return addToMainContainer(tag,text,String.valueOf(PLAYER_MODE),tag.length,"Select Player Mode");
     }
+
     private View getRobotMemory()
     {
         String text[] =  {"1","2","3","4","5","6","7","8","9","10"};
         int tag [] =  {1,2,3,4,5,6,7,8,9,10};
         return addToMainContainer(tag, text, String.valueOf(ROBOT_MEMORY), tag.length, "Select Robot Memory");
     }
+
     private View getBoardType()
     {
         String text[] =  {"One-Board","Two-Board"};
@@ -473,6 +439,7 @@ public class TopScores implements View.OnClickListener {
 
         return addToBoardSizeContainer(tag, text, String.valueOf(TIME_TRIAL_TIMER), tag.length, "Time Trail Time");
     }
+
     private View getColSize()
     {
         int size;
@@ -524,6 +491,7 @@ public class TopScores implements View.OnClickListener {
         int tag [] =  {NO_SCROLL, VERTICAL,HORIZONTAL,BOTH};
         return addToMainContainer(tag, text, String.valueOf(SCROLL_TYPE), tag.length, "Select Scroll Type");
     }
+
     private View getCardSet()
     {
         String text[] =  {"I","II","III"};
@@ -632,9 +600,6 @@ public class TopScores implements View.OnClickListener {
         return tvTitle;
     }
 
-//endregion area
-
-
     public void loadSummaryScreen()
     {
         if(CurrentGame.objGameSummary == null)
@@ -642,6 +607,8 @@ public class TopScores implements View.OnClickListener {
                     CurrentGame.CurrentCard.getMeasuredHeight(),CurrentGame.CurrentCard.getMeasuredWidth());
         CurrentGame.objGameSummary.loadSummaryScreen();
     }
+
+//endregion area
 
     private void loadTopScoresScreen() {
         ((TextView)mContext.findViewById(R.id.tvTitle)).setText("Top Scores");
@@ -712,7 +679,6 @@ public class TopScores implements View.OnClickListener {
         loadPage();
     }
 
-
     private void loadPage()
     {
         switch (SCREENS[current_screen_index])
@@ -731,7 +697,6 @@ public class TopScores implements View.OnClickListener {
                 break;
         }
     }
-
 
     public void mergeScores(String targetNameList[],long targetScoreList[],long userScores[])
     {
@@ -905,7 +870,6 @@ public class TopScores implements View.OnClickListener {
         alertDialog.show();
     }
 
-
     public void setBoardDetailsText()
     {
         String gameMode = getText(GameMode);
@@ -1039,6 +1003,33 @@ public class TopScores implements View.OnClickListener {
         }
 
         return text;
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        private final int SWIPE_MIN_DISTANCE = 40;
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                incrementScreenIndex();
+                return false; //Right to left
+            }
+            else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) //&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                decrementScreenIndex();
+                return false; // Left to right
+            }
+
+            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Bottom to top
+            }
+            else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE)// && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY)
+            {
+                return false; // Top to bottom
+            }
+            return true;
+        }
     }
 
 }

@@ -139,7 +139,6 @@
     <item>@drawable/card_thunder_bolt_t8_2</item>
 </string-array>
 
-
 <string-array name="card_set_three_type1">
     <item>@drawable/card_allstar_bw_40</item>
     <item>@drawable/card_allstar_bw_42</item>
@@ -295,7 +294,6 @@
     <item>@drawable/card_heart_t10_4</item>
     <item>@drawable/card_heart_t9_11</item>
     <item>@drawable/card_heart_t10_6</item>
-
 </string-array>
 
 <string-array name="card_set_three_type2">
@@ -355,6 +353,12 @@
     <item>@drawable/card_jet_23</item>
     <item>@drawable/card_jet_26</item>
     <item>@drawable/card_heart_t9_5</item>
+    <item>@drawable/card_number_0</item>
+    <item>@drawable/card_number_1</item>
+    <item>@drawable/card_number_2</item>
+    <item>@drawable/card_number_7</item>
+    <item>@drawable/card_number_4</item>
+    <item>@drawable/card_number_8</item>
 </string-array>
 
 <string-array name="game_backgrounds">
