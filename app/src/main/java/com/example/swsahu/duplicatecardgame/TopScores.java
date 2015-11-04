@@ -18,6 +18,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
+
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
@@ -129,13 +132,20 @@ public class TopScores implements View.OnClickListener {
 
         setBoardDetailsText();
         if(!isFromGameScreen)
-        {
             initializeSpecificControls_Set2();
-        }
-
 
         addFlingListenerToTopScoresScreen(this_view);
         loadPage();
+
+        final AdView mAdView = (AdView) this_view.findViewById(R.id.adView);
+        mAdView.loadAd(mContext.AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 
@@ -144,7 +154,6 @@ public class TopScores implements View.OnClickListener {
     private void initializeSpecificControls_Set2()
     {
         View btnBack = (mContext.findViewById(R.id.btnBack));
-        View btn_back = (mContext.findViewById(R.id.btn_back));
 
         mContext.findViewById(R.id.btnExit).setVisibility(View.INVISIBLE);
         mContext.findViewById(R.id.btnStore).setVisibility(View.INVISIBLE);
@@ -173,20 +182,24 @@ public class TopScores implements View.OnClickListener {
         View btnBoardType = mContext.findViewById(R.id.btnBoardType);
         View btnScrollType = mContext.findViewById(R.id.btnScrollType);
         View btnCardSet = mContext.findViewById(R.id.btnCardSet);
-        TextView btnBoardSize = (TextView)mContext.findViewById(R.id.btnBoardSize);
+        View btnBoardSize = mContext.findViewById(R.id.btnBoardSize);
 
         View btnLoadScores = mContext.findViewById(R.id.btnLoadScores);
-        TextView btnResetScores = (TextView)mContext.findViewById(R.id.btnResetScores);
+        View btnResetScores = mContext.findViewById(R.id.btnResetScores);
 
         View btnStore = mContext.findViewById(R.id.btnStore);
+        View btn_store = mContext.findViewById(R.id.btn_store);
         View btnExit = mContext.findViewById(R.id.btnExit);
+        View btn_Exit = mContext.findViewById(R.id.btn_exit);
 
         btnLoadScores.setOnClickListener(this);
         btnResetScores.setOnClickListener(this);
         btn_next_page.setOnClickListener(this);
         btn_prev_page.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+        btn_Exit.setOnClickListener(this);
         btnStore.setOnClickListener(this);
+        btn_store.setOnClickListener(this);
         //buttons
         GameMode.setOnClickListener(this);
         PlayerMode.setOnClickListener(this);
@@ -254,6 +267,7 @@ public class TopScores implements View.OnClickListener {
                 incrementScreenIndex();
                 break;
             case R.id.btnStore:
+            case R.id.btn_store:
                 mContext.loadStoreScreen();
                 CurrentGame.CleanUp();
                 break;
@@ -769,7 +783,7 @@ public class TopScores implements View.OnClickListener {
                 break;
             case BEST_TIME:
                 maxScore = (int)(totalCards * 1.6);
-                minScore = (int)(maxScore * 3);
+                minScore = maxScore * 3;
                 interval = (maxScore-minScore)/4;
                 break;
             case LEAST_MOVES:

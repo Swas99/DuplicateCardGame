@@ -1,52 +1,19 @@
 <resources>
     <string name="app_name">2 Cards</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="player_mode"><u>Player Mode</u></string>
-    <string name="help"><u>HELP</u></string>
     <string name="settings_string"><u>Set Volume</u></string>
-    <string name="help_string">>Click on a card to flip it\n>You get to click on 2 cards in one turn\n>Your aim is to find duplicate cards</string>
-    <string-array name="board_size">
-        <!--<item>3 x 4</item>-->
-        <item>3 x 2</item>
-        <item>4 x 5</item>
-        <item>2 x 3</item>
-        <item>2 x 4</item>
-        <item>3 x 6</item>
-        <item>4 x 5</item>
-        <item>4 x 6</item>
-        <item>4 x 7</item>
-        <item>5 x 6</item>
-        <item>8 x 4</item>
-        <item>6 x 6</item>
-        <item>5 x 8</item>
-        <item>6 x 7</item>
-        <item>6 x 8</item>
-        <item>7 x 8</item>
-        <item>8 x 8</item>
-    </string-array>
-    <string-array name="memory_levels">
-        <item>10</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-    </string-array>
+
     <string name="one_board">One Board</string>
     <string name="two_board">Two Board</string>
-    <string name="easy">Easy</string>
-    <string name="medium">Medium</string>
-    <string name="hard">Hard</string>
     <string name="title_activity_summary">Summary</string>
-
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_game_summary">GameSummary</string>
-    </resources>
+
+
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+</resources>

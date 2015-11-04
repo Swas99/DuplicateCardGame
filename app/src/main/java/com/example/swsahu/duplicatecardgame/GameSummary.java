@@ -1,7 +1,6 @@
 package com.example.swsahu.duplicatecardgame;
 
 
-import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,10 +22,12 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 
 import java.lang.ref.WeakReference;
 
@@ -96,6 +97,7 @@ public class GameSummary {
         CardHeight=card_height;
         CardWidth=card_width;
         CurrentWinningStreak = -1;
+
     }
 
     private void InitializeClickListeners() {
@@ -210,6 +212,18 @@ public class GameSummary {
 
         Typeface font = Typeface.createFromAsset(CurrentGame.mContext.getAssets(), "fonts/hurry up.ttf");
         SetFontToControls(font, (ViewGroup) summary_screen);
+
+
+
+        final AdView mAdView = (AdView) summary_screen.findViewById(R.id.adView);
+        mAdView.loadAd(CurrentGame.mContext.AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
     private void InitiateAndAnimateViews(View summary_screen)
     {
@@ -229,7 +243,6 @@ public class GameSummary {
         TextView animTime = (TextView)summary_screen.findViewById(R.id.animTime);
         TextView animWinningStreak = (TextView)summary_screen.findViewById(R.id.animWinningStreak);
         // final TextView animMultiplier = (TextView)summary_screen.findViewById(R.id.animMultiplier);
-        final TextView animScore = (TextView)summary_screen.findViewById(R.id.animScore);
         Button btnClickMatrix = (Button)summary_screen.findViewById(R.id.btnClickCountMatrix);
         Button btnMoveMatrix = (Button)summary_screen.findViewById(R.id.btnMoveTraceMatrix);
         Button btnRetainMatrix = (Button) summary_screen.findViewById(R.id.btnRetainingPower);
@@ -331,9 +344,9 @@ public class GameSummary {
 
     private void startCoinsAnimation() {
         if(animFlag) {
-            final ImageView animCoin1 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins1);
-            final ImageView animCoin2 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins2);
-            final ImageView animCoin3 = (ImageView) CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins3);
+            final View animCoin1 =  CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins1);
+            final View animCoin2 =  CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins2);
+            final View animCoin3 =  CurrentGame.mContext.CurrentView.findViewById(R.id.animCoins3);
             View regionCoin = CurrentGame.mContext.CurrentView.findViewById(R.id.region_coins);
             regionCoin.setVisibility(View.VISIBLE);
 

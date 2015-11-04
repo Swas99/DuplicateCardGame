@@ -3,7 +3,13 @@ package com.example.swsahu.duplicatecardgame.StoryMode;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Paint;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +28,8 @@ import com.example.swsahu.duplicatecardgame.HelperClass;
 import com.example.swsahu.duplicatecardgame.MainActivity;
 import com.example.swsahu.duplicatecardgame.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
@@ -241,7 +249,7 @@ public class StartGame implements View.OnClickListener {
     private long getScore()
     {
         SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_SCORES),
-                mContext.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         return prefs.getLong(String.valueOf(getGameNumber()), 0l);
     }
 
@@ -270,11 +278,10 @@ public class StartGame implements View.OnClickListener {
     private void Start_Game()
     {
         if(mContext.objCardGame == null)
-            mContext.objCardGame = new Game(new WeakReference<>(mContext));
+            mContext.objCardGame = new Game(mContext);
         else
         {
             mContext.objCardGame.Clear();
-            mContext.objCardGame.Update_mContext(new WeakReference<>(mContext));
         }
         mContext.objCardGame.StoryMode=true;
         mContext.objCardGame.CurrentModule=CurrentModule;
@@ -367,6 +374,7 @@ public class StartGame implements View.OnClickListener {
                 }
                 break;
             case R.id.tvShare:
+                takeScreenShotAndShare();
                 break;
             case R.id.btnStart:
                 Start_Game();
@@ -374,6 +382,62 @@ public class StartGame implements View.OnClickListener {
                 CleanUp();
                 break;
         }
+    }
+
+    private void takeScreenShotAndShare()
+    {
+        //region create screenshot
+        View mainView = mContext.getWindow().getDecorView().getRootView();
+        View dialogView = DialogWindow.getWindow().getDecorView().getRootView();
+
+        mainView.setDrawingCacheEnabled(true);
+        android.graphics.Bitmap bitmap = mainView.getDrawingCache(); //screenshot for background view
+
+        dialogView.setDrawingCacheEnabled(true);
+        android.graphics.Bitmap bitmap2 = dialogView.getDrawingCache(); //screenshot for dialog
+
+        int location[] = new int[2];
+        int location2[] = new int[2];
+        mainView.getLocationOnScreen(location);
+        dialogView.getLocationOnScreen(location2);
+
+        //Create a transparent dark layer to add to background
+        Paint p = new android.graphics.Paint();
+        ColorFilter filter = new LightingColorFilter(0xFF999999, 0x00000000);
+        p.setColorFilter(filter);
+
+        android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
+        canvas.drawBitmap(bitmap,location[0],location[1],p);//Add dark layer to background
+        canvas.drawBitmap(bitmap2, location2[0] - location[0], location2[1] - location[1],
+                new android.graphics.Paint()); //draw dialog over background
+
+        File imageFile = new File(mContext.getFilesDir(),"screenshot.jpg");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imageFile);
+            bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            mainView.setDrawingCacheEnabled(false);
+            dialogView.setDrawingCacheEnabled(false);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        //endregion
+        //region Share with apps
+        Uri screenshotUri = FileProvider.getUriForFile(
+                mContext,
+                "com.example.swsahu.duplicatecardgame",
+                imageFile);
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("*/*");
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, "Check out my score.\nGet this game at - ");//here
+        sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        mContext.startActivity(Intent.createChooser(sharingIntent, "Share using.."));
+        //endregion
     }
 
     private void CleanUp()

@@ -562,11 +562,10 @@ public class HomePageTitleBar {
             {
 
                 if(mContext.objCardGame == null)
-                    mContext.objCardGame = new Game(new WeakReference<>(mContext));
+                    mContext.objCardGame = new Game(mContext);
                 else
                 {
                     mContext.objCardGame.Clear();
-                    mContext.objCardGame.Update_mContext(new WeakReference<>(mContext));
                 }
                 mContext.objCardGame.LockingTime = mContext.getLockingTime();
                 mContext.objCardGame.GameBackground = 0;

@@ -3,12 +3,16 @@ package com.example.swsahu.duplicatecardgame;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.FileProvider;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -26,7 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.swsahu.duplicatecardgame.StoryMode.ScreenCreation;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
@@ -79,12 +89,14 @@ import static com.example.swsahu.duplicatecardgame.HelperClass.TOTAL_COINS;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_BOARD;
 import static com.example.swsahu.duplicatecardgame.HelperClass.TWO_PLAYER;
 import static com.example.swsahu.duplicatecardgame.HelperClass.VERTICAL;
-import static com.example.swsahu.duplicatecardgame.HelperClass.applyBorderDrawableToView;
 
 //implements GestureDetector.OnGestureListener
 public class MainActivity extends Activity {
 
     final MainActivity thisContext = this;
+    public AdRequest AdRequest;
+    public InterstitialAd mInterstitialAd;
+
     public View CurrentView;
     public int CURRENT_SCREEN;
     public Game objCardGame;
@@ -110,7 +122,8 @@ public class MainActivity extends Activity {
     int GameBackground;
     boolean PlayerOne_FirstMove;
 //endregion
-    int data;
+
+
 
     public void loadSettingsScreen() {
         SettingsScreen objSettings = new SettingsScreen(new WeakReference<>(thisContext));
@@ -136,6 +149,19 @@ public class MainActivity extends Activity {
     {
         Help objHelpScreen = new Help(new WeakReference<>(thisContext));
         objHelpScreen.Show();
+    }
+
+    public void loadAdsToAdView()
+    {
+        final AdView mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.loadAd(AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public View loadView(int layout_id) {
@@ -166,7 +192,6 @@ public class MainActivity extends Activity {
                 InitializeDialogInputListener();
                 objHomePageTitleBar.requestUpdate(false);
                 AnimateViews();
-
                 break;
             case R.layout.screen_board_details:
                 LockingTime = getLockingTime();
@@ -198,11 +223,12 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            boolean isPlayInProgress = savedInstanceState.getBoolean(":");
+//            boolean isPlayInProgress = savedInstanceState.getBoolean(":");
         }
 
         if (objCardGame != null) {
             objCardGame.Clear();
+            objCardGame.mContext=this;
         }
 
         if (objHomePageTitleBar == null)
@@ -210,6 +236,7 @@ public class MainActivity extends Activity {
         loadView(R.layout.screen_home);
         CURRENT_SCREEN = R.layout.screen_home;
 
+        initializeAds();
     }
 
     public void setCoins() {
@@ -243,6 +270,16 @@ public class MainActivity extends Activity {
                 LoadDefaultValues(String.valueOf(QUICK_GAME));
                 loadView(R.layout.screen_quick_game);
                 InitializeRobotMemoryListener();
+
+                final AdView mAdView = (AdView) findViewById(R.id.adView);
+                mAdView.loadAd(AdRequest);
+                mAdView.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        super.onAdLoaded();
+                        mAdView.setVisibility(View.VISIBLE);
+                    }
+                });
                 break;
             case R.id.btnArcade:
                 loadView(R.layout.screen_player_mode);
@@ -250,6 +287,8 @@ public class MainActivity extends Activity {
                 InitializeScreenControls_PlayerMode();
                 CURRENT_SCREEN = R.layout.screen_player_mode;
                 GameMode = ARCADE;
+
+                loadAdsToAdView();
                 break;
             case R.id.btnTimeTrial:
                 loadView(R.layout.screen_player_mode);
@@ -257,15 +296,15 @@ public class MainActivity extends Activity {
                 InitializeScreenControls_PlayerMode();
                 CURRENT_SCREEN = R.layout.screen_player_mode;
                 GameMode = TIME_TRIAL;
+
+                loadAdsToAdView();
                 break;
             case R.id.btnStoryMode:
-                //loadSettingsScreen();
                 ScreenCreation obj = new ScreenCreation(new WeakReference<>(this));
                 obj.show();
                 break;
             case R.id.btnHelp:
                 loadHelpScreen();
-                //ShowUnderConstructionDialog();
                 break;
             case R.id.btnStore:
             case R.id.btn_store:
@@ -283,18 +322,23 @@ public class MainActivity extends Activity {
             case R.id.btn_rating:
                 ShowUnderConstructionDialog();
                 break;
-            case R.id.btnFb:
-                //loadSettingsScreen();
-                //ShowUnderConstructionDialog();
-                break;
             case R.id.btn_fb:
-                (findViewById(R.id.btnFb)).performClick();
+            case R.id.btnFb:
+                try
+                {
+                    getPackageManager().getPackageInfo("com.facebook.katana", 0);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/627541484052447"));
+                    startActivity(intent);
+                }
+                catch (Exception e)
+                {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/TwoCardsApp"));
+                    startActivity(intent);
+                }
                 break;
             case R.id.btnShare:
-                ShowUnderConstructionDialog();
-                break;
             case R.id.btn_share:
-                (findViewById(R.id.btnShare)).performClick();
+                takeScreenShotAndShare();
                 break;
             case R.id.btnBack:
             case R.id.btn_back:
@@ -676,6 +720,8 @@ public class MainActivity extends Activity {
             case R.id.btn_back:
                 loadView(R.layout.screen_player_mode);
                 InitializeScreenControls_PlayerMode();
+
+                loadAdsToAdView();
                 return;
             case R.id.btnStart:
                 StartGame();
@@ -860,11 +906,10 @@ public class MainActivity extends Activity {
     {
         SaveGameConfiguration();
         if(objCardGame == null)
-            objCardGame = new Game(new WeakReference<>(this));
+            objCardGame = new Game(this);
         else
         {
             objCardGame.Clear();
-            objCardGame.Update_mContext(new WeakReference<>(this));
         }
         objCardGame.GameBackground = GameBackground;
         objCardGame.PlayerOne_Turn = true; //PlayerOne_FirstMove;
@@ -948,14 +993,14 @@ public class MainActivity extends Activity {
     {
         String text[] =  {"1P", "2P - AndroBot","2P - Hurricane","2P - Rocky","2P - All Robots"};
         int tag [] =  {ONE_PLAYER, ROBOT_PLAYER,ROBOT_PLAYER,ROBOT_PLAYER,ROBOT_PLAYER};
-        return addToMainContainer(tag,text,String.valueOf(PLAYER_MODE),tag.length,"Select Player Mode");
+        return addToMainContainer(tag, text, String.valueOf(PLAYER_MODE), tag.length,"Select Player Mode");
     }
 
     private View getRobotMemory()
     {
         String text[] =  {"1","2","3","4","5","6","7","8","9","10"};
         int tag [] =  {1,2,3,4,5,6,7,8,9,10};
-        return addToMainContainer(tag,text,String.valueOf(ROBOT_MEMORY),tag.length,"Select Robot Memory");
+        return addToMainContainer(tag, text, String.valueOf(ROBOT_MEMORY), tag.length, "Select Robot Memory");
     }
 
     private View getBoardType()
@@ -996,7 +1041,7 @@ public class MainActivity extends Activity {
             text[i-2] = String.valueOf(i);
             i++;
         }
-        return addToBoardSizeContainer(tag, text, String.valueOf(COLUMN_SIZE),i-2,"Select Column Size");
+        return addToBoardSizeContainer(tag, text, String.valueOf(COLUMN_SIZE), i - 2, "Select Column Size");
     }
 
     private View getRowSize()
@@ -1019,8 +1064,7 @@ public class MainActivity extends Activity {
         return addToBoardSizeContainer(tag, text, String.valueOf(ROW_SIZE), i - 2, "Select Row Size");
     }
 
-    private View getBoardSize()
-    {
+    private View getBoardSize() {
         return getRowSize();
     }
 
@@ -1136,7 +1180,7 @@ public class MainActivity extends Activity {
 
     private View getTitleTextView(String titleText)
     {
-        int five_dip = ConvertToPx(thisContext,5);
+        int five_dip = ConvertToPx(thisContext, 5);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         TextView tvTitle = new TextView(thisContext);
@@ -1428,56 +1472,78 @@ public class MainActivity extends Activity {
     }
 
 
-//region Continue
-
-    //Temp data : for restore
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-
-        savedInstanceState.putInt("Layout", 99);
-        // etc.
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        data =  savedInstanceState.getInt("Layout");
-    }
-
-    public void setBackgroundToViews(int view_id[],int backgroundColor,int borderColor,int cornerRadius,int borderThickness)
+    private void takeScreenShotAndShare()
     {
-        View v;
-        for (int id:view_id)
+        //region create screenshot
+        View mainView = getWindow().getDecorView().getRootView();
+
+        mainView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = mainView.getDrawingCache();//screenshot for background view
+
+        File imageFile = new File(getFilesDir(),"screenshot.jpg");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            bitmap.recycle();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            bitmap.recycle();
+            return;
+        }
+        finally {
+            mainView.setDrawingCacheEnabled(false);
+        }
+        //endregion
+        //region Share with apps
+        Uri screenshotUri = FileProvider.getUriForFile(
+                this,
+                "com.example.swsahu.duplicatecardgame",
+                imageFile);
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("*/*");
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, "Awesome game to keep your brains cells engaged. Get it here - ");//here
+        sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(sharingIntent, "Share using.."));
+        //endregion
+    }
+
+    //region Ads Logic
+    int displayAdsCounter;
+    private void initializeAds()
+    {
+        //Initialize AdRequest for Banner Ads
+        AdRequest = new AdRequest.Builder().build();
+
+        //Initialize Interstitial Ads
+        mInterstitialAd = new InterstitialAd(getApplication());
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");//here
+        requestNewInterstitial();
+    }
+    public void DisplayInterstitialAd()
+    {
+        if (mInterstitialAd!=null && mInterstitialAd.isLoaded() )
         {
-            v = findViewById(id);
-            applyBorderDrawableToView(v, backgroundColor, borderColor, cornerRadius, borderThickness);
+            mInterstitialAd.show();
+            displayAdsCounter=0;
+        }
+        else
+            displayAdsCounter=2; //Setting value to one less than trigger value
+    }
+    public void requestNewInterstitial() {
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded())
+        {
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)//here
+                    .build();
+            mInterstitialAd.loadAd(adRequest);
         }
     }
-
     //endregion
-
-
-    //region recycle
-
-    public void SetBackgroundToViewFromArray(int identifier[],int view_id[],int id,int backgroundColor,int borderColor,
-                                             int cornerRadius,int borderThickness)
-    {
-        for(int i=0;i<identifier.length;i++)
-        {
-            if(identifier[i]==id)
-            {
-                applyBorderDrawableToView(findViewById(view_id[i]),backgroundColor,borderColor,
-                        cornerRadius,borderThickness);
-                break;
-            }
-        }
-    }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int SWIPE_MIN_DISTANCE = 20;
@@ -1526,7 +1592,29 @@ public class MainActivity extends Activity {
 //        }
     }
 
-    //endregion
 
+//region Continue
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+
+        //savedInstanceState.putInt("Layout", 99);
+        // etc.
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        //data =  savedInstanceState.getInt("Layout");
+    }
+
+
+    //endregion
 }
 

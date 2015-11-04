@@ -3,6 +3,7 @@ package com.example.swsahu.duplicatecardgame.StoryMode;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 import com.example.swsahu.duplicatecardgame.HelperClass;
 import com.example.swsahu.duplicatecardgame.MainActivity;
 import com.example.swsahu.duplicatecardgame.R;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
 
 import java.lang.ref.WeakReference;
 
@@ -91,7 +94,6 @@ public class ScreenCreation {
         {
             linear_layout.addView(getModule(i));
             linear_layout.addView(getDivider(HelperClass.ConvertToPx(mContext,2), Color.BLACK));
-            linear_layout.addView(getDivider(HelperClass.ConvertToPx(mContext,1), Color.argb(60, 255, 255, 255)));
             setClickListenerForExpandCollapseButton();
             if(i==CurrentModule)
             {
@@ -119,6 +121,17 @@ public class ScreenCreation {
 
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/hurry up.ttf");
         SetFontToControls(font, (ViewGroup) view);
+
+
+        final AdView mAdView = (AdView)view.findViewById(R.id.adView);
+        mAdView.loadAd(mContext.AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 
@@ -536,11 +549,6 @@ public class ScreenCreation {
 
     private int getDefaultCompletionStatus(int M,int L,int S,int C)
     {
-        //here
-        int ModuleLevelCount[] = {18,8,4,8,15,17,11};
-        if(ModuleLevelCount[M]-1==L)
-            return STATUS_NEW;
-
         if(L<1 && S<1 && C<1)
             return STATUS_NEW;
         else
@@ -551,7 +559,7 @@ public class ScreenCreation {
     {
         CountOfCompletedGames=0;
         TotalGames=0;
-        SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA), mContext.MODE_PRIVATE);
+        SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA), Context.MODE_PRIVATE);
         for(int p=0;p<ModuleLevelCount.length;p++)
         {
             int max_levels = ModuleLevelCount[p];
@@ -587,7 +595,7 @@ public class ScreenCreation {
                 "_"+String.valueOf(S)+"_"+String.valueOf(C);
 
         SharedPreferences prefs = mContext.getSharedPreferences(String.valueOf(STORY_MODE_DATA),
-                mContext.MODE_PRIVATE);
+                Context.MODE_PRIVATE);
         //get data from preferences
         return prefs.getInt(id,getDefaultCompletionStatus(M,L,S,C));
     }

@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
+
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ALPHABET;
@@ -77,6 +80,16 @@ public class SettingsScreen {
         View view = mContext.CurrentView.findViewById(R.id.screenSettings);
         SetFontToControls(font, (ViewGroup) view);
         Initialize();
+
+        final AdView mAdView = (AdView) mContext.CurrentView.findViewById(R.id.adView);
+        mAdView.loadAd(mContext.AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public String getOneTouchFlip()
@@ -231,6 +244,8 @@ public class SettingsScreen {
                         String playerName = String.valueOf(edit_PlayerName.getText());
                         if(playerName.length()>27)
                             playerName = playerName.substring(0,27);
+                        if(playerName=="")
+                            playerName="Player A";
 
                         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
                         SharedPreferences.Editor editor = settings.edit();
@@ -246,6 +261,8 @@ public class SettingsScreen {
                         String playerName = String.valueOf(edit_PlayerName.getText());
                         if(playerName.length()>27)
                             playerName = playerName.substring(0,27);
+                        if(playerName=="")
+                            playerName="Player B";
 
                         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
                         SharedPreferences.Editor editor = settings.edit();

@@ -20,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdView;
+
 import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
@@ -71,6 +74,16 @@ public class Store {
 
         objBuyPowers = new BuyPowers();
         objBuyPowers.load();
+
+        final AdView mAdView = (AdView) mContext.findViewById(R.id.adView);
+        mAdView.loadAd(mContext.AdRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void InitializeListeners()

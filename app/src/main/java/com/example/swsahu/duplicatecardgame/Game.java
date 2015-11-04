@@ -2,6 +2,7 @@ package com.example.swsahu.duplicatecardgame;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 import com.example.swsahu.duplicatecardgame.StoryMode.GameValues;
 import com.example.swsahu.duplicatecardgame.StoryMode.PostGame;
+import com.google.android.gms.ads.AdListener;
 
 import java.lang.ref.WeakReference;
 import java.util.Random;
@@ -159,14 +161,9 @@ public class Game {
     private Semaphore WAIT_LOCK;
 
 
-    public Game(final WeakReference<MainActivity>  context)
+    public Game(final MainActivity  context)
     {
-        mContext = context.get();
-    }
-
-    public void Update_mContext(WeakReference<MainActivity> context)
-    {
-        mContext = context.get();
+        mContext = context;
     }
 
     public void setGameConfiguration(int playerMode,int playerTwoType,int robotMemoryLevel,int gameMode,
@@ -245,8 +242,6 @@ public class Game {
         {
             robotPlayer.InitializeVariables();
         }
-
-
     }
     private void generateBoardIdentifier() {
         BoardIdentifier = 0;
@@ -314,6 +309,18 @@ public class Game {
         }
         if(GameMode==TIME_TRIAL)
             objTimeTrail.TimeTrialTimer.start();
+
+
+        mContext.displayAdsCounter++;
+        if(TotalCardsOnBoard>30 && mContext.displayAdsCounter!=3)
+        {
+            mContext.displayAdsCounter++;
+            if(TotalCardsOnBoard>40)
+                mContext.displayAdsCounter=3;
+        }
+        if(mContext.displayAdsCounter>3)
+            mContext.displayAdsCounter=3;
+
     }
 
     public void resetGameData()
@@ -717,6 +724,7 @@ public class Game {
         mContext.CurrentView.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_out));
         main_layout.startAnimation(AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in));
         mContext.setContentView(main_layout);
+        mContext.CurrentView = main_layout;
 
         setGameBoard(IV_AllCards[0][0]);
         objPower.AssignClickListener(Btn_Power);
@@ -1518,25 +1526,102 @@ public class Game {
     //region Post Game Dialog
     public void postGameLogic()
     {
+        //region Display Remove Ads dialog Periodically
+        if(mContext.displayAdsCounter==3)
+        {
+
+            LayoutInflater inflater = mContext.getLayoutInflater();
+            View view = inflater.inflate(R.layout.dialog_remove_ads, null, true);
+
+            final Dialog dialog = new AlertDialog.Builder(mContext).show();
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    mContext.DisplayInterstitialAd();
+                }
+            });
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    mContext.DisplayInterstitialAd();
+                }
+            });
+            dialog.setCancelable(true);
+            dialog.setContentView(view);
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            Window window = dialog.getWindow();
+            lp.copyFrom(window.getAttributes());
+            View v2 =  mContext.CurrentView;
+            lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+
+            //region Click Listener for remove ads dialog
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch(v.getId())
+                    {
+                        case R.id.btnShowAd:
+                            mContext.DisplayInterstitialAd();
+
+                            if (mContext.mInterstitialAd!=null && mContext.mInterstitialAd.isLoaded())
+                            {
+                                mContext.mInterstitialAd.setAdListener(new AdListener() {
+                                    @Override
+                                    public void onAdClosed() {
+                                        mContext.requestNewInterstitial();
+                                        ShowBoardCompleteDialog();
+                                        mContext.displayAdsCounter = 0;
+                                    }
+                                });
+                                mContext.mInterstitialAd.show();
+                            }
+                            else
+                            {
+                                ShowBoardCompleteDialog();
+                                mContext.displayAdsCounter=2; //Setting value to one less than trigger value
+                            }
+                            break;
+                        case R.id.btn_store:
+                        case R.id.btnStore:
+                            break;
+                        case R.id.btnRemoveAds:
+                            break;
+                    }
+                }
+            };
+            //endregion
+
+            view.findViewById(R.id.btnShowAd).setOnClickListener(listener);
+            view.findViewById(R.id.btn_store).setOnClickListener(listener);
+            view.findViewById(R.id.btnStore).setOnClickListener(listener);
+            view.findViewById(R.id.btnRemoveAds).setOnClickListener(listener);
+            dialog.show();
+        }
+        //endregion
+        else
+            ShowBoardCompleteDialog();
+    }
+
+    public void ShowBoardCompleteDialog()
+    {
         objGameSummary = new GameSummary(new WeakReference<>(this),
                 CurrentCard.getMeasuredHeight(), CurrentCard.getMeasuredWidth());
         objGameSummary.CalculateScore();
-        if(StoryMode)
+        if (StoryMode)
         {
             objGameSummary.writeCoinsToPreferences(0);
-            if(!powUsed)
+            if (!powUsed)
                 objGameSummary.getHighestScore();
 
             PostGame objPostGame = new PostGame(new WeakReference<>(mContext));
             objPostGame.ShowLevelCompletedDialog();
         }
         else
-        {
-            ShowLevelCompletedDialog();
-        }
+            ShowLevelCompletedDialogForNonStoryMode();
     }
-
-    public void ShowLevelCompletedDialog()
+    public void ShowLevelCompletedDialogForNonStoryMode()
     {
         LayoutInflater inflater = mContext.getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_normal_mode_summary, null, true);
@@ -1909,7 +1994,5 @@ public class Game {
         ColumnSize = 0;
         clickAdjustment_destroyedCards = 0;
     }
-
-
 
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,654 +29,129 @@
             android:layout_marginRight="10dp"
             android:layout_marginBottom="2dp"
             android:layout_marginTop="-5dp"
-            android:layout_centerInParent="true"
             />
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#18FFFFFF"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#28FFFFFF"/>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
                 android:background="@color/black"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:background="#28FFFFFF"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
-                <RelativeLayout
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/black"/>
-                <RelativeLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#28FFFFFF"/>
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:id="@+id/mainContainer">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="36dp"
-                                        android:layout_weight="1"
-                                        android:paddingLeft="20dp"
-                                        android:gravity="start|center_vertical"
-                                        android:textSize="24sp"
-                                        android:text="Love Affair :"
-                                        android:textColor="@color/black"
-                                        android:background="#17FAFAFA"
-                                        />
-                                    <Button
-                                        android:layout_width="36dp"
-                                        android:layout_height="36dp"
-                                        android:text="^"
-                                        android:textColor="@color/black"
-                                        android:background="#17FAFAFA"/>
-
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/regionLoveAffair"
-                                    >
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:padding="5dp">
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L2"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L3"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L4"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L5"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-
-
-                                    </LinearLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1px"
-                                        android:background="@color/black"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:padding="5dp">
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L6"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L7"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L8"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L9"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="22sp"
-                                                android:text="L10"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-
-
-                                    </LinearLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1px"
-                                        android:background="@color/black"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:padding="5dp">
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="22sp"
-                                                android:text="L11"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-
-
-                                    </LinearLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1px"
-                                        android:background="@color/black"/>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        android:padding="5dp">
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-                                        <RelativeLayout
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:paddingRight="10dp"
-                                            android:paddingLeft="10dp"
-                                            android:paddingEnd="10dp"
-                                            android:paddingStart="10dp"
-                                            android:paddingTop="7dp"
-                                            android:paddingBottom="7dp">
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:padding="3dp"
-                                                android:textColor="@color/black"
-                                                android:textSize="30sp"
-                                                android:text="L1"
-                                                android:background="@color/white_transparent_20"
-                                                android:gravity="center"/>
-                                        </RelativeLayout>
-
-
-
-                                    </LinearLayout>
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="1px"
-                                        android:background="@color/black"/>
-
-                                </LinearLayout>
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="1dp"
-                                    android:background="#28FFFFFF"/>
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="2dp"
-                                    android:background="@color/black"/>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                    </ScrollView>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:background="@color/black"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="● "
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="Overall progress : "
-                            android:textColor="@color/white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text="0"
-                            android:id="@+id/tvPercentCompleted"
-                            android:textColor="@color/white"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="12sp"
-                            android:text=" % completed"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-                </LinearLayout>
+                    android:id="@+id/mainContainer"/>
 
                 <RelativeLayout
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#28FFFFFF"/>
-                <RelativeLayout
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
                     android:background="@color/black"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="● "
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="Overall progress : "
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text="0"
+                        android:id="@+id/tvPercentCompleted"
+                        android:textColor="@color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:text=" % completed"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
                 android:background="#28FFFFFF"/>
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
                 android:background="@color/black"/>
-
-
-
-
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#28FFFFFF"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:padding="2dp">
+        android:padding="3dp">
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="45dp"
