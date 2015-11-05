@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:background="#09FAFAFA"
         android:orientation="vertical"
-        android:padding="7dp"
+        android:padding="11dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -68,6 +68,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvRemoveAdsPrice"
                     android:text="At just 45 INR!"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -94,7 +95,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/background_white_09"
                 android:orientation="vertical">
@@ -111,35 +112,18 @@
                     <TextView
                         android:id="@+id/btnRemoveAds"
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
+                        android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:layout_marginRight="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/btn_white_09_rectangle"
                         android:gravity="center"
+                        android:textSize="16sp"
                         android:text="Remove ads"
                         android:textColor="@color/white"
+                        android:background="@drawable/btn_white_09_rectangle"
                         />
 
-
-                    <RelativeLayout
-                        android:id="@+id/btn_store"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginStart="5dp"
-                        android:background="@drawable/btn_white_09_rectangle"
-                        android:clickable="true">
-                        <TextView
-                            android:id="@+id/btnStore"
-                            android:layout_width="27dp"
-                            android:layout_height="27dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/btn_store"
-                            android:clickable="true"/>
-                    </RelativeLayout>
                 </LinearLayout>
 
                 <TextView
@@ -152,7 +136,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:clickable="true"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:text="Continue playing free version with ads"
                     android:background="@drawable/btn_white_09_rectangle"/>

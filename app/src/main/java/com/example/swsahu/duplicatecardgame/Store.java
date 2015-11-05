@@ -216,6 +216,7 @@ public class Store {
         {
             InitializeListeners();
             InitializeBuyCoinsView();
+            //mContext.objInAppBilling.setCoinPrice(); //here
         }
         public void InitializeBuyCoinsView()
         {
@@ -233,19 +234,22 @@ public class Store {
             BuyPouchOfCoins_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT).show();
+                    String SKU_POUCH_OF_COINS = "1";
+                    mContext.objInAppBilling.LaunchPurchaseFlow(SKU_POUCH_OF_COINS);
                 }
             };
             BuyBagOfCoins_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT).show();
+                    String SKU_BAG_OF_COINS = "2";
+                    mContext.objInAppBilling.LaunchPurchaseFlow(SKU_BAG_OF_COINS);
                 }
             };
             BuyTrunkOfCoins_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    String SKU_TRUNK_OF_COINS = "3";
+                    mContext.objInAppBilling.LaunchPurchaseFlow(SKU_TRUNK_OF_COINS);
                 }
             };
         }
@@ -259,8 +263,8 @@ public class Store {
         public void InitializeRemoveAdsView()
         {
             View btnRemoveAdNow = mContext.findViewById(R.id.btnRemoveAdNow);
-
             btnRemoveAdNow.setOnClickListener(RemoveAdNow_Click);
+            mContext.objInAppBilling.setRemoveAdsPrice();
         }
 
         public void InitializeListeners()
@@ -268,7 +272,7 @@ public class Store {
             RemoveAdNow_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT).show();
                 }
             };
         }
@@ -339,6 +343,10 @@ public class Store {
             btnIncreaseQuantity.setOnClickListener(btnIncreaseQuantity_Click);
             btnDecreaseQuantity.setOnClickListener(btnDecreaseQuantity_Click);
             btnBuy.setOnClickListener(Buy_Click);
+
+
+            TextView tvCoins = (TextView)mContext.findViewById(R.id.tvCoins);
+            tvCoins.setText(String.valueOf(mContext.coins));
         }
 
         public void load()

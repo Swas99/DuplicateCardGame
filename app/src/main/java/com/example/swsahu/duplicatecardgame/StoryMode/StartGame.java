@@ -34,7 +34,6 @@ import java.lang.ref.WeakReference;
 
 import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.BOTH;
-import static com.example.swsahu.duplicatecardgame.HelperClass.ConvertToPx;
 import static com.example.swsahu.duplicatecardgame.HelperClass.HORIZONTAL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.NO_SCROLL;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ONE_BOARD;
@@ -267,7 +266,7 @@ public class StartGame implements View.OnClickListener {
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 Window window = DialogWindow.getWindow();
                 lp.copyFrom(window.getAttributes());
-                lp.height =  ConvertToPx(mContext, 390);
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 window.setAttributes(lp);
             }
         };

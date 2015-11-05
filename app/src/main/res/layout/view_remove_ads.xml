@@ -20,8 +20,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/tvRemoveAdsPrice"
                 android:text="\@ 45 INR"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/btnRemoveAdNow"
@@ -31,7 +32,7 @@
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:text="Remove Ads Now!"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:id="@+id/btnRemoveAdNow"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_rectangle_sky_blue"/>

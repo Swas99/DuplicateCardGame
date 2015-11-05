@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.swsahu.duplicatecardgame.StoryMode.ScreenCreation;
+import com.example.swsahu.duplicatecardgame.util.InAppBilling;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -96,6 +97,8 @@ public class MainActivity extends Activity {
     final MainActivity thisContext = this;
     public AdRequest AdRequest;
     public InterstitialAd mInterstitialAd;
+    InAppBilling objInAppBilling;
+
 
     public View CurrentView;
     public int CURRENT_SCREEN;
@@ -105,7 +108,8 @@ public class MainActivity extends Activity {
     AlertDialog CommonDialog;
     View.OnClickListener Process_Input;
     //user data
-    long coins;
+    public boolean adFreeVersion;
+    public long coins;
     String playerOneName;
     String playerTwoName;
     //region Game Related
@@ -122,7 +126,6 @@ public class MainActivity extends Activity {
     int GameBackground;
     boolean PlayerOne_FirstMove;
 //endregion
-
 
 
     public void loadSettingsScreen() {
@@ -220,7 +223,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
 //            boolean isPlayInProgress = savedInstanceState.getBoolean(":");
@@ -237,6 +239,17 @@ public class MainActivity extends Activity {
         CURRENT_SCREEN = R.layout.screen_home;
 
         initializeAds();
+        objInAppBilling = new InAppBilling(this);
+//        objInAppBilling.initializeInAppBilling();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (objInAppBilling.mHelper != null)
+            objInAppBilling.mHelper.dispose();
+        objInAppBilling.mHelper = null;
+        CollectGarbage();
     }
 
     public void setCoins() {
@@ -391,6 +404,7 @@ public class MainActivity extends Activity {
                 RowSize = Math.min(MAX_ROW_SIZE_2B, RowSize);
                 break;
             case R.id.RowSize:
+            case R.id.ColSize:
             case R.id.btnBoardSize:
                 displayDialog(getBoardSize(), true);
                 return;
@@ -681,6 +695,7 @@ public class MainActivity extends Activity {
                 ScrollType = BOTH;
                 break;
             case R.id.RowSize:
+            case R.id.ColSize:
             case R.id.btnBoardSize:
                 displayDialog(getBoardSize(), true);
                 return;
@@ -695,7 +710,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.CardSet:
             case R.id.btnCardSet:
-                Toast.makeText(thisContext, "Not Implemented", Toast.LENGTH_SHORT).show();
+                displayDialog(getCardSet(),true);
                 return;
             case R.id.TimeTrialTime:
             case R.id.btnTimeTrialTime:
@@ -1517,12 +1532,18 @@ public class MainActivity extends Activity {
     private void initializeAds()
     {
         //Initialize AdRequest for Banner Ads
-        AdRequest = new AdRequest.Builder().build();
+        AdRequest = new AdRequest.Builder()
+                .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("865622026474424")//here
+                .build();
 
         //Initialize Interstitial Ads
         mInterstitialAd = new InterstitialAd(getApplication());
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");//here
+        mInterstitialAd.setAdUnitId("ca-app-pub-4622920858510017/9784140081");//here
         requestNewInterstitial();
+        //test = ca-app-pub-3940256099942544/1033173712
+        //mine = ca-app-pub-4622920858510017/9784140081
+        //865622026474424
     }
     public void DisplayInterstitialAd()
     {
@@ -1538,12 +1559,14 @@ public class MainActivity extends Activity {
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded())
         {
             AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)//here
+                    .addTestDevice(com.google.android.gms.ads.AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("865622026474424")//here
                     .build();
             mInterstitialAd.loadAd(adRequest);
         }
     }
     //endregion
+
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
         private final int SWIPE_MIN_DISTANCE = 20;

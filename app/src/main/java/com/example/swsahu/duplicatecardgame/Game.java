@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1527,26 +1528,13 @@ public class Game {
     public void postGameLogic()
     {
         //region Display Remove Ads dialog Periodically
-        if(mContext.displayAdsCounter==3)
+        if(mContext.displayAdsCounter==3 && !mContext.adFreeVersion)
         {
-
             LayoutInflater inflater = mContext.getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_remove_ads, null, true);
 
             final Dialog dialog = new AlertDialog.Builder(mContext).show();
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    mContext.DisplayInterstitialAd();
-                }
-            });
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    mContext.DisplayInterstitialAd();
-                }
-            });
-            dialog.setCancelable(true);
+            dialog.setCancelable(false);
             dialog.setContentView(view);
             WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
             Window window = dialog.getWindow();
@@ -1555,7 +1543,19 @@ public class Game {
             lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
             lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
             window.setAttributes(lp);
+            //mContext.objInAppBilling.setRemoveAdsPrice(); //here
 
+            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if ((keyCode == KeyEvent.KEYCODE_BACK))
+                    {
+                        DisplayInterstitialAd();
+                        dialog.dismiss();
+                    }
+                    return false;
+                }
+            });
             //region Click Listener for remove ads dialog
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
@@ -1563,39 +1563,20 @@ public class Game {
                     switch(v.getId())
                     {
                         case R.id.btnShowAd:
-                            mContext.DisplayInterstitialAd();
-
-                            if (mContext.mInterstitialAd!=null && mContext.mInterstitialAd.isLoaded())
-                            {
-                                mContext.mInterstitialAd.setAdListener(new AdListener() {
-                                    @Override
-                                    public void onAdClosed() {
-                                        mContext.requestNewInterstitial();
-                                        ShowBoardCompleteDialog();
-                                        mContext.displayAdsCounter = 0;
-                                    }
-                                });
-                                mContext.mInterstitialAd.show();
-                            }
-                            else
-                            {
-                                ShowBoardCompleteDialog();
-                                mContext.displayAdsCounter=2; //Setting value to one less than trigger value
-                            }
-                            break;
-                        case R.id.btn_store:
-                        case R.id.btnStore:
+                            DisplayInterstitialAd();
                             break;
                         case R.id.btnRemoveAds:
+                            DisplayInterstitialAd();
+//                            mContext.loadStoreScreen();
+//                            mContext.objCardGame.CleanUp();
                             break;
                     }
+                    dialog.dismiss();
                 }
             };
             //endregion
 
             view.findViewById(R.id.btnShowAd).setOnClickListener(listener);
-            view.findViewById(R.id.btn_store).setOnClickListener(listener);
-            view.findViewById(R.id.btnStore).setOnClickListener(listener);
             view.findViewById(R.id.btnRemoveAds).setOnClickListener(listener);
             dialog.show();
         }
@@ -1604,6 +1585,26 @@ public class Game {
             ShowBoardCompleteDialog();
     }
 
+    public void DisplayInterstitialAd()
+    {
+        if (mContext.mInterstitialAd!=null && mContext.mInterstitialAd.isLoaded())
+        {
+            mContext.mInterstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    mContext.requestNewInterstitial();
+                    ShowBoardCompleteDialog();
+                    mContext.displayAdsCounter = 0;
+                }
+            });
+            mContext.mInterstitialAd.show();
+        }
+        else
+        {
+            ShowBoardCompleteDialog();
+            mContext.displayAdsCounter=2; //Setting value to one less than trigger value
+        }
+    }
     public void ShowBoardCompleteDialog()
     {
         objGameSummary = new GameSummary(new WeakReference<>(this),
@@ -1961,7 +1962,6 @@ public class Game {
         Card_Clicks = null;
         CardLastClicked = null;
         CardRetainingPower = null;
-        //mContext = null;
         Btn_Power = null;
         robotPlayer = null;
         objTimeTrail = null;

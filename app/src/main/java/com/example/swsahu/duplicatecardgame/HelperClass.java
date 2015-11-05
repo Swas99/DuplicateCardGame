@@ -103,6 +103,8 @@ public class HelperClass {
     public final static int CURRENT_GAME_ID = 116;
     public final static int STORY_MODE_SCORES = 118;
     public final static int STORY_MODE_STARS = 120;
+    public final static int AD_FREE_VERSION_HASH_MAP = 130;
+    public final static int AD_FREE_VERSION_MAP_KEY = 130;
     ////
 
     //Numeric Constants
@@ -126,8 +128,6 @@ public class HelperClass {
     //String constants
     public final static String DELIMITER = "_";
     public final static String DELIMITER_2 = "~";
-
-
 
 
     public static int ConvertToPx(Context c,int dip)

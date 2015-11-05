@@ -181,7 +181,7 @@ public class ScreenCreation {
                     lp.copyFrom(window.getAttributes());
                     View v2 =  mContext.CurrentView;
                     lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
-                    lp.height =  ConvertToPx(mContext, 390);
+                    lp.height =  WindowManager.LayoutParams.WRAP_CONTENT;
                     window.setAttributes(lp);
                 }
                 else
@@ -381,7 +381,7 @@ public class ScreenCreation {
         lp.copyFrom(window.getAttributes());
         View v2 =  mContext.CurrentView;
         lp.width = v2.getMeasuredWidth() - ConvertToPx(mContext, 40); //WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height =  ConvertToPx(mContext, 390);
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
     }
     
