@@ -2,6 +2,7 @@ package com.example.swsahu.duplicatecardgame;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 
+import static com.example.swsahu.duplicatecardgame.HelperClass.AD_FREE_VERSION_HASH_MAP;
+import static com.example.swsahu.duplicatecardgame.HelperClass.AD_FREE_VERSION_MAP_KEY;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ANDROBOT;
 import static com.example.swsahu.duplicatecardgame.HelperClass.ARCADE;
 import static com.example.swsahu.duplicatecardgame.HelperClass.BOARD_TYPE;
@@ -127,7 +130,98 @@ public class MainActivity extends Activity {
     boolean PlayerOne_FirstMove;
 //endregion
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+//            boolean isPlayInProgress = savedInstanceState.getBoolean(":");
+        }
 
+        if (objCardGame != null) {
+            objCardGame.Clear();
+            objCardGame.mContext=this;
+        }
+
+        if (objHomePageTitleBar == null)
+            objHomePageTitleBar = new HomePageTitleBar(new WeakReference<>(this));
+        loadView(R.layout.screen_home);
+        CURRENT_SCREEN = R.layout.screen_home;
+
+        initializeAds();
+        objInAppBilling = new InAppBilling(this);
+        //objInAppBilling.initializeInAppBilling();
+
+        updateCoins(0);//here
+        setPlayerNames();
+        InitializeDialogInputListener();
+        SharedPreferences prefs = getSharedPreferences(String.valueOf(AD_FREE_VERSION_HASH_MAP),
+                Context.MODE_PRIVATE);
+        adFreeVersion =  prefs.getBoolean(String.valueOf(AD_FREE_VERSION_MAP_KEY), false);
+//
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (objInAppBilling.mHelper != null)
+            objInAppBilling.mHelper.dispose();
+        objInAppBilling.mHelper = null;
+        CollectGarbage();
+    }
+
+    public void setCoins() {
+        ((TextView) findViewById(R.id.tvCoins)).setText(String.valueOf(coins));
+    }
+
+    public View loadView(int layout_id) {
+        if (CurrentView != null)
+            CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
+
+        View view;
+        LayoutInflater inflater = getLayoutInflater();
+        view = inflater.inflate(layout_id, null, false);
+        Typeface font = Typeface.createFromAsset(thisContext.getAssets(), "fonts/hurry up.ttf");
+        SetFontToControls(font, (ViewGroup) view);
+
+        view.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        setContentView(view);
+        CurrentView = view;
+        CURRENT_SCREEN = layout_id;
+        screenSpecificControls();
+        return view;
+    }
+    public void screenSpecificControls() {
+        switch (CURRENT_SCREEN) {
+            case R.layout.screen_home:
+                ((TextView)findViewById(R.id.tvCoins)).setTypeface(Typeface.SANS_SERIF);
+                setCoins();
+                objHomePageTitleBar.requestUpdate(false);
+                AnimateViews();
+                break;
+            case R.layout.screen_board_details:
+                LockingTime = getLockingTime();
+                GameBackground = getGameBackground();
+                addFlingListenerForBoardBackgroundSelection();
+                InitializeScreenControls_BoardDetails();
+                if(GameMode == ARCADE)
+                {
+                    int COLOR_DISABLED_GRAY = Color.argb(45, 45, 45, 45);
+                    View temp_view = findViewById(R.id.region_TimeTrial);
+                    SetEnableControls(false, (ViewGroup) temp_view);
+                    temp_view.setBackgroundColor(COLOR_DISABLED_GRAY);
+                    findViewById(R.id.TimeTrialTime).setBackgroundResource(R.drawable.background_white45_white196_disabled);
+                }
+                break;
+            case R.layout.screen_quick_game:
+                InitializeScreenControls_QuickGame();
+                break;
+        }
+    }
+
+    private void AnimateViews() {
+        HomeScreenAnimations objAnim = new HomeScreenAnimations();
+        objAnim.StartAnimation(new WeakReference<>(thisContext));
+    }
     public void loadSettingsScreen() {
         SettingsScreen objSettings = new SettingsScreen(new WeakReference<>(thisContext));
         objSettings.loadScreen();
@@ -135,7 +229,7 @@ public class MainActivity extends Activity {
 
     public void loadTopScoresScreen()
     {
-       TopScores objTopScoresScreen = new TopScores(new WeakReference<>(thisContext));
+        TopScores objTopScoresScreen = new TopScores(new WeakReference<>(thisContext));
         LoadDefaultValues("");
         objTopScoresScreen.InitializeBoardDetails(GameMode,PlayerMode,PlayerTwoType,RobotMemoryLevel,
                 BoardType,ScrollType,CardSet,RowSize,ColSize,TimeTrialTimer);
@@ -165,95 +259,6 @@ public class MainActivity extends Activity {
                 mAdView.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    public View loadView(int layout_id) {
-        if (CurrentView != null)
-            CurrentView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
-
-        View view;
-            LayoutInflater inflater = getLayoutInflater();
-            view = inflater.inflate(layout_id, null, false);
-            Typeface font = Typeface.createFromAsset(thisContext.getAssets(), "fonts/hurry up.ttf");
-            SetFontToControls(font, (ViewGroup) view);
-
-        view.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
-        setContentView(view);
-        CurrentView = view;
-        CURRENT_SCREEN = layout_id;
-        screenSpecificControls();
-        return view;
-    }
-
-    public void screenSpecificControls() {
-        switch (CURRENT_SCREEN) {
-            case R.layout.screen_home:
-                ((TextView)findViewById(R.id.tvCoins)).setTypeface(Typeface.SANS_SERIF);
-                updateCoins(0);//here
-                setCoins();
-                setPlayerNames();
-                InitializeDialogInputListener();
-                objHomePageTitleBar.requestUpdate(false);
-                AnimateViews();
-                break;
-            case R.layout.screen_board_details:
-                LockingTime = getLockingTime();
-                GameBackground = getGameBackground();
-                addFlingListenerForBoardBackgroundSelection();
-                InitializeScreenControls_BoardDetails();
-                if(GameMode == ARCADE)
-                {
-                    int COLOR_DISABLED_GRAY = Color.argb(45, 45, 45, 45);
-                    View temp_view = findViewById(R.id.region_TimeTrial);
-                    SetEnableControls(false, (ViewGroup) temp_view);
-                    temp_view.setBackgroundColor(COLOR_DISABLED_GRAY);
-                    findViewById(R.id.TimeTrialTime).setBackgroundResource(R.drawable.background_white45_white196_disabled);
-                }
-                break;
-            case R.layout.screen_quick_game:
-                InitializeScreenControls_QuickGame();
-                break;
-        }
-    }
-
-    private void AnimateViews() {
-        HomeScreenAnimations objAnim = new HomeScreenAnimations();
-        objAnim.StartAnimation(new WeakReference<>(thisContext));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-//            boolean isPlayInProgress = savedInstanceState.getBoolean(":");
-        }
-
-        if (objCardGame != null) {
-            objCardGame.Clear();
-            objCardGame.mContext=this;
-        }
-
-        if (objHomePageTitleBar == null)
-            objHomePageTitleBar = new HomePageTitleBar(new WeakReference<>(this));
-        loadView(R.layout.screen_home);
-        CURRENT_SCREEN = R.layout.screen_home;
-
-        initializeAds();
-        objInAppBilling = new InAppBilling(this);
-//        objInAppBilling.initializeInAppBilling();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (objInAppBilling.mHelper != null)
-            objInAppBilling.mHelper.dispose();
-        objInAppBilling.mHelper = null;
-        CollectGarbage();
-    }
-
-    public void setCoins() {
-        ((TextView) findViewById(R.id.tvCoins)).setText(String.valueOf(coins));
     }
 
     private void setPlayerNames() {
@@ -1495,7 +1500,7 @@ public class MainActivity extends Activity {
         mainView.setDrawingCacheEnabled(true);
         Bitmap bitmap = mainView.getDrawingCache();//screenshot for background view
 
-        File imageFile = new File(getFilesDir(),"screenshot.jpg");
+        File imageFile = new File(getFilesDir(),"TwoCards.jpg");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imageFile);

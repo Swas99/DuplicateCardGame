@@ -410,7 +410,7 @@ public class StartGame implements View.OnClickListener {
         canvas.drawBitmap(bitmap2, location2[0] - location[0], location2[1] - location[1],
                 new android.graphics.Paint()); //draw dialog over background
 
-        File imageFile = new File(mContext.getFilesDir(),"screenshot.jpg");
+        File imageFile = new File(mContext.getFilesDir(),"TwoCards.jpg");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imageFile);

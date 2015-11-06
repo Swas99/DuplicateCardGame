@@ -104,7 +104,7 @@ public class HelperClass {
     public final static int STORY_MODE_SCORES = 118;
     public final static int STORY_MODE_STARS = 120;
     public final static int AD_FREE_VERSION_HASH_MAP = 130;
-    public final static int AD_FREE_VERSION_MAP_KEY = 130;
+    public final static int AD_FREE_VERSION_MAP_KEY = 140;
     ////
 
     //Numeric Constants

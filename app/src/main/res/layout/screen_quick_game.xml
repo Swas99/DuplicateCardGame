@@ -511,7 +511,7 @@
                 android:id="@+id/CardSet"
                 android:onClick="myClickHandler_QuickGame"
                 android:layout_margin="2dp"
-                android:background="@drawable/button_pressed"
+                android:background="@drawable/btn_white_pressed"
                 android:visibility="gone"
                 />
             <Button

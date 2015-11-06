@@ -33,12 +33,12 @@ public class InAppBilling {
     String CoinPouchPrice;
     String CoinBagPrice;
     String CoinTrunkPrice;
+    boolean connectedToPlayServices;
 
     public InAppBilling(MainActivity m_context) {
         mContext = m_context;
 
         RemoveAdsPrice=CoinBagPrice=CoinPouchPrice=CoinTrunkPrice="";
-
     }
 
     public void initializeInAppBilling() {
@@ -52,11 +52,14 @@ public class InAppBilling {
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
-                    String msg = "Oops. Your device is not supported\n" +
+                    String msg = "Oops. Your device is not supported for in-app billing\n" +
                             "We are working hard to fix this";
                     Toast.makeText(mContext.getApplication(), msg, Toast.LENGTH_SHORT).show();
                 }
-                // Hooray, IAB is fully set up!
+                else
+                {
+                  connectedToPlayServices=true;
+                }
             }
         });
 

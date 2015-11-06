@@ -602,10 +602,10 @@ public class ScreenCreation {
 
     private int getPercentCompletedTextColor(int percent)
     {
-        int colors[]={Color.argb(255,255,33,00), Color.argb(255,255,90,00), Color.argb(255,255,121,00),
-                Color.argb(255,255,160,00), Color.argb(255,255,195,00), Color.argb(255,255,255,00),
-                Color.argb(255,200,255,00), Color.argb(255,150,255,00), Color.argb(255,100,255,00),
-                Color.argb(255,50,255,00), Color.argb(255,0,255,00)};
+        int colors[]={Color.argb(255,255,33,0), Color.argb(255,255,90,0), Color.argb(255,255,121,0),
+                Color.argb(255,255,160,0), Color.argb(255,255,195,0), Color.argb(255,255,255,0),
+                Color.argb(255,200,255,0), Color.argb(255,150,255,0), Color.argb(255,100,255,0),
+                Color.argb(255,50,255,0), Color.argb(255,0,255,0)};
         return colors[percent/10];
     }
 

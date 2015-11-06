@@ -264,7 +264,7 @@ public class Store {
         {
             View btnRemoveAdNow = mContext.findViewById(R.id.btnRemoveAdNow);
             btnRemoveAdNow.setOnClickListener(RemoveAdNow_Click);
-            mContext.objInAppBilling.setRemoveAdsPrice();
+            //mContext.objInAppBilling.setRemoveAdsPrice(); //here
         }
 
         public void InitializeListeners()
@@ -272,6 +272,8 @@ public class Store {
             RemoveAdNow_Click = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String SKU_REMOVE_ADS = "4";
+                    mContext.objInAppBilling.LaunchPurchaseFlow(SKU_REMOVE_ADS);
                     Toast.makeText(mContext,"Hey There",Toast.LENGTH_SHORT).show();
                 }
             };
@@ -502,6 +504,8 @@ public class Store {
             {
                 writePowersToPreferences(allPowers[currentIndex],identifier,count);
                 mContext.updateCoins(-price);
+                TextView tvCoins = (TextView)mContext.findViewById(R.id.tvCoins);
+                tvCoins.setText(String.valueOf(mContext.coins));
                 ShowPurchaseSuccessDialog();
             }
         }
