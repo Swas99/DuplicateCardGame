@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.swsahu.duplicatecardgame" >
+    package="com.archer.matching_card_game.two_cards" >
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +17,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.swsahu.duplicatecardgame"
+            android:authorities="com.archer.matching_card_game.two_cards"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data

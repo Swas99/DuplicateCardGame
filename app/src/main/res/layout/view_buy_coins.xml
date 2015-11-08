@@ -78,7 +78,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="● Worth 200 coins"
+                        android:text="● Worth 400 coins"
                         android:textColor="@color/black"
                         android:textSize="12sp"/>
                     <RelativeLayout
@@ -205,7 +205,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="● Worth 450 coins"
+                        android:text="● Worth 900 coins"
                         android:textColor="@color/black"
                         android:textSize="12sp"/>
                     <RelativeLayout
@@ -334,7 +334,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="● Worth 900 coins"
+                        android:text="● Worth 2000 coins"
                         android:textColor="@color/black"
                         android:textSize="12sp"/>
                     <RelativeLayout
