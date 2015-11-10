@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:background="@color/black"
         android:gravity="center"
-        android:text="Get Ad-free version"
+        android:text="@string/get_ad_free_version"
         android:textColor="@color/white"
         android:textSize="22sp"
         />
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Remove these annoying things now!"
+                    android:text="@string/remove_these_annoying_things_now"
                     android:gravity="center"
                     android:textColor="#FAFFFF00"
                     android:textSize="18sp"/>
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvRemoveAdsPrice"
-                    android:text="At just 45 INR!"
+                    android:text="@string/at_just_45_inr"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
@@ -119,7 +119,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="16sp"
-                        android:text="Remove ads"
+                        android:text="@string/remove_ads"
                         android:textColor="@color/white"
                         android:background="@drawable/btn_white_09_rectangle"
                         />
@@ -138,7 +138,7 @@
                     android:clickable="true"
                     android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:text="Continue playing free version with ads"
+                    android:text="@string/continue_playing_with_ads"
                     android:background="@drawable/btn_white_09_rectangle"/>
 
             </LinearLayout>

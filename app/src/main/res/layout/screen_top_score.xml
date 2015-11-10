@@ -272,13 +272,13 @@
                         android:layout_weight="1">
 
                       <Button
-                          android:id="@+id/btnLoadScores"
+                          android:id="@+id/btnShareScore"
                           android:layout_width="100dp"
                           android:layout_height="match_parent"
                           android:layout_centerInParent="true"
                           android:background="@drawable/btn_rectangle_sky_blue"
                           android:gravity="center"
-                          android:text="Load"
+                          android:text="Share"
                           android:textColor="@color/white"
                           android:textSize="12sp"
                           />
