@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#90FFFFFF"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -25,6 +26,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="3dp"
                         android:gravity="center_vertical"
                         android:paddingLeft="8dp"
@@ -36,7 +38,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="13dp"
+                        android:layout_marginStart="13dp"
                         android:layout_marginRight="1dp"
+                        android:layout_marginEnd="1dp"
                         android:layout_marginTop="-6dp"
                         android:background="@color/black"/>
                 </LinearLayout>
@@ -62,21 +66,25 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/border"
                 android:gravity="center_vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="5dp"
+                android:paddingEnd="5dp"
                 android:text="P1-0  P2-0"
                 android:textColor="@color/black"
-                android:textSize="13dp"/>
+                android:textSize="13sp"/>
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginRight="2dp"
+                android:layout_marginEnd="2dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/border"
                 android:gravity="center"
@@ -85,7 +93,7 @@
                 android:paddingRight="5dp"
                 android:text="Time : 553"
                 android:textColor="@color/black"
-                android:textSize="13dp"/>
+                android:textSize="13sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -101,10 +109,10 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center|end"
-            android:paddingEnd="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:textColor="@color/dark_green"
-            android:textSize="9dp"/>
+            android:textSize="9sp"/>
         <TextView
             android:id="@+id/tvHitStreak"
             android:layout_width="wrap_content"
@@ -112,10 +120,10 @@
             android:layout_gravity="end|center"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingEnd="8dp"
-            android:paddingRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:textColor="@color/royal_blue"
-            android:textSize="9dp"/>
+            android:textSize="9sp"/>
         <TextView
             android:id="@+id/tvMoves"
             android:layout_width="match_parent"
@@ -139,11 +147,13 @@
             android:layout_gravity="center"
             android:layout_marginBottom="12dp"
             android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/btn_power"
             android:text="POW"
-            android:textSize="17dp"
+            android:textSize="17sp"
             />
     </RelativeLayout>
 

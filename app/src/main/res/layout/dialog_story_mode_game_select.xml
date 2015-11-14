@@ -17,7 +17,7 @@
             android:layout_height="36dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/select_stage"
+            android:text="Select Stage"
             android:layout_marginStart="27dp"
             android:layout_marginLeft="27dp"
             android:textSize="20sp"
@@ -61,7 +61,7 @@
                 <TextView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:text="@string/stage_i"
+                    android:text="I"
                     android:gravity="center"
                     android:tag="1"
                     android:id="@+id/tvStage1"
@@ -199,7 +199,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/selcet_challenge"
+                android:text="Select Challenge :"
                 android:textColor="@color/white"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
@@ -257,7 +257,7 @@
                             <TextView
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:text="@string/challenge_c1"
+                                android:text="c1"
                                 android:textColor="@color/black"
                                 android:gravity="center"
                                 android:layout_centerInParent="true"
@@ -382,20 +382,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="@string/progress"
+            android:text="Progress : "
             android:textColor="@color/white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="@string/zero"
+            android:text="0"
             android:id="@+id/tvPercentCompleted"
             android:textColor="@color/white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="@string/percentage_complete"
+            android:text="% completed"
             android:textColor="@color/white"/>
     </LinearLayout>
 

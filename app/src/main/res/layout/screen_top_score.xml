@@ -299,7 +299,7 @@
                 android:layout_height="40dp"
                 android:background="@color/white_transparent_20"
                 android:gravity="center"
-                android:text="Your top score is ##~~!~~##"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="19sp"/>
             <RelativeLayout
@@ -413,7 +413,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Player"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                     <TextView
@@ -423,7 +423,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Score"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </LinearLayout>
@@ -451,7 +451,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Player"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         />
@@ -462,7 +462,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Score"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         />
@@ -491,7 +491,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Player"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                     <TextView
@@ -501,7 +501,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Score"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                 </LinearLayout>
@@ -529,7 +529,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Player"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"/>
                     <TextView
@@ -539,7 +539,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="Score"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         />

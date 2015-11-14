@@ -417,7 +417,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/both_scroll_help_text_1"
+            android:text="Display size is less than actual number of cards on board"
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -441,7 +441,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/both_scroll_help_text_2"
+            android:text="Extra rows and columns are present"
             android:textColor="@color/black"
             tools:ignore="TooManyViews" />
     </LinearLayout>
@@ -466,7 +466,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/both_scroll_help_text_3"
+            android:text="Both rows and columns are scrollable"
             android:textColor="@color/black"/>
     </LinearLayout>
 

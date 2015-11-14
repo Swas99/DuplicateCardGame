@@ -78,7 +78,7 @@
                     android:background="@drawable/btn_white_transparency_20"
                     android:gravity="center"
                     android:onClick="myClickHandler_BoardDetails"
-                    android:text="1 Board"
+                    android:text="@string/one_board"
                     android:textColor="@color/black"
                     />
                 <Button
@@ -92,7 +92,7 @@
                     android:background="@drawable/btn_white_transparency_20"
                     android:gravity="center"
                     android:onClick="myClickHandler_BoardDetails"
-                    android:text="2 Board"
+                    android:text="@string/two_board"
                     android:textColor="@color/black"
                     />
 
@@ -151,6 +151,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="2dp"
                         android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_white_pressed_thin_border"
@@ -194,7 +195,8 @@
                     android:layout_height="21dp"
                     android:gravity="center"
                     android:paddingTop="5dp"
-                    android:text="Card Set : "
+                    android:text="Card Set :"
+
                     android:textColor="@color/black"/>
                 <RelativeLayout
                     android:layout_width="120dp"
@@ -219,7 +221,7 @@
                         android:background="@drawable/btn_white_transparency_20"
                         android:gravity="center"
                         android:onClick="myClickHandler_BoardDetails"
-                        android:text="I"
+                        android:text="@string/I"
                         android:textColor="@color/black"
                         />
                     <Button
@@ -232,7 +234,7 @@
                         android:background="@drawable/btn_white_transparency_20"
                         android:gravity="center"
                         android:onClick="myClickHandler_BoardDetails"
-                        android:text="II"
+                        android:text="@string/II"
                         android:textColor="@color/black"
                         />
                     <Button
@@ -245,7 +247,7 @@
                         android:background="@drawable/btn_white_transparency_20"
                         android:gravity="center"
                         android:onClick="myClickHandler_BoardDetails"
-                        android:text="III"
+                        android:text="@string/III"
                         android:textColor="@color/black"
                         />
 
@@ -304,6 +306,7 @@
                         android:gravity="center"
                         android:paddingTop="5dp"
                         android:text="Scroll Type"
+
                         android:textColor="@color/black"/>
                     <RelativeLayout
                         android:layout_width="120dp"
@@ -322,7 +325,7 @@
                         android:background="@drawable/btn_white_transparency_20"
                         android:gravity="center"
                         android:onClick="myClickHandler_BoardDetails"
-                        android:text="No Scroll"
+                        android:text="@string/no_scroll"
                         android:textColor="@color/black"/>
                     <Button
                         android:id="@+id/value_verticalScroll"
@@ -382,7 +385,7 @@
                         android:layout_height="21dp"
                         android:gravity="center"
                         android:paddingTop="5dp"
-                        android:text="Time-Trial time : "
+                        android:text="Time-Trial time :"
                         android:textColor="@color/black" />
                     <RelativeLayout
                         android:layout_width="120dp"
@@ -408,6 +411,7 @@
                             android:gravity="center"
                             android:onClick="myClickHandler_BoardDetails"
                             android:text="5 sec"
+
                             android:textColor="@color/black"/>
                         <RelativeLayout
                             android:id="@+id/btnTimeTrialTime"
@@ -580,7 +584,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginTop="3dp"
                     android:gravity="center"
-                    android:text="Background : "
+                    android:text="Background :"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     />
@@ -671,11 +675,12 @@
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_margin="2dp"
             android:background="@drawable/btn_rectangle_sky_blue"
             android:gravity="center"
             android:onClick="myClickHandler_BoardDetails"
-            android:text="Start"
+            android:text="@string/start"
             android:textColor="@color/white"/>
     </RelativeLayout>
 

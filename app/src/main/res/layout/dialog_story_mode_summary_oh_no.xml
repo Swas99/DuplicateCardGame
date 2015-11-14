@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:background="@color/black"
             android:gravity="center"
-            android:text="@string/oh_no"
+            android:text="Oh No!"
             android:textColor="@color/white"
             android:textSize="22sp"
             />
@@ -139,7 +139,7 @@
                         android:id="@+id/tvRow3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/you_lose"
+                        android:text="You lose."
                         android:textColor="@color/white"
                         android:textSize="19sp"
                         android:typeface="monospace"/>
@@ -187,7 +187,7 @@
                         android:clickable="true"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="@string/buy_powers"
+                        android:text="Buy Powers"
 
                         android:textColor="#FECE00"
                         android:textSize="27sp"/>

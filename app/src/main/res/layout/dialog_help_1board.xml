@@ -310,7 +310,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/one_board_game"
+            android:text="One board game"
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -334,7 +334,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/one_board_help_text"
+            android:text="All the card pairs are present on same board"
             android:textColor="@color/black"/>
     </LinearLayout>
 

@@ -437,7 +437,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/vertical_scroll_board"
+            android:text="Vertical Scroll board"
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -461,7 +461,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/vertical_scroll_help_text_2"
+            android:text="More rows are present than displayed"
             android:textColor="@color/black"
             tools:ignore="TooManyViews" />
     </LinearLayout>
@@ -487,7 +487,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/vertical_scroll_help_text_3"
+            android:text="Extra rows are scrollable"
             android:textColor="@color/black"/>
     </LinearLayout>
 

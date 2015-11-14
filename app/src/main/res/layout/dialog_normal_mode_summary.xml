@@ -253,7 +253,7 @@
                         android:id="@+id/tv5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/challenge_summary"
+                        android:text="Challenge summary: "
                         android:textColor="@color/lemon_grass"
                         android:textSize="19sp"/>
                 </LinearLayout>
@@ -353,7 +353,7 @@
                         android:id="@+id/tv9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/reward"
+                        android:text="Reward : "
                         android:textColor="#FECE00"
                         android:textSize="18sp"/>
                 </LinearLayout>

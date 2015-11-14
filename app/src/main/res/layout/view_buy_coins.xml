@@ -28,7 +28,7 @@
                     android:background="@drawable/btn_white_pressed_thin_border"
                     android:orientation="vertical"
                     android:padding="10dp">
-                    <ImageView
+                    <TextView
                         android:layout_width="60dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
@@ -97,7 +97,7 @@
                         android:textSize="12sp"
                         />
                     <RelativeLayout
-                        android:layout_width="53dp"
+                        android:layout_width="72dp"
                         android:layout_height="1dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
@@ -154,7 +154,7 @@
                     android:orientation="vertical"
                     android:padding="10dp">
                     >
-                    <ImageView
+                    <TextView
                         android:layout_width="65dp"
                         android:layout_height="81dp"
                         android:layout_gravity="center"
@@ -224,7 +224,7 @@
                         android:textSize="12sp"
                         />
                     <RelativeLayout
-                        android:layout_width="53dp"
+                        android:layout_width="72dp"
                         android:layout_height="1dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
@@ -282,7 +282,7 @@
                     android:orientation="vertical"
                     android:padding="10dp">
                     >
-                    <ImageView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="81dp"
                         android:layout_gravity="center"
@@ -353,7 +353,7 @@
                         android:textSize="12sp"
                         />
                     <RelativeLayout
-                        android:layout_width="53dp"
+                        android:layout_width="72dp"
                         android:layout_height="1dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"

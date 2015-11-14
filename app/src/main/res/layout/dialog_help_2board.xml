@@ -336,7 +336,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/two_board_game"
+            android:text="Two board game"
             android:textColor="@color/black"/>
     </LinearLayout>
     <LinearLayout
@@ -360,7 +360,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="12sp"
-            android:text="@string/two_board_help_text"
+            android:text="Matching pair is present on other board"
             android:textColor="@color/black"/>
     </LinearLayout>
 

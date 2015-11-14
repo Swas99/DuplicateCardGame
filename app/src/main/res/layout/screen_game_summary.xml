@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Summary"
+                android:text="@string/summary"
                 android:textColor="@color/black"
                 android:textSize="36sp"/>
             <RelativeLayout
@@ -193,6 +193,7 @@
                 android:background="@drawable/btn_white_transparency_20"
                 android:gravity="center"
                 android:text="Click-Count"
+
                 android:textColor="@color/black"
                 android:textSize="4pt"/>
             <Button
@@ -318,6 +319,7 @@
                 android:layout_weight="1"
                 android:gravity="center|start"
                 android:text="Near misses"
+
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/tvNearMisses"
@@ -356,6 +358,7 @@
                 android:layout_weight="1"
                 android:gravity="center|start"
                 android:text="Longest hit chain"
+
                 android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/tvHitChain"
@@ -514,6 +517,7 @@
                 android:layout_weight="1"
                 android:gravity="center|start"
                 android:text="Coins Earned"
+
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
             <RelativeLayout

@@ -7,8 +7,8 @@ android {
         applicationId "com.archer.matching_card_game.two_cards"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 2
-        versionName "1"
+        versionCode 4
+        versionName "1.0"
     }
     signingConfigs {
         release {

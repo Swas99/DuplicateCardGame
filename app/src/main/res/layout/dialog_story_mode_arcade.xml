@@ -63,7 +63,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:textSize="12sp"
-                android:text="@string/no_time_limit"
+                android:text="● No time limit"
                 android:textColor="@color/black"/>
 
             <RelativeLayout
@@ -109,7 +109,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="@string/arcade_help_text_2"
+                    android:text=" Find all matching cards to complete the board"
                     android:textColor="@color/black"/>
             </LinearLayout>
 

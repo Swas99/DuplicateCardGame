@@ -190,7 +190,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -198,7 +198,7 @@
                     android:background="@drawable/robot_androbot"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -206,7 +206,7 @@
                     android:background="@drawable/robot_rock"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -224,7 +224,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -250,7 +250,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />

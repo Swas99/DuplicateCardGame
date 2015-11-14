@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3">
-        <ImageView
+        <TextView
             android:layout_width="220dp"
             android:layout_height="220dp"
             android:background="@drawable/img_remove_ads_big"
@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvRemoveAdsPrice"
-                android:text="\@ 45 INR"
+                android:text="At Rs 45.00"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"

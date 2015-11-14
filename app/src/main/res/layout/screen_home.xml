@@ -35,22 +35,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
-                <ImageView
+                <TextView
                     android:id="@+id/ivCoins"
                     android:layout_width="27dp"
                     android:layout_height="27dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="6dp"
+                    android:layout_marginStart="6dp"
                     android:background="@drawable/coin"/>
                 <TextView
                     android:id="@+id/tvCoins"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
                     android:layout_toLeftOf="@+id/ivCoins"
+                    android:layout_toStartOf="@+id/ivCoins"
                     android:gravity="center"
-                    android:text="123"
+                    android:text=""
                     android:textColor="@color/white"
+                    android:typeface="sans"
                     />
             </RelativeLayout>
 
@@ -68,7 +71,8 @@
             <TextView
                 android:id="@+id/secondContainer_SecondRow"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text=":"
                 android:textColor="@color/white"/>
@@ -98,7 +102,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:text="Challenge Reward "
+                android:text="Challenge Reward"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 />
@@ -140,8 +144,7 @@
         android:orientation="horizontal"
         android:baselineAligned="false"
         >
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -153,73 +156,54 @@
                 android:background="@drawable/btn_quick_game"
                 android:gravity="center"
                 android:onClick="myClickHandler"
-                android:text="Quick Game "
+                android:text="Quick Game"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"/>
             <Button
                 android:id="@+id/btnArcade"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/btn_arcade"
                 android:onClick="myClickHandler"
-                android:text="Arcade "
+                android:text="Arcade"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
-        </LinearLayout>
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
         <LinearLayout
+            android:id="@+id/btnGameLogo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="23dp"
+            android:background="@drawable/btn_game_logo"
+            android:clickable="true"
+            android:onClick="myClickHandler"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="23dp" />
 
-            <RelativeLayout
-                android:id="@+id/btnGameLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_game_logo"
-                android:clickable="true"
-                android:onClick="myClickHandler"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|bottom"
-                        android:paddingBottom="2dp"
-                        android:text="2"
-                        android:textColor="@color/black"
-                        android:textSize="23sp"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|top"
-                        android:text="CARDS"
-                        android:textColor="@color/black"
-                        android:textSize="23sp"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
+                android:gravity="center_horizontal|bottom"
+                android:paddingBottom="2dp"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                />
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="23dp" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|top"
+                android:text="CARDS"
+                android:textColor="@color/black"
+                android:textSize="23sp"
+                />
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -231,13 +215,10 @@
                 android:layout_height="45dp"
                 android:background="@drawable/btn_story_mode"
                 android:onClick="myClickHandler"
-                android:text=" Story Mode"
+                android:text="  Story Mode"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:textSize="16sp"
+                android:layout_alignParentTop="true"/>
 
             <Button
                 android:id="@+id/btnTimeTrial"
@@ -245,11 +226,12 @@
                 android:layout_height="45dp"
                 android:background="@drawable/btn_time_trial"
                 android:onClick="myClickHandler"
-                android:text=" Time Trial"
+                android:text="Time Trial"
                 android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"/>
 
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -280,7 +262,7 @@
                         android:layout_centerInParent="true"
                         android:background="@drawable/btn_oval_sky_blue"
                         android:onClick="myClickHandler"
-                        android:text="\?"
+                        android:text="@string/help_symbol"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         />
@@ -369,8 +351,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:layout_marginRight="7dp"
+                        android:layout_marginEnd="7dp"
                         >
                         <Button
                             android:id="@+id/btnRating"
@@ -422,7 +406,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="7dp">
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginStart="7dp"
+                        >
                         <Button
                             android:id="@+id/btnShare"
                             android:layout_width="55dp"

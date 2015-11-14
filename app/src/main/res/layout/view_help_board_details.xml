@@ -44,7 +44,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_margin="10dp"
-                    android:text="1 Board"
+                    android:text="@string/one_board"
                     android:textColor="@color/white"
                     android:id="@+id/btnOneBoard"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -54,7 +54,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_margin="10dp"
-                    android:text="2 Board"
+                    android:text="@string/two_board"
                     android:textColor="@color/white"
                     android:id="@+id/btnTwoBoard"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -122,7 +122,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -145,7 +145,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -168,7 +168,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -191,7 +191,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● "
+                    android:text="@string/bullet_dot"
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -261,7 +261,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:text="Vertical Scroll"
+                    android:text="@string/vertical_scroll"
                     android:textColor="@color/white"
                     android:id="@+id/btnVerticalScroll"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -271,7 +271,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:text="Horizontal Scroll"
+                    android:text="@string/horizontal_scroll"
                     android:textColor="@color/white"
                     android:id="@+id/btnHorizontalScroll"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -289,7 +289,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:text="Both Scroll"
+                    android:text="@string/both_scroll"
                     android:textColor="@color/white"
                     android:id="@+id/btnBothScroll"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -299,7 +299,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    android:text="No Scroll"
+                    android:text="@string/no_scroll"
                     android:textColor="@color/white"
                     android:id="@+id/btnNoScroll"
                     android:background="@drawable/btn_rectangle_sky_blue"/>
@@ -373,7 +373,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -381,7 +381,7 @@
                     android:background="@drawable/card_allstar_bw_63"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -389,7 +389,7 @@
                     android:background="@drawable/card_allstar_c_g1_11"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -397,7 +397,7 @@
                     android:background="@drawable/card_limbo_1"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -411,7 +411,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -419,7 +419,7 @@
                     android:background="@drawable/card_allstar_bw_75"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -427,7 +427,7 @@
                     android:background="@drawable/card_allstar_c_g1_12"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -435,7 +435,7 @@
                     android:background="@drawable/card_limbo_2"
                     />
 
-                <ImageView
+                <TextView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_margin="15dp"
@@ -461,7 +461,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● Card set 1 : "
+                    android:text="● set 1 : "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -484,7 +484,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● Card set 3 : "
+                    android:text="● set 3 : "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -509,7 +509,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="● Card set 2 : "
+                    android:text="● set 2 : "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />

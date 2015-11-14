@@ -303,7 +303,7 @@
                             android:layout_centerInParent="true"
                             android:clickable="true"
                             android:gravity="center"
-                            android:text="@string/share"
+                            android:text="Share"
                             android:textColor="#FECE00"
                             android:textSize="17sp"/>
                     </RelativeLayout>
@@ -383,7 +383,7 @@
             android:background="@drawable/btn_rectangle_sky_blue"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/next_board"
+            android:text="Next board"
             android:textColor="@color/white"
             android:textSize="17sp"/>
 
