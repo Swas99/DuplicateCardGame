@@ -125,7 +125,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="12dp"
                     android:textSize="12sp"
-                    android:text="● Find more card pairs to win"
+                    android:text="● Make more hits to win"
                     android:textColor="@color/black"/>
 
 
@@ -224,7 +224,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -250,7 +250,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />

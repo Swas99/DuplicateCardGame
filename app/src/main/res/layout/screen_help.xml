@@ -213,7 +213,7 @@
         android:layout_margin="3dp"
         android:id="@+id/btnBack"
         android:layout_gravity="center"
-        android:background="@drawable/btn_rectangle_sky_blue">
+        android:background="@drawable/btn_rectangle_green">
         <Button
             android:id="@+id/btn_back"
             android:layout_width="25dp"

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_blue_home"
+    android:background="@drawable/background_green_home"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -374,7 +374,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:textSize="12sp"
-            android:text="@string/bullet_dot"
+            android:text="● "
             android:gravity="center"
             android:textColor="@color/black"
             />
@@ -412,7 +412,7 @@
             android:text="@string/next"
             android:textColor="@color/white"
             android:id="@+id/btnNext"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             />
     </RelativeLayout>
 </LinearLayout>

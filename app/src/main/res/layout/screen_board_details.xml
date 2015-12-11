@@ -82,7 +82,7 @@
                     android:textColor="@color/black"
                     />
                 <Button
-                    android:id="@+id/value_TwoBoard"
+                    android:id="@+id/value_ThreeBoard"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginBottom="5dp"
@@ -92,7 +92,7 @@
                     android:background="@drawable/btn_white_transparency_20"
                     android:gravity="center"
                     android:onClick="myClickHandler_BoardDetails"
-                    android:text="@string/two_board"
+                    android:text="3 Board"
                     android:textColor="@color/black"
                     />
 
@@ -659,7 +659,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_margin="2dp"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             android:onClick="myClickHandler_BoardDetails">
             <Button
                 android:id="@+id/btn_back"
@@ -677,7 +677,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="2dp"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             android:gravity="center"
             android:onClick="myClickHandler_BoardDetails"
             android:text="@string/start"

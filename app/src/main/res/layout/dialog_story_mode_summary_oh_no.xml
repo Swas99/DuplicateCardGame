@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_blue_home"
+    android:background="@drawable/background_green_home"
     android:orientation="vertical"
     >
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/black">
         <TextView
-            android:id="@+id/tvGameNumber"
+            android:id="@+id/tvHeader"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -67,7 +67,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -98,7 +98,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -131,7 +131,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -247,7 +247,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_weight="1.4"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:background="@drawable/btn_rectangle_green">
             <TextView
                 android:id="@+id/btn_restart"
                 android:layout_width="45dp"

@@ -39,7 +39,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="3dp"
-            android:background="@drawable/btn_oval_sky_blue"
+            android:background="@drawable/btn_oval_green"
             android:clickable="true"
             android:gravity="center"
             android:text="My Powers"
@@ -347,7 +347,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/btn_rectangle_sky_blue"
+        android:background="@drawable/btn_rectangle_green"
         android:text="Buy"
         android:textSize="18sp"/>
 </LinearLayout>

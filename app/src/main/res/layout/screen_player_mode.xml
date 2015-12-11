@@ -20,15 +20,6 @@
             android:gravity="center"
             android:textSize="36sp"
             android:id="@+id/tvTitle"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#A1000000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="-5dp"
-            />
     </LinearLayout>
 
 
@@ -460,7 +451,7 @@
                 android:id="@+id/btnRandomize"
                 android:textColor="@color/white"
                 android:layout_centerInParent="true"
-                android:background="@drawable/btn_rectangle_sky_blue"
+                android:background="@drawable/btn_rectangle_green"
                 android:onClick="myClickHandler_PlayerMode"
                 />
         </RelativeLayout>
@@ -488,7 +479,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="myClickHandler_PlayerMode"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:background="@drawable/btn_rectangle_green">
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="25dp"
@@ -506,7 +497,7 @@
             android:text="@string/next"
             android:id="@+id/btnNext"
             android:textColor="@color/white"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:onClick="myClickHandler_PlayerMode"/>

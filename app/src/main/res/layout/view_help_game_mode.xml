@@ -55,7 +55,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -122,7 +122,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -146,7 +146,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -156,7 +156,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="Find a card pair before the timer goes out to reset the timer"
+                    android:text="Find a matching card set before the timer goes out to reset the timer"
                     android:textColor="@color/black"/>
             </LinearLayout>
 
@@ -172,7 +172,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -182,7 +182,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="12sp"
-                    android:text="If timer goes out : \na. Random card pair(s) are replaced\nb. Random card pair(s) are swapped"
+                    android:text="If timer goes out : \na. Randomly selected card(s) are replaced\nb. Randomly selected cards are swapped"
                     android:textColor="@color/black"/>
             </LinearLayout>
 

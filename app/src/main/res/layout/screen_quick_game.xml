@@ -328,11 +328,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                android:text="2 B"
+                android:text="3 B"
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:onClick="myClickHandler_QuickGame"
-                android:id="@+id/value_TwoBoard"
+                android:id="@+id/value_ThreeBoard"
                 android:layout_margin="4dp"
                 android:background="@drawable/btn_white_transparency_20"
                 />
@@ -565,7 +565,7 @@
             android:textColor="@color/white"
             android:text="Randomize Configuration !"
             android:id="@+id/btnRandomizeConfiguration"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             />
 
         <com.google.android.gms.ads.AdView
@@ -589,7 +589,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="myClickHandler_QuickGame"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:background="@drawable/btn_rectangle_green">
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="25dp"
@@ -607,7 +607,7 @@
             android:textColor="@color/white"
             android:onClick="myClickHandler_QuickGame"
             android:id="@+id/btnStart"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>

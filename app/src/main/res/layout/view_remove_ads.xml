@@ -35,6 +35,6 @@
                 android:textSize="18sp"
                 android:id="@+id/btnRemoveAdNow"
                 android:layout_centerInParent="true"
-                android:background="@drawable/btn_rectangle_sky_blue"/>
+                android:background="@drawable/btn_rectangle_green"/>
     </RelativeLayout>
 </LinearLayout>

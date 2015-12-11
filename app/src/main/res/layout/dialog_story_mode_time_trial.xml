@@ -67,7 +67,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -153,7 +153,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginStart="20dp"
                     android:textSize="12sp"
-                    android:text="@string/bullet_dot"
+                    android:text="● "
                     android:gravity="center"
                     android:textColor="@color/black"
                     />
@@ -191,7 +191,7 @@
             android:text="@string/ok"
             android:textColor="@color/white"
             android:id="@+id/btnOk"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             />
     </RelativeLayout>
 </LinearLayout>

@@ -73,7 +73,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_margin="2dp"
-        android:background="@drawable/btn_rectangle_sky_blue">
+        android:background="@drawable/btn_rectangle_green">
         <Button
             android:id="@+id/btn_back"
             android:layout_width="29dp"

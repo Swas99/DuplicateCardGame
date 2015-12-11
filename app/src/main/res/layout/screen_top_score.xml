@@ -276,7 +276,7 @@
                           android:layout_width="100dp"
                           android:layout_height="match_parent"
                           android:layout_centerInParent="true"
-                          android:background="@drawable/btn_rectangle_sky_blue"
+                          android:background="@drawable/btn_rectangle_green"
                           android:gravity="center"
                           android:text="Share"
                           android:textColor="@color/white"
@@ -562,7 +562,7 @@
                 android:layout_height="29dp"
                 android:layout_centerInParent="true"
                 android:layout_margin="3dp"
-                android:background="@drawable/btn_rectangle_sky_blue"
+                android:background="@drawable/btn_rectangle_green"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="Reset"
@@ -594,7 +594,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="2dp"
             android:clickable="true"
-            android:background="@drawable/btn_rectangle_sky_blue">
+            android:background="@drawable/btn_rectangle_green">
             <Button
                 android:id="@+id/btn_exit"
                 android:layout_width="25dp"
@@ -610,7 +610,7 @@
             android:layout_height="45dp"
             android:layout_centerInParent="true"
             android:layout_margin="2dp"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             android:onClick="myClickHandler"
             android:clickable="true"
             android:visibility="invisible">
@@ -631,7 +631,7 @@
             android:layout_alignParentRight="true"
             android:layout_margin="2dp"
             android:clickable="true"
-            android:background="@drawable/btn_rectangle_sky_blue"
+            android:background="@drawable/btn_rectangle_green"
             >
             <Button
                 android:id="@+id/btn_store"

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_blue_home"
+    android:background="@drawable/background_green_home"
     android:orientation="vertical"
     >
 
@@ -75,7 +75,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -99,7 +99,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -124,7 +124,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -179,7 +179,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/score"
+                        android:text="Score : "
                         android:textColor="#FAFFFF00"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -196,7 +196,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/top_score"
+                        android:text="Top Score : "
                         android:textColor="#FAFFFF00"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -245,7 +245,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -270,7 +270,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -278,7 +278,7 @@
                         android:id="@+id/tv6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top_score"
+                        android:text="Top Score : "
                         android:textColor="@color/white"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -294,7 +294,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -302,7 +302,7 @@
                         android:id="@+id/tv7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top_score"
+                        android:text="Top Score : "
                         android:textColor="@color/white"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -319,7 +319,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />
@@ -327,7 +327,7 @@
                         android:id="@+id/tv8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/top_score"
+                        android:text="Top Score : "
                         android:textColor="@color/white"
                         android:textSize="18sp"/>
                 </LinearLayout>
@@ -345,7 +345,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
-                        android:text="@string/bullet_dot"
+                        android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         />

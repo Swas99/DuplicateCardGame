@@ -302,7 +302,7 @@
                 android:textColor="@color/white"
                 android:text="Restore Default Values"
                 android:id="@+id/btnRestoreDefaults"
-                android:background="@drawable/btn_rectangle_sky_blue"
+                android:background="@drawable/btn_rectangle_green"
                 android:layout_centerInParent="true"
                 />
         </RelativeLayout>
@@ -336,7 +336,7 @@
         android:id="@+id/btnBack"
         android:onClick="myClickHandler"
         android:layout_gravity="center"
-        android:background="@drawable/btn_rectangle_sky_blue">
+        android:background="@drawable/btn_rectangle_green">
         <Button
             android:id="@+id/btn_back"
             android:layout_width="25dp"

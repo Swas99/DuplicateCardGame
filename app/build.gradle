@@ -4,17 +4,17 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.archer.matching_card_game.two_cards"
-        minSdkVersion 10
+        applicationId "com.archer.matching_card_game.three_cards"
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 4
         versionName "1.0"
     }
     signingConfigs {
         release {
-            storeFile file('C:/Users/Swastik/the.archer.jks')
+            storeFile file('C:/Users/Swastik/three.cards.jks')
             storePassword 'Archer@js99'
-            keyAlias "archer"
+            keyAlias "Three Cards"
             keyPassword 'Archer@js99'
         }
     }
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.google.android.gms:play-services:8.3.0'
 }
