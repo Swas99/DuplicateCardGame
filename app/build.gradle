@@ -7,7 +7,7 @@ android {
         applicationId "com.archer.matching_card_game.three_cards"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 5
+        versionCode 7
         versionName "1.0"
     }
     signingConfigs {

@@ -259,6 +259,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
@@ -266,6 +269,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:gravity="center"
+                        android:layout_gravity="center"
                         android:text="● "
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -273,6 +277,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:text="Best Score : "
                         android:textColor="@color/yellow"
                         android:textSize="18sp"/>
@@ -282,16 +288,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="18sp"/>
+                        android:typeface="monospace"
+                        android:textSize="17sp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center"
-                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
                         android:id="@+id/region_leader_board_custom_game">
                         <Button
                             android:layout_width="26dp"
@@ -342,8 +352,10 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:text=""
+                        android:textSize="17sp"
+                        android:typeface="monospace"
                         android:textColor="@color/white"
-                        android:textSize="18sp"/>
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -372,29 +384,34 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
-                        android:text=""
+                        android:textSize="17sp"
+                        android:typeface="monospace"
                         android:textColor="@color/white"
-                        android:textSize="18sp"/>
+                        />
 
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvShare"
+                <RelativeLayout
                     android:layout_width="99dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="1dp"
                     android:layout_marginStart="1dp"
-                    android:layout_marginBottom="4dp"
-
+                    android:layout_marginBottom="7dp"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="Share"
-                    android:textColor="#FECE00"
-                    android:textSize="18sp"
                     android:background="@drawable/btn_white_09_rectangle"
-                    />
+                    >
+                    <TextView
+                        android:id="@+id/tvShare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:clickable="true"
+                        android:text="Share"
+                        android:textColor="#FECE00"
+                        android:textSize="18sp"
+                        />
+                </RelativeLayout>
 
 
             </LinearLayout>
